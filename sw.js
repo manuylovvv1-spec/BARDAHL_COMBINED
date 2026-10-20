@@ -1,5 +1,5 @@
-const CACHE_NAME = 'bardahl-combined-v6';
-const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
+const CACHE_NAME = 'bardahl-combined-v7';
+const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.svg', './icon-512.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).catch(() => {}).then(() => self.skipWaiting()));
 });
