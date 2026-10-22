@@ -72,7 +72,7 @@ function render(){
  const member=!!mine,positioned=!!(mine&&mine.position!==null&&mine.position!==undefined&&mine.box!==null&&mine.box!==undefined);
  $('positionCard').classList.toggle('hidden',role!=='master'||(member&&positioned&&!positionEditorOpen));
  $('positionChooser').classList.toggle('hidden',!positionEditorOpen);
- $('positionHelp').textContent=positionEditorOpen?'Сначала выберите бокс № 1–9, затем свободную позицию в очереди.':'Нажмите кнопку, чтобы выбрать бокс и позицию.';
+ $('positionHelp').textContent=positionEditorOpen?'Сначала выберите бокс № 1–9, затем свободную позицию в очереди.':'Нажмите кнопку, чтобы выбрать бокс и позицию. В общей очереди фамилии не показываются.';
  $('joinBtn').textContent=positionEditorOpen?(positioned?'Сохранить место':'Подтвердить место'):'Встать в очередь';
  $('leaveBtn').classList.toggle('hidden',role!=='master'||!member);
  $('changePositionBtn').classList.toggle('hidden',role!=='master'||!positioned);
