@@ -18,7 +18,7 @@
 <div class="row" style="margin-bottom:10px"><button type="button" class="secondary" id="tabOrders">🧾 Учёт работ</button><button type="button" class="primary" id="tabQueue">🏁 Очередь</button></div><div class="row" style="margin-bottom:14px"><button id="logoutBtn" class="secondary" type="button" style="width:100%">Выйти из аккаунта</button></div>
 <div id="queuePage">
 <div class="card" id="positionCard"><h2>Встать в очередь</h2><div class="small" id="positionHelp">Нажмите кнопку ниже, чтобы выбрать свободное место. В общей очереди отображаются только номер бокса и позиция — без фамилий.</div><div id="positionChooser" class="hidden"><label for="boxSelect">Номер бокса</label><select id="boxSelect"><option value="">— Выберите бокс —</option></select><label for="positionSelect">Позиция в очереди</label><select id="positionSelect"><option value="">— Выберите позицию —</option></select></div><button id="joinBtn" class="primary" style="margin-top:12px;width:100%">Встать в очередь</button></div>
-<div class="card"><h2>Очередь по боксам <span id="countPill" class="pill">0</span></h2><div class="table-wrap"><table class="queue-table"><thead><tr><th>Позиция</th><th>Бокс</th><th>Круг 1</th><th>Круг 2</th><th>Круг 3</th><th>Круг 4</th><th>Круг 5</th><th>Круг 6</th><th id="queueActionHead" class="hidden">Действия</th></tr></thead><tbody id="queue"></tbody></table></div><div class="small" style="margin-top:10px">В пустых кругах остаются серые кружочки. Когда мастер сохраняет услугу, вместо кружочка появляется её название. Все видят общую таблицу.</div><div id="managerActions" class="hidden" style="margin-top:12px"><button id="resetCirclesBtn" class="danger" type="button" style="width:100%">Сбросить очередь</button><div class="small" style="margin-top:6px">Сбросит все зелёные отметки и начнёт круги заново. Мастера и их позиции останутся в очереди.</div></div></div>
+<div class="card"><h2>Очередь по боксам <span id="countPill" class="pill">0</span></h2><div class="table-wrap"><table class="queue-table"><thead><tr><th>Позиция</th><th>Бокс</th><th>Круг 1</th><th>Круг 2</th><th>Круг 3</th><th>Круг 4</th><th>Круг 5</th><th>Круг 6</th><th id="queueActionHead" class="hidden">Действия</th></tr></thead><tbody id="queue"></tbody></table></div><div class="small" style="margin-top:10px">Когда мастер сохраняет услугу, вместо кружочка появляется её название. Все видят общую таблицу.</div><div id="managerActions" class="hidden" style="margin-top:12px"><button id="resetCirclesBtn" class="danger" type="button" style="width:100%">Сбросить очередь</button><div class="small" style="margin-top:6px"></div></div></div>
 <div class="card" id="myPanelCard"><h2 id="myPanelTitle">Панель мастера</h2><div id="myPanel"></div></div>
 <div class="row"><button id="changePositionBtn" class="secondary">Изменить позицию</button><button id="leaveBtn" class="danger">Выйти из очереди</button></div>
 </div>
@@ -38,7 +38,7 @@
  <div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Поиск по автомобилю, мастеру или услуге" autocomplete="off"><div class="row"><button id="exportCsv" class="secondary">Экспорт CSV</button><button id="backup" class="secondary">Резервная копия</button></div><button id="restoreBtn" class="secondary">Восстановить из копии</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
-<footer>BARDAHL · Очередь мастеров и учёт работ</footer></main><div id="toast" role="status" aria-live="polite"></div>
+<footer>BARDAHL · insta@MNV_093</footer></main><div id="toast" role="status" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL="https://tbkzbypuxrgqwpledwuk.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_L0SBuwAZcRRah4vFoeEzbg_PryMDaJ0";
@@ -72,7 +72,7 @@ function render(){
  const member=!!mine,positioned=!!(mine&&mine.position!==null&&mine.position!==undefined&&mine.box!==null&&mine.box!==undefined);
  $('positionCard').classList.toggle('hidden',role!=='master'||(member&&positioned&&!positionEditorOpen));
  $('positionChooser').classList.toggle('hidden',!positionEditorOpen);
- $('positionHelp').textContent=positionEditorOpen?'Сначала выберите бокс № 1–9, затем свободную позицию в очереди.':'Нажмите кнопку, чтобы выбрать бокс и позицию. В общей очереди фамилии не показываются.';
+ $('positionHelp').textContent=positionEditorOpen?'Сначала выберите бокс № 1–9, затем свободную позицию в очереди.':'Нажмите кнопку, чтобы выбрать бокс и позицию.';
  $('joinBtn').textContent=positionEditorOpen?(positioned?'Сохранить место':'Подтвердить место'):'Встать в очередь';
  $('leaveBtn').classList.toggle('hidden',role!=='master'||!member);
  $('changePositionBtn').classList.toggle('hidden',role!=='master'||!positioned);
