@@ -435,6 +435,28 @@ main{max-width:1500px;padding:16px 16px 40px}
  #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:11px!important}
  #queueTableCard .queue-name-mini{font-size:7px!important;max-width:36px!important}
 }
+
+/* BARDAHL: readable Position/Box, three rounds on iPhone, sticky identity columns.
+   Presentation only: original JavaScript, images and Supabase remain unchanged. */
+@media screen and (max-width:600px) {
+ #queueTableCard .table-wrap{overflow-x:auto!important;position:relative!important;isolation:isolate!important}
+ #queueTableCard .queue-table{width:632px!important;min-width:632px!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:0!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:62px!important;min-width:62px!important;max-width:62px!important;padding:3px 2px!important;position:sticky!important;left:0!important;z-index:3!important;background:#1b2023!important;box-shadow:1px 0 0 #343b41!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:36px!important;min-width:36px!important;max-width:36px!important;padding:3px 1px!important;position:sticky!important;left:62px!important;z-index:3!important;background:#1b2023!important;box-shadow:2px 0 0 #343b41!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){z-index:5!important;background:#171c20!important;font-size:9px!important;letter-spacing:-.3px!important;white-space:nowrap!important;overflow:visible!important}
+ #queueTableCard .queue-table tr.mine td:first-child,#queueTableCard .queue-table tr.mine td:nth-child(2){background:#282718!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:89px!important;min-width:89px!important;max-width:89px!important;padding:2px!important}
+ #queueTableCard .queue-position-number{font-size:14px!important}
+ #queueTableCard .queue-box-number{font-size:13px!important}
+ #queueTableCard .queue-name-mini{display:block!important;max-width:57px!important;margin:3px auto 0!important;font-size:9px!important;line-height:1.15!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;overflow:hidden!important;max-height:2.3em!important;text-overflow:clip!important}
+ #queueTableCard .service-chip{height:46px!important;min-height:46px!important;gap:3px!important;padding:2px 10px 2px 2px!important;overflow:hidden!important}
+ #queueTableCard .service-chip .chip-symbol{width:27px!important;height:35px!important;min-width:27px!important;flex:0 0 27px!important}
+ #queueTableCard .service-chip .chip-copy{min-width:0!important;gap:2px!important;font-size:9px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:9px!important;letter-spacing:-.35px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:9px!important;white-space:nowrap!important}
+ #queueTableCard .service-remove{right:0!important;top:0!important;z-index:2!important}
+ #queueTableCard .queue-table:has(#queueActionHead:not(.hidden)){width:722px!important;min-width:722px!important}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
