@@ -376,6 +376,30 @@ main{max-width:1500px;padding:16px 16px 40px}
 #myPanelCard .service-choice .choice-copy{display:none!important}
 #queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:cover!important;border-radius:4px!important}
 @media(max-width:600px){#myPanelCard .service-actions .service-btn.service-choice{padding:2px!important;border-radius:14px!important}}
+<style>
+/* BARDAHL approved option 3: glossy horizontal queue cards and image-only selection. */
+#myPanelCard .service-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;justify-items:stretch!important}
+#myPanelCard .service-actions .service-btn.service-choice{width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;aspect-ratio:1/1!important;padding:5px!important;border-radius:20px!important;display:flex!important;justify-content:center!important;align-items:center!important;overflow:hidden!important;transition:transform .18s ease,box-shadow .18s ease!important}
+#myPanelCard .service-actions .service-btn.service-choice:active{transform:scale(.96)}
+#myPanelCard .service-choice .choice-copy{display:none!important}
+#myPanelCard .service-choice .chip-symbol{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:100%!important;flex:1 1 auto!important;min-width:0!important;min-height:0!important}
+#myPanelCard .service-choice .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important;border-radius:15px!important}
+#myPanelCard .service-choice.akpp{background:radial-gradient(circle at 50% 35%,#6b480b,#1e1605 76%)!important;border:4px solid #ffcf19!important;box-shadow:inset 0 0 18px #ffc40033!important}
+#myPanelCard .service-choice.antifriz{background:radial-gradient(circle at 50% 35%,#7d152f,#25070d 76%)!important;border:4px solid #ff334d!important;box-shadow:inset 0 0 18px #ff344533!important}
+#myPanelCard .service-choice.haldex{background:radial-gradient(circle at 50% 35%,#075b32,#062315 76%)!important;border:4px solid #0be667!important;box-shadow:inset 0 0 18px #0be66733!important}
+#queueTableCard .service-chip{display:flex!important;position:relative!important;align-items:center!important;justify-content:flex-start!important;flex-direction:row!important;gap:5px!important;width:100%!important;max-width:none!important;height:48px!important;min-height:48px!important;padding:3px 16px 3px 3px!important;border-radius:11px!important;overflow:hidden!important;box-shadow:inset 0 0 10px #ffffff12,0 2px 6px #0007!important;white-space:nowrap!important}
+#queueTableCard .service-chip.akpp{background:linear-gradient(110deg,#403008,#130f07)!important;border:2px solid #ffd11c!important}
+#queueTableCard .service-chip.antifriz{background:linear-gradient(110deg,#5b1021,#19070e)!important;border:2px solid #ff3652!important}
+#queueTableCard .service-chip.haldex{background:linear-gradient(110deg,#07522c,#071d13)!important;border:2px solid #0be76b!important}
+#queueTableCard .service-chip .chip-symbol{width:35px!important;height:39px!important;flex:0 0 35px!important;min-width:35px!important;display:flex!important;align-items:center!important;justify-content:center!important}
+#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important;border-radius:4px!important}
+#queueTableCard .service-chip .chip-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:3px!important;min-width:0!important;font-size:10px!important;line-height:1.05!important;color:#fff!important;font-weight:750!important;text-align:left!important;white-space:nowrap!important}
+#queueTableCard .service-chip .chip-copy>span{display:block!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
+#queueTableCard .service-chip .chip-copy small{font-size:9px!important;color:#f2f2f2!important;white-space:nowrap!important}
+#queueTableCard .service-remove{position:absolute!important;right:1px!important;top:1px!important;width:13px!important;height:13px!important;min-width:13px!important;min-height:13px!important;padding:0!important;font-size:11px!important;line-height:11px!important;z-index:2!important}
+#queueTableCard .queue-table tbody tr{height:55px!important}
+#queueTableCard .empty-service-slot{height:48px!important;min-height:48px!important}
+@media(max-width:600px){#myPanelCard .service-actions{gap:7px!important}#myPanelCard .service-actions .service-btn.service-choice{border-width:3px!important;border-radius:17px!important;padding:3px!important}#queueTableCard .queue-table{min-width:770px!important;width:770px!important}#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:42px!important}#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:32px!important}#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:115px!important;min-width:115px!important;max-width:115px!important}#queueTableCard .service-chip{height:47px!important;min-height:47px!important}#queueTableCard .queue-table tbody tr{height:54px!important}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
