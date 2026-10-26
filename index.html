@@ -530,6 +530,69 @@ main{max-width:1500px;padding:16px 16px 40px}
  #queueTableCard .service-remove{width:15px!important;height:15px!important;min-width:15px!important;min-height:15px!important;right:1px!important;top:1px!important;font-size:11px!important;line-height:12px!important}
  #queueTableCard .empty-service-slot{height:53px!important;min-height:53px!important}
 }
+
+
+/* BARDAHL: reference-photo luminous 3D queue cards — presentation only. */
+#queueTableCard .service-chip{
+  position:relative!important; isolation:isolate!important;
+  border-width:2.5px!important;border-style:solid!important;
+  border-radius:14px!important;
+  background-image:radial-gradient(ellipse at 27% 55%,color-mix(in srgb,currentColor 28%,transparent),transparent 72%)!important;
+  box-shadow:0 0 5px currentColor,0 0 13px color-mix(in srgb,currentColor 55%,transparent),inset 0 0 17px color-mix(in srgb,currentColor 24%,transparent)!important;
+  overflow:visible!important;
+}
+#queueTableCard .service-chip.akpp{background-color:#1d1303!important;color:#ffd01a!important;border-color:#ffda25!important}
+#queueTableCard .service-chip.antifriz{background-color:#290510!important;color:#ff3558!important;border-color:#ff3558!important}
+#queueTableCard .service-chip.haldex{background-color:#052916!important;color:#05f478!important;border-color:#05f478!important}
+#queueTableCard .service-chip .chip-symbol{
+  position:relative!important;z-index:1!important;overflow:visible!important;
+  filter:drop-shadow(0 2px 3px #000b) drop-shadow(0 0 5px currentColor)!important;
+}
+#queueTableCard .service-chip .chip-symbol img{object-fit:contain!important;transform:scale(1.13);border-radius:0!important}
+#queueTableCard .service-chip .chip-copy{position:relative!important;z-index:1!important;color:#fff!important;text-shadow:0 1px 3px #000!important}
+#queueTableCard .service-chip .chip-copy>span{color:#fff!important;font-weight:850!important}
+#queueTableCard .service-chip .chip-copy small{color:#f7f7f7!important}
+#queueTableCard .service-remove{z-index:3!important;background:#a92331!important;border:1px solid #d14a57!important;color:#fff!important;box-shadow:0 1px 4px #0009!important}
+#queueTableCard .queue-table td{overflow:visible!important}
+#queueTableCard .queue-table tbody tr{height:78px!important}
+#queueTableCard .service-chip{height:62px!important;min-height:62px!important}
+#queueTableCard .empty-service-slot{height:62px!important;min-height:62px!important}
+@media(max-width:600px){
+ #queueTableCard .queue-table{width:930px!important;min-width:930px!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:60px!important;min-width:60px!important;max-width:60px!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:43px!important;min-width:43px!important;max-width:43px!important;left:60px!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:137px!important;min-width:137px!important;max-width:137px!important}
+ #queueTableCard .queue-table tbody tr{height:76px!important}
+ #queueTableCard .service-chip{height:60px!important;min-height:60px!important;gap:5px!important;padding:4px 17px 4px 3px!important}
+ #queueTableCard .service-chip .chip-symbol{width:42px!important;height:47px!important;flex:0 0 42px!important;min-width:42px!important}
+ #queueTableCard .service-chip .chip-copy{gap:5px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:11px!important;letter-spacing:0!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:10px!important}
+ #queueTableCard .empty-service-slot{height:60px!important;min-height:60px!important}
+ #queueTableCard .service-remove{width:17px!important;height:17px!important;min-width:17px!important;min-height:17px!important;right:2px!important;top:2px!important;font-size:12px!important;line-height:13px!important}
+ #queueTableCard .queue-name-mini{max-width:56px!important;font-size:9px!important}
+}
+/* Selected service: keep its original neon artwork, never add a white outline. */
+#myPanelCard .service-actions .service-btn.service-choice.done-service,
+#myPanelCard .service-actions .service-btn.service-choice:focus,
+#myPanelCard .service-actions .service-btn.service-choice:focus-visible{
+ outline:none!important;box-shadow:none!important;
+}
+
+</style><style id="bardahl-seamless-images-fix">
+/* Unified artwork in queue: no separate image tile/frame. */
+#queueTableCard .service-chip .chip-symbol{overflow:hidden!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:none!important;isolation:auto!important;}
+#queueTableCard .service-chip .chip-symbol img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;transform:scale(1.48)!important;border:0!important;border-radius:0!important;box-shadow:none!important;mix-blend-mode:screen!important;filter:drop-shadow(0 0 3px currentColor)!important;}
+/* Selection: confine the color and glow to each square; no external halo. */
+#myPanelCard .service-actions .service-btn.service-choice{overflow:hidden!important;isolation:isolate!important;box-shadow:none!important;filter:none!important;outline:none!important;-webkit-tap-highlight-color:transparent!important;}
+#myPanelCard .service-actions .service-btn.service-choice .chip-symbol{overflow:hidden!important;border-radius:inherit!important;filter:none!important;box-shadow:none!important;}
+#myPanelCard .service-actions .service-btn.service-choice .chip-symbol img{max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform:none!important;filter:none!important;}
+#myPanelCard .service-actions .service-btn.service-choice.done-service,#myPanelCard .service-actions .service-btn.service-choice:focus,#myPanelCard .service-actions .service-btn.service-choice:focus-visible{outline:none!important;box-shadow:none!important;}
+</style><style id="bardahl-selection-check-style">
+#myPanelCard .service-actions .service-btn.service-choice{position:relative!important;}
+#myPanelCard .service-actions .service-btn.service-choice .selection-check{display:none!important;position:absolute!important;right:7px!important;top:7px!important;z-index:10!important;width:27px!important;height:27px!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;background:#19b965!important;color:#fff!important;font-size:20px!important;font-weight:900!important;line-height:1!important;border:2px solid #fff!important;box-shadow:0 2px 8px #0009!important;pointer-events:none!important;}
+#myPanelCard .service-actions .service-btn.service-choice.done-service .selection-check{display:flex!important;}
+#myPanelCard .service-actions .service-btn.service-choice.done-service{outline:none!important;}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
