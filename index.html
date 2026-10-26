@@ -38,10 +38,10 @@ main{max-width:1500px;padding:16px 16px 40px}
 .queue-position-number,.queue-box-number{font-size:19px!important;line-height:1.15;font-weight:850;color:#ffd21a}
 .queue-name-mini{font-size:12px!important;color:#f0f1f3;margin-top:6px;max-width:112px}
 .service-chip{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;min-height:72px;padding:8px 4px;color:white;white-space:normal}
-.service-chip.akpp{background:linear-gradient(120deg,#283a45,#344d5c)}
-.service-chip.antifriz{background:linear-gradient(120deg,#552024,#773137)}
-.service-chip.haldex{background:linear-gradient(120deg,#1b4233,#255640)}
-.chip-symbol{font-size:27px;line-height:1;color:#d6e1e6}
+.service-chip.akpp{background:linear-gradient(120deg,#253640,#334957)}
+.service-chip.antifriz{background:linear-gradient(120deg,#4b1e22,#64292e)}
+.service-chip.haldex{background:linear-gradient(120deg,#1a3d2e,#24543e)}
+.chip-symbol{width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.chip-symbol svg{display:block;width:30px;height:30px}
 .chip-copy{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:13px;line-height:1.2}
 .chip-copy small{font-size:12px;color:#d7dadd}
 .empty-service-slot{height:72px;border:1px solid #303940;background:linear-gradient(130deg,#1c2226,#181d21);border-radius:12px;display:grid;place-items:center;color:#6e7880;font-size:21px}
@@ -106,13 +106,22 @@ function panelHtml(m,round){
  return '<div class="master-panel"><div class="service-actions">'+serviceButtons+'</div><button type="button" id="saveServicesBtn" class="primary" style="width:100%;margin-top:12px" '+(!canEdit||selected.length===0?'disabled':'')+'>Сохранить услуги</button></div>';
 }
 function serviceIcon(s){return s==='АКПП'?'service-akpp.png':s==='Антифриз'?'service-antifriz.png':'service-haldex.png'}
+// Monochrome service pictograms, matching the approved rectangular cards.
+function serviceCardIcon(kind){
+ const paths={
+  akpp:'<circle cx="12" cy="12" r="9" fill="#b4c0c8"/><path d="M9 7v10m6-10v10M7 9h4m2 6h4M8 17h8" stroke="#33424c" stroke-width="1.7" stroke-linecap="round"/><circle cx="9" cy="7" r="1.2" fill="#33424c"/><circle cx="15" cy="7" r="1.2" fill="#33424c"/>',
+  antifriz:'<path d="M10 5a2 2 0 0 1 4 0v9.2a4.5 4.5 0 1 1-4 0Z" fill="none" stroke="#ffb8bb" stroke-width="2.1"/><path d="M12 8v9" stroke="#ff7b84" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="18" r="2.4" fill="#ff7b84"/><path d="M17 7h2m-2 3h2m-2 3h2" stroke="#ffb8bb" stroke-width="1.4"/>',
+  haldex:'<path d="M4 6h5v3h6V6h5v5h-3v2h3v5h-5v-3H9v3H4v-5h3v-2H4Z" fill="#d5e8dd"/><circle cx="12" cy="12" r="2" fill="#245640"/>'
+ };
+ return '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">'+(paths[kind]||paths.akpp)+'</svg>';
+}
 function render(){
  if(!snapshot)return;
  const round=snapshot.state.round_number,members=snapshot.members,mine=members.find(m=>m.name===me);
  const ordered=members.filter(m=>m.position!==null&&m.position!==undefined&&m.box!==null&&m.box!==undefined).slice().sort((a,b)=>Number(a.position)-Number(b.position)||Number(a.box)-Number(b.box));
  $('countPill').textContent=ordered.length;
  $('managerActions').classList.toggle('hidden',!isManager);$('queueActionHead').classList.toggle('hidden',!isManager);
- $('queue').innerHTML=ordered.length?ordered.map(m=>{const logs=snapshot.services.filter(x=>x.master_name===m.name).slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||Number(a.id)-Number(b.id));const cells=Array.from({length:6},(_,i)=>{const log=logs[i]||null;const service=log?log.service:'';const mayRemove=log&&(isManager||(m.name===me&&role==='master'));const kind=service==='АКПП'?'akpp':service==='Антифриз'?'antifriz':'haldex';const tm=log&&log.created_at?new Date(log.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'';return '<td>'+(log?'<div class="service-chip '+kind+'" title="'+esc(service)+'"><span class="chip-symbol">'+(kind==='akpp'?'⚙':kind==='antifriz'?'♨':'✣')+'</span><span class="chip-copy"><span>'+esc(service)+'</span><small>'+esc(tm)+'</small></span>'+(mayRemove?'<button type="button" class="service-remove" data-action="remove-service" data-log-id="'+esc(log.id)+'" title="Убрать услугу" aria-label="Убрать услугу '+esc(service)+'">×</button>':'')+'</div>':'<div class="empty-service-slot">–</div>')+'</td>'}).join('');return '<tr class="'+(m.name===me?'mine':'')+'"><td><div class="queue-position-number">№'+Number(m.position)+'</div><div class="queue-name-mini">'+esc(m.name)+'</div></td><td><div class="queue-box-number">№ '+Number(m.box)+'</div></td>'+cells+(isManager?'<td class="queue-action-cell"><button type="button" class="remove-master-btn" data-action="remove-master" data-master="'+esc(m.name)+'" aria-label="Освободить место в очереди">✕ Убрать место</button></td>':'')+'</tr>' }).join(''):'<tr><td class="queue-empty" colspan="9">Пока нет занятых мест в очереди.</td></tr>';
+ $('queue').innerHTML=ordered.length?ordered.map(m=>{const logs=snapshot.services.filter(x=>x.master_name===m.name).slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||Number(a.id)-Number(b.id));const cells=Array.from({length:6},(_,i)=>{const log=logs[i]||null;const service=log?log.service:'';const mayRemove=log&&(isManager||(m.name===me&&role==='master'));const kind=service==='АКПП'?'akpp':service==='Антифриз'?'antifriz':'haldex';const tm=log&&log.created_at?new Date(log.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'';return '<td>'+(log?'<div class="service-chip '+kind+'" title="'+esc(service)+'"><span class="chip-symbol">'+serviceCardIcon(kind)+'</span><span class="chip-copy"><span>'+esc(service)+'</span><small>'+esc(tm)+'</small></span>'+(mayRemove?'<button type="button" class="service-remove" data-action="remove-service" data-log-id="'+esc(log.id)+'" title="Убрать услугу" aria-label="Убрать услугу '+esc(service)+'">×</button>':'')+'</div>':'<div class="empty-service-slot">–</div>')+'</td>'}).join('');return '<tr class="'+(m.name===me?'mine':'')+'"><td><div class="queue-position-number">№'+Number(m.position)+'</div><div class="queue-name-mini">'+esc(m.name)+'</div></td><td><div class="queue-box-number">№ '+Number(m.box)+'</div></td>'+cells+(isManager?'<td class="queue-action-cell"><button type="button" class="remove-master-btn" data-action="remove-master" data-master="'+esc(m.name)+'" aria-label="Освободить место в очереди">✕ Убрать место</button></td>':'')+'</tr>' }).join(''):'<tr><td class="queue-empty" colspan="9">Пока нет занятых мест в очереди.</td></tr>';
  const member=!!mine,positioned=!!(mine&&mine.position!==null&&mine.position!==undefined&&mine.box!==null&&mine.box!==undefined);
  $('positionCard').classList.toggle('hidden',role!=='master'||(member&&positioned&&!positionEditorOpen));
  if(role==='master'&&!positioned)positionEditorOpen=true;
