@@ -312,6 +312,24 @@ main{max-width:1500px;padding:16px 16px 40px}
  #queueTableCard .empty-service-slot{height:30px!important;min-height:30px!important}
 }
 #myPanelCard .chip-symbol img,#queueTableCard .chip-symbol img{display:block;width:100%;height:100%;object-fit:contain}
+
+/* Final iPhone-only adjustment: 25% smaller again; narrower Position column. */
+@media screen and (max-width:600px) {
+ #myPanelCard .service-actions .service-btn.service-choice{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important;border-radius:5px!important}
+ #myPanelCard .service-choice .chip-symbol{width:10px!important;height:10px!important;flex:0 0 10px!important}
+ #myPanelCard .service-choice .chip-symbol svg{width:10px!important;height:10px!important}
+ #myPanelCard .service-choice .choice-copy{font-size:8px!important;white-space:nowrap!important}
+ #queueTableCard .service-chip{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important}
+ #queueTableCard .service-chip .chip-symbol{width:14px!important;height:14px!important;flex:0 0 14px!important}
+ #queueTableCard .service-chip .chip-symbol svg{width:14px!important;height:14px!important}
+ #queueTableCard .chip-copy{font-size:8px!important;gap:1px!important}
+ #queueTableCard .chip-copy small{font-size:7px!important}
+ #queueTableCard .empty-service-slot{height:23px!important;min-height:23px!important}
+ #queueTableCard .queue-table{min-width:770px!important}
+ #queueTableCard .queue-table th:first-child{width:56px!important;min-width:56px!important}
+ #queueTableCard .queue-table td:first-child{width:56px!important;max-width:56px!important}
+ #queueTableCard .queue-name-mini{max-width:52px!important;font-size:8px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
