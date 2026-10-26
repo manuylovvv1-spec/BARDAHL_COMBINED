@@ -374,7 +374,12 @@ body {width:100%;max-width:100%;min-height:100dvh;overflow-x:clip;overscroll-beh
 main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #queueTableCard .table-wrap {max-width:100%;overscroll-behavior-x:contain;}
 @media (pointer:coarse) {input,select,textarea {touch-action:manipulation;}}
-</style></head>
+</style><style id="compact-report-date-fix">
+/* Compact report date field on iPhone, without changing report behavior. */
+#ordersPage #reportDate {display:block!important; width:170px!important; max-width:100%!important; min-width:0!important; height:38px!important; min-height:38px!important; padding:5px 9px!important; font-size:14px!important; border-radius:9px!important; box-sizing:border-box!important;}
+#ordersPage #masterReportControls {min-width:0;}
+</style>
+</head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
