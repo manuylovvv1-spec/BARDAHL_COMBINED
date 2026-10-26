@@ -593,7 +593,32 @@ main{max-width:1500px;padding:16px 16px 40px}
 #myPanelCard .service-actions .service-btn.service-choice .selection-check{display:none!important;position:absolute!important;right:7px!important;top:7px!important;z-index:10!important;width:27px!important;height:27px!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;background:#19b965!important;color:#fff!important;font-size:20px!important;font-weight:900!important;line-height:1!important;border:2px solid #fff!important;box-shadow:0 2px 8px #0009!important;pointer-events:none!important;}
 #myPanelCard .service-actions .service-btn.service-choice.done-service .selection-check{display:flex!important;}
 #myPanelCard .service-actions .service-btn.service-choice.done-service{outline:none!important;}
-</style></head>
+</style>
+<style id="bardahl-approved-unified-cards-v2">
+/* Approved design: one uninterrupted background behind the transparent 3D part and label. */
+#queueTableCard .service-chip{position:relative!important;isolation:isolate!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;overflow:hidden!important;border-radius:13px!important;gap:6px!important;box-shadow:inset 0 0 12px #ffffff13,0 0 8px var(--glow)!important;background-image:radial-gradient(ellipse at 28% 50%,var(--shine),transparent 77%)!important;background-color:var(--base)!important;border:2px solid var(--edge)!important}
+#queueTableCard .service-chip.akpp{--base:#211605;--shine:#704c08;--edge:#ffd21a;--glow:#ffd21a77}
+#queueTableCard .service-chip.antifriz{--base:#26050d;--shine:#81102d;--edge:#ff3154;--glow:#ff315477}
+#queueTableCard .service-chip.haldex{--base:#052315;--shine:#08733c;--edge:#00e978;--glow:#00e97877}
+#queueTableCard .service-chip .chip-symbol{background:none!important;border:0!important;box-shadow:none!important;overflow:visible!important;align-self:center!important}
+#queueTableCard .service-chip .chip-symbol img{display:block!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;object-fit:contain!important;mix-blend-mode:normal!important;filter:drop-shadow(0 2px 3px #0007)!important}
+#queueTableCard .service-chip .chip-copy{position:relative!important;z-index:1!important;overflow:visible!important}
+#queueTableCard .service-chip .chip-copy>span{white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important}
+#queueTableCard .service-remove{z-index:4!important;background:#d30b32!important;color:white!important;border:1px solid #ff6077!important;border-radius:50%!important;opacity:1!important}
+/* Selection checkmark: visible for the actual JS-selected done-service state. */
+#myPanelCard .service-actions .service-btn.service-choice{position:relative!important;outline:none!important;-webkit-tap-highlight-color:transparent!important}
+#myPanelCard .service-actions .service-btn.service-choice:focus,#myPanelCard .service-actions .service-btn.service-choice:focus-visible,#myPanelCard .service-actions .service-btn.service-choice.done-service{outline:none!important;outline-offset:0!important}
+#myPanelCard .service-choice .selection-check{display:none!important;position:absolute!important;right:5px!important;top:5px!important;z-index:20!important;width:25px!important;height:25px!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;background:#05a94c!important;border:2px solid #08ff77!important;box-shadow:0 0 10px #00f878aa!important;color:#fff!important;font-size:19px!important;font-weight:900!important;line-height:1!important;pointer-events:none!important}
+#myPanelCard .service-choice.done-service .selection-check{display:flex!important}
+@media(max-width:600px){
+ #queueTableCard .service-chip{gap:3px!important;padding-right:13px!important}
+ #queueTableCard .service-chip .chip-symbol{width:28px!important;min-width:28px!important;flex:0 0 28px!important;height:37px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:9px!important;letter-spacing:-.3px!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:9px!important}
+ #myPanelCard .service-choice .selection-check{width:24px!important;height:24px!important;right:5px!important;top:5px!important;font-size:18px!important}
+}
+</style>
+</head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -643,7 +668,7 @@ async function loadAll(){if(!db)return;const actor=me;try{let serviceQuery=db.fr
 function panelHtml(m,round){
  const canEdit=role==='master'&&m.name===me&&!!m.position;
  const selected=selectedServices;
- const serviceButtons=SERVICES.map(s=>{const kind=s==='АКПП'?'akpp':s==='Антифриз'?'antifriz':'haldex';return '<button type="button" class="service-btn service-choice '+kind+' '+(selected.includes(s)?'done-service':'')+'" title="Выбрать услугу" data-action="toggle-service" data-service="'+esc(s)+'" '+(!canEdit?'disabled':'')+'><span class="chip-symbol">'+serviceCardIcon(kind)+'</span><span class="choice-copy" aria-hidden="true">'+esc(s)+'</span></button>'}).join('');
+ const serviceButtons=SERVICES.map(s=>{const kind=s==='АКПП'?'akpp':s==='Антифриз'?'antifriz':'haldex';return '<button type="button" class="service-btn service-choice '+kind+' '+(selected.includes(s)?'done-service':'')+'" title="Выбрать услугу" data-action="toggle-service" data-service="'+esc(s)+'" '+(!canEdit?'disabled':'')+'><span class="chip-symbol">'+serviceCardIcon(kind)+'</span><span class="selection-check" aria-hidden="true">✓</span><span class="choice-copy" aria-hidden="true">'+esc(s)+'</span></button>'}).join('');
  return '<div class="master-panel"><div class="service-actions">'+serviceButtons+'</div><button type="button" id="saveServicesBtn" class="primary" style="width:100%;margin-top:12px" '+(!canEdit||selected.length===0?'disabled':'')+'>Сохранить услуги</button></div>';
 }
 function serviceIcon(s){return s==='АКПП'?'service-akpp.png':s==='Антифриз'?'service-antifriz.png':'service-haldex.png'}
