@@ -183,6 +183,44 @@ main{max-width:1500px;padding:16px 16px 40px}
 #queueTableCard .empty-service-slot{height:46px!important;min-height:46px!important;border-radius:9px!important}
 #queueTableCard .service-remove{position:absolute!important;right:1px!important;top:0!important;width:13px!important;height:13px!important;min-width:13px!important;min-height:13px!important;padding:0!important;font-size:11px!important;line-height:11px!important;opacity:.7}
 @media(max-width:600px){#queueTableCard .queue-table{min-width:1000px!important}}
+
+/* iPhone-only compact layout. Desktop styles are untouched. */
+@media (max-width: 600px) {
+  body {font-size:13px}
+  header {padding:9px 10px 8px}
+  .brandmark img {width:27px;height:27px}
+  .brandmark .brand {font-size:19px}
+  .sub {font-size:9px;margin-top:2px}
+  main {padding:8px 7px 22px}
+  .card {padding:9px;margin-bottom:8px;border-radius:11px}
+  h2 {font-size:14px;margin-bottom:7px}
+  label {font-size:11px;margin:6px 0 4px}
+  input,select,button {font-size:12px;min-height:34px;padding:7px 8px}
+  #queueTableCard h2 {font-size:12px!important;padding:5px 7px!important}
+  #queueTableCard .queue-table {min-width:790px!important;font-size:10px!important}
+  #queueTableCard .queue-table th:first-child {width:75px!important}
+  #queueTableCard .queue-table th:nth-child(2) {width:36px!important}
+  #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8) {width:113px!important}
+  #queueTableCard .queue-table th {height:22px!important;font-size:9px!important;padding:3px 2px!important}
+  #queueTableCard .queue-table td {padding:2px!important}
+  #queueTableCard .queue-table tbody tr {height:45px!important}
+  #queueTableCard .queue-position-number,#queueTableCard .queue-box-number {font-size:11px!important}
+  #queueTableCard .queue-name-mini {font-size:9px!important}
+  #queueTableCard .service-chip {height:39px!important;min-height:39px!important;padding:3px 4px!important;gap:4px!important;border-radius:8px!important}
+  #queueTableCard .service-chip .chip-symbol {width:25px!important;height:27px!important;flex:0 0 25px!important}
+  #queueTableCard .service-chip .chip-symbol svg {width:25px!important;height:25px!important}
+  #queueTableCard .chip-copy {font-size:10px!important;gap:2px!important}
+  #queueTableCard .chip-copy small {font-size:9px!important}
+  #queueTableCard .empty-service-slot {height:39px!important;min-height:39px!important}
+  #myPanelCard .service-actions {gap:5px}
+  #myPanelCard .service-choice {min-height:56px!important;padding:5px 3px!important;gap:4px!important;font-size:11px!important}
+  #myPanelCard .service-choice .chip-symbol {width:27px!important;height:27px!important}
+  #myPanelCard .service-choice .chip-symbol svg {width:27px!important;height:27px!important}
+  #queuePage .queue-bottom-actions > #leaveBtn,
+  #queuePage .queue-bottom-actions > #logoutBtn {min-height:36px!important;padding:5px!important;font-size:12px!important;border:0!important;box-shadow:none!important}
+  #queuePage .queue-bottom-actions > #leaveBtn::before,
+  #queuePage .queue-bottom-actions > #logoutBtn::before {font-size:16px!important}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -241,7 +279,7 @@ function serviceIcon(s){return s==='АКПП'?'service-akpp.png':s==='Антиф
 function serviceCardIcon(kind){
  const paths={
   akpp:'<circle cx="24" cy="24" r="21" fill="#b9c2c9"/><g fill="none" stroke="#203642" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14v20h18V14M24 13v20M15 23h18"/></g><g fill="#203642"><circle cx="15" cy="12" r="4"/><circle cx="24" cy="12" r="4"/><circle cx="33" cy="12" r="4"/><circle cx="15" cy="34" r="3.5"/><circle cx="24" cy="34" r="3.5"/><circle cx="33" cy="34" r="3.5"/></g>',
-  haldex:'<g fill="none" stroke="#f6faf7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h30M9 38h30M14 10v28M34 10v28M14 24h20"/></g><g fill="#f6faf7"><rect x="5" y="5" width="10" height="10" rx="2"/><rect x="33" y="5" width="10" height="10" rx="2"/><rect x="5" y="33" width="10" height="10" rx="2"/><rect x="33" y="33" width="10" height="10" rx="2"/></g>',
+  haldex:'<g fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 24h10m18 0h10"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="3.5"/><path d="M16 16l-5-5m21 5 5-5M16 32l-5 5m21-5 5 5"/></g><g fill="#fff"><rect x="2" y="17" width="6" height="14" rx="2"/><rect x="40" y="17" width="6" height="14" rx="2"/></g>', 
   antifriz:'<path d="M20 9a6 6 0 0 1 12 0v21a12 12 0 1 1-12 0Z" fill="none" stroke="#fff" stroke-width="4.5" stroke-linejoin="round"/><path d="M26 16v20" stroke="#ff3e50" stroke-width="5" stroke-linecap="round"/><circle cx="26" cy="38" r="6.2" fill="#ff3e50"/><path d="M35 14h6m-6 7h6m-6 7h6" stroke="#ff3e50" stroke-width="3.2"/>'
  };
  return '<svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">'+(paths[kind]||paths.akpp)+'</svg>';
@@ -250,7 +288,7 @@ function queueServiceIcon(kind){
  // Clean, purpose-drawn pictograms for the compact queue cells.
  const paths={
   akpp:'<circle cx="24" cy="24" r="22" fill="#c5cdd2"/><g stroke="#213944" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M15 14v20h18V14M24 14v20M15 24h18"/></g><g fill="#213944"><circle cx="15" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="33" cy="12" r="3.6"/><circle cx="15" cy="35" r="3.6"/><circle cx="24" cy="35" r="3.6"/><circle cx="33" cy="35" r="3.6"/></g>',
-  haldex:'<g stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M9 14h30M9 34h30M24 14v20"/><path d="M12 14v-5m24 5V9M12 34v5m24-5v5"/></g><g fill="#fff"><rect x="5" y="5" width="12" height="9" rx="2"/><rect x="31" y="5" width="12" height="9" rx="2"/><rect x="5" y="34" width="12" height="9" rx="2"/><rect x="31" y="34" width="12" height="9" rx="2"/><rect x="20" y="19" width="8" height="10" rx="2"/></g>',
+  haldex:'<g fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 24h10m18 0h10"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="3.5"/><path d="M16 16l-5-5m21 5 5-5M16 32l-5 5m21-5 5 5"/></g><g fill="#fff"><rect x="2" y="17" width="6" height="14" rx="2"/><rect x="40" y="17" width="6" height="14" rx="2"/></g>', 
   antifriz:'<path d="M20 11a6 6 0 0 1 12 0v19a12 12 0 1 1-12 0Z" fill="none" stroke="#fff" stroke-width="4.4" stroke-linejoin="round"/><path d="M26 17v19" stroke="#ff4656" stroke-width="4.5" stroke-linecap="round"/><circle cx="26" cy="38" r="6" fill="#ff4656"/><path d="M36 16h5m-5 6h5m-5 6h5" stroke="#ff4656" stroke-width="2.6" stroke-linecap="round"/>'
  };
  return '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'+(paths[kind]||paths.akpp)+'</svg>';
