@@ -419,6 +419,22 @@ main{max-width:1500px;padding:16px 16px 40px}
  #queueTableCard .queue-table tbody tr{height:58px!important}
  #myPanelCard .service-actions{gap:7px!important}
 }
+
+/* iPhone: three queue rounds visible; preserve approved service artwork and app logic. */
+@media screen and (max-width:600px){
+ #queueTableCard .queue-table{width:656px!important;min-width:656px!important;table-layout:fixed!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:39px!important;min-width:39px!important;max-width:39px!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:29px!important;min-width:29px!important;max-width:29px!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:98px!important;min-width:98px!important;max-width:98px!important}
+ #queueTableCard .service-chip{height:45px!important;min-height:45px!important;gap:3px!important;padding:2px 12px 2px 2px!important}
+ #queueTableCard .service-chip .chip-symbol{width:27px!important;height:34px!important;min-width:27px!important;flex:0 0 27px!important}
+ #queueTableCard .service-chip .chip-copy{font-size:9px!important;gap:2px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:9px!important;letter-spacing:-.25px!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:9px!important}
+ #queueTableCard .queue-table tbody tr{height:52px!important}
+ #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:11px!important}
+ #queueTableCard .queue-name-mini{font-size:7px!important;max-width:36px!important}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
