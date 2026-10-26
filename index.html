@@ -61,6 +61,29 @@ main{max-width:1500px;padding:16px 16px 40px}
 .service-choice.done-service{outline:2px solid #ffd21a;outline-offset:1px;color:white;border-color:#ffd21a}
 .service-choice .choice-copy{min-width:0;overflow-wrap:anywhere}
 @media(max-width:420px){.service-choice .chip-symbol{width:25px}.service-choice .chip-symbol svg{width:25px;height:25px}.service-actions .service-btn.service-choice{gap:3px;padding:7px 2px!important}}
+
+/* Approved compact queue and bottom controls */
+#queueTableCard .queue-table{min-width:780px;font-size:12px}
+#queueTableCard .queue-table th{height:37px;font-size:11px}
+#queueTableCard .queue-table tbody tr{height:68px}
+#queueTableCard .queue-table th:first-child{width:88px}
+#queueTableCard .queue-table th:nth-child(2){width:62px}
+#queueTableCard .queue-table td{padding:3px!important}
+#queueTableCard .service-chip{min-height:54px;padding:5px 3px;gap:5px;border-radius:10px}
+#queueTableCard .chip-symbol svg{width:23px;height:23px}
+#queueTableCard .chip-copy{font-size:11px;gap:2px}
+#queueTableCard .chip-copy small{font-size:10px}
+#queueTableCard .empty-service-slot{height:54px;border-radius:10px}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:16px!important}
+#queueTableCard .queue-name-mini{font-size:10px!important;margin-top:3px}
+#myPanelCard{margin-top:14px}
+#myPanelCard h2{text-align:left;font-size:21px;margin-bottom:12px}
+#myPanelCard .master-panel{border:0;background:transparent;padding:0;margin:0}
+#myPanelCard .service-actions .service-btn.service-choice{min-height:69px!important}
+.queue-bottom-actions{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.queue-bottom-actions .queue-exit-btn{width:100%;min-height:62px;border:1px solid #36424b;border-radius:13px;background:linear-gradient(120deg,#202a30,#192127);color:#ff525d;font-size:16px;font-weight:750}
+.queue-bottom-actions .queue-exit-btn:before{content:'⇥';font-size:24px;margin-right:10px;vertical-align:-2px}
+@media(max-width:600px){#queueTableCard .queue-table{min-width:750px}#queueTableCard .queue-table th:first-child{width:82px}#queueTableCard .queue-table th:nth-child(2){width:54px}.queue-bottom-actions .queue-exit-btn{min-height:54px}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -71,9 +94,8 @@ main{max-width:1500px;padding:16px 16px 40px}
 <div id="queuePage">
 <div class="card" id="positionCard"><h2>Встать в очередь</h2><div class="small" id="positionHelp">Нажмите кнопку ниже, чтобы выбрать свободное место.</div><div id="positionChooser" class="hidden"><label for="boxSelect">Номер бокса</label><select id="boxSelect"><option value="">— Выберите бокс —</option></select><label for="positionSelect">Позиция в очереди</label><select id="positionSelect"><option value="">— Выберите позицию —</option></select></div><button id="joinBtn" class="primary" style="margin-top:12px;width:100%">Встать в очередь</button></div>
 <div class="card" id="queueTableCard"><h2>Очередь по боксам <span id="countPill" class="pill">0</span></h2><div class="table-wrap"><table class="queue-table"><thead><tr><th>Позиция</th><th>Бокс</th><th>Круг 1</th><th>Круг 2</th><th>Круг 3</th><th>Круг 4</th><th>Круг 5</th><th>Круг 6</th><th id="queueActionHead" class="hidden">Действия</th></tr></thead><tbody id="queue"></tbody></table></div><div id="managerActions" class="hidden" style="margin-top:12px"><button id="resetCirclesBtn" class="danger" type="button" style="width:100%">Сбросить очередь</button><div class="small" style="margin-top:6px"></div></div></div>
-<div class="row" style="margin-bottom:14px"><button id="logoutBtn" class="secondary" type="button" style="width:100%">Выйти из аккаунта</button></div>
-<div class="card" id="myPanelCard"><h2 id="myPanelTitle">Панель мастера</h2><div id="myPanel"></div></div>
-<div class="row"><button id="leaveBtn" class="danger">Выйти из очереди</button></div>
+<div class="card" id="myPanelCard"><h2 id="myPanelTitle">Выберите услугу</h2><div id="myPanel"></div></div>
+<div class="queue-bottom-actions"><button id="leaveBtn" class="queue-exit-btn" type="button">Выйти из очереди</button><button id="logoutBtn" class="queue-exit-btn" type="button">Выйти из аккаунта</button></div>
 </div>
 <div id="ordersPage" class="hidden">
  <div id="orderEntrySection">
@@ -141,7 +163,7 @@ function render(){
  $('joinBtn').textContent=positioned?'Сохранить место':'Встать в очередь';
  $('leaveBtn').classList.toggle('hidden',role!=='master'||!member);
  $('myPanelCard').classList.toggle('hidden',role!=='master'||!positioned);
- $('myPanelTitle').textContent=mine?'Ваши услуги':'Услуги мастера';
+ $('myPanelTitle').textContent='Выберите услугу';
  $('myPanel').innerHTML=positioned?panelHtml(mine,round):'';
  const boxSel=$('boxSelect');
  const oldBox=boxSel.value;
