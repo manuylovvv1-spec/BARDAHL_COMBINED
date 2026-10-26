@@ -297,6 +297,20 @@ main{max-width:1500px;padding:16px 16px 40px}
  #myPanelCard .service-choice .chip-symbol svg{width:17px!important;height:17px!important}
  #myPanelCard .service-choice .choice-copy{font-size:10px!important;font-weight:700!important;letter-spacing:-.2px!important;white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important}
 }
+
+/* Reference-photo pictograms; only iPhone dimensions reduced by 25%. */
+@media screen and (max-width:600px) {
+ #myPanelCard .service-actions .service-btn.service-choice{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important;border-radius:7px!important}
+ #myPanelCard .service-choice .chip-symbol{width:13px!important;height:13px!important;flex:0 0 13px!important}
+ #myPanelCard .service-choice .chip-symbol svg{width:13px!important;height:13px!important}
+ #myPanelCard .service-choice .choice-copy{font-size:9px!important;font-weight:700!important;white-space:nowrap!important;letter-spacing:-.3px!important}
+ #queueTableCard .service-chip{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important}
+ #queueTableCard .service-chip .chip-symbol{width:19px!important;height:19px!important;flex:0 0 19px!important}
+ #queueTableCard .service-chip .chip-symbol svg{width:19px!important;height:19px!important}
+ #queueTableCard .chip-copy{font-size:9px!important;gap:1px!important}
+ #queueTableCard .chip-copy small{font-size:8px!important}
+ #queueTableCard .empty-service-slot{height:30px!important;min-height:30px!important}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -353,32 +367,15 @@ function panelHtml(m,round){
 function serviceIcon(s){return s==='АКПП'?'service-akpp.png':s==='Антифриз'?'service-antifriz.png':'service-haldex.png'}
 // Monochrome service pictograms, matching the approved rectangular cards.
 function serviceCardIcon(kind){
+ // Pictograms redrawn to follow the user's photo: selector / shaft coupling / snowflake bottle.
  const icons={
-  akpp:`<g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="7" y="6" width="34" height="36" rx="8" opacity=".75"/>
-    <path d="M17 33V18Q17 12 23 12H27"/>
-    <circle cx="27" cy="12" r="4.5" fill="#fff" stroke="none"/>
-    <path d="M12 35h10"/>
-   </g><g fill="#fff" font-family="Arial,sans-serif" font-size="6.5" font-weight="800">
-    <text x="32" y="17">P</text><text x="32" y="24">R</text><text x="32" y="31">N</text><text x="32" y="38">D</text>
-   </g>`,
-  haldex:`<g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 24h13m16 0h13" stroke-width="5"/>
-    <rect x="16" y="15" width="16" height="18" rx="4" stroke-width="3" fill="#fff"/>
-    <path d="M20 17v14m8-14v14" stroke="#00613a" stroke-width="2"/>
-    <path d="M6 18v12m36-12v12" stroke-width="3"/>
-   </g>`,
-  antifriz:`<g fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M17 8h14v6h4l5 8v18a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3V22l5-8h4z" fill="#fff"/>
-    <path d="M30 14v9h9" stroke="#7a1420" stroke-width="2.5"/>
-    <path d="M24 23v14m-7-7h14m-12-5 10 10m0-10-10 10" stroke="#7a1420" stroke-width="2.1"/>
-   </g>`
+  akpp:`<g fill="none" stroke="white" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 37 L17 37 L19 22 L20 18 Q13 9 16 5 Q18 2 25 3 Q33 4 31 11 L27 19 L25 35 Q24 40 19 40 L9 40 Z"/><path d="M13 32 L9 32 L7 42 L25 42"/><path d="M17 19 L24 19"/></g><g fill="white" font-family="Arial,sans-serif" font-size="6.4" font-weight="bold"><text x="35" y="11">P</text><text x="35" y="20">R</text><text x="35" y="29">N</text><text x="35" y="38">D</text></g><g fill="white"><circle cx="12" cy="35" r="1.1"/><circle cx="12" cy="39" r="1"/></g>`,
+  haldex:`<g fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="19" width="9" height="11" rx="1" stroke-width="2.8"/><path d="M5 22h5M5 26h5M12 24h9M30 24h7" stroke-width="3"/><rect x="20" y="13" width="11" height="23" rx="1.5" stroke-width="3"/><path d="M25.5 17v15" stroke-width="2"/><rect x="37" y="19" width="8" height="11" rx="1" stroke-width="2.8"/><path d="M39 22h4M39 26h4" stroke-width="2"/></g>`,
+  antifriz:`<g fill="white"><path d="M15 11h5V6h9v5h4l6 10v20q0 3-3 3H12q-3 0-3-3V20l6-9z"/><path d="M14 5h4v5h-4zM19 4h4v4h-4z"/></g><path d="M29 13l7 8h-7z" fill="#7a1420"/><g fill="none" stroke="#7a1420" stroke-width="2.2" stroke-linecap="round"><path d="M24 22v16M16 30h16M18 24l12 12M30 24L18 36"/><path d="M21 25l3-3 3 3M21 35l3 3 3-3M19 27l-3 3 3 3M29 27l3 3-3 3"/></g>`
  };
  return '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'+(icons[kind]||icons.akpp)+'</svg>';
 }
-function queueServiceIcon(kind){
- return serviceCardIcon(kind);
-}
+function queueServiceIcon(kind){return serviceCardIcon(kind);}
 function render(){
  if(!snapshot)return;
  const round=snapshot.state.round_number,members=snapshot.members,mine=members.find(m=>m.name===me);
