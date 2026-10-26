@@ -257,6 +257,37 @@ main{max-width:1500px;padding:16px 16px 40px}
     text-align: left !important;
   }
 }
+
+/* Approved design #1: modern, simple service cards. No app logic changed. */
+#myPanelCard .service-actions .service-btn.service-choice,
+#queueTableCard .service-chip {
+  background-image:linear-gradient(120deg,rgba(255,255,255,.035),transparent 65%) !important;
+  background-color:#241b06 !important;
+  border:2px solid #ffd21a !important;
+  color:#fff !important;
+  box-shadow:inset 0 0 12px rgba(255,210,26,.12) !important;
+}
+#myPanelCard .service-actions .service-btn.service-choice.haldex,
+#queueTableCard .service-chip.haldex {
+  background-color:#00371e !important;
+  border-color:#16eb5b !important;
+  box-shadow:inset 0 0 12px rgba(22,235,91,.12) !important;
+}
+#myPanelCard .service-actions .service-btn.service-choice.antifriz,
+#queueTableCard .service-chip.antifriz {
+  background-color:#420b10 !important;
+  border-color:#ff3039 !important;
+  box-shadow:inset 0 0 12px rgba(255,48,57,.12) !important;
+}
+#myPanelCard .service-choice .choice-copy,
+#queueTableCard .service-chip .chip-copy > span {white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;}
+#myPanelCard .service-actions .service-btn.service-choice.done-service {outline:2px solid #fff!important;outline-offset:1px;}
+/* On iPhone preserve the previously approved compact dimensions. */
+@media screen and (max-width:600px) {
+ #myPanelCard .service-actions .service-btn.service-choice {border-width:1.5px!important;}
+ #myPanelCard .service-choice .choice-copy {font-size:10px!important;font-weight:700!important;letter-spacing:-.25px!important;}
+ #queueTableCard .service-chip {border-width:1px!important;}
+}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
