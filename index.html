@@ -598,9 +598,9 @@ function drawWorkReport(){
  const selectedPeriod=periods.find(p=>p.from===periodBoundsFor(referenceDate,leaderPeriodValue).from&&p.to===periodBoundsFor(referenceDate,leaderPeriodValue).to)||periods[0];
  $('leaderPeriodButtons').querySelectorAll('[data-period]').forEach(button=>button.classList.toggle('selected',button.dataset.period===leaderPeriodValue));
  const list=selectedPeriod.orders, totalServices=list.reduce((n,o)=>n+orderServiceCount(o),0),totalSum=list.reduce((n,o)=>n+orderSum(o),0);
- const avg=list.length?totalSum/list.length:0;
+
  const kpis=document.createElement('div');kpis.className='leader-kpis';
- [['Сумма работ',moneyWork(totalSum)],['Услуг',String(totalServices)],['Заказов',String(list.length)],['Средний чек',moneyWork(avg)]].forEach(([label,value])=>{const box=document.createElement('div');box.className='leader-kpi';const t=document.createElement('span');t.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(t,v);kpis.append(box)});lr.append(kpis);
+ [['Сумма работ',moneyWork(totalSum)],['Услуг',String(totalServices)],['Заказов',String(list.length)]].forEach(([label,value])=>{const box=document.createElement('div');box.className='leader-kpi';const t=document.createElement('span');t.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(t,v);kpis.append(box)});lr.append(kpis);
  const compareDate=new Date(selectedPeriod.from+'T12:00:00'),prevTo=new Date(compareDate);prevTo.setDate(prevTo.getDate()-1);
  const prevKey=[prevTo.getFullYear(),String(prevTo.getMonth()+1).padStart(2,'0'),String(prevTo.getDate()).padStart(2,'0')].join('-');
  const previous=periodBoundsFor(prevKey,leaderPeriodValue),prevOrders=workOrders.filter(o=>o.date>=previous.from&&o.date<=previous.to),prevSum=prevOrders.reduce((n,o)=>n+orderSum(o),0);
