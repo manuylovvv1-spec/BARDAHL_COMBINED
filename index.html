@@ -379,6 +379,29 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #ordersPage #reportDate {display:block!important; width:170px!important; max-width:100%!important; min-width:0!important; height:38px!important; min-height:38px!important; padding:5px 9px!important; font-size:14px!important; border-radius:9px!important; box-sizing:border-box!important;}
 #ordersPage #masterReportControls {min-width:0;}
 </style>
+
+<style id="leader-dashboard-upgrade">
+#leaderStats .leader-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+#leaderStats .leader-kpi{background:#20262b;border:1px solid #354049;border-radius:13px;padding:14px;min-width:0}
+#leaderStats .leader-kpi span{display:block;color:#adb7be;font-size:12px}
+#leaderStats .leader-kpi strong{display:block;color:#ffd21a;font-size:clamp(17px,3vw,26px);margin-top:6px;overflow-wrap:anywhere}
+#leaderStats .leader-section{margin-top:20px}
+#leaderStats .leader-rank{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #303940}
+#leaderStats .leader-rank-number{width:29px;flex-shrink:0;color:#ffd21a;font-weight:900;text-align:center}
+#leaderStats .leader-rank-body{flex:1;min-width:0}
+#leaderStats .leader-rank-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px}
+#leaderStats .leader-rank-head button{background:transparent;color:#f4f5f7;text-align:left;padding:3px 0;min-height:30px;min-width:0;overflow-wrap:anywhere}
+#leaderStats .leader-rank-track{height:7px;background:#333b41;border-radius:20px;overflow:hidden;margin:7px 0}
+#leaderStats .leader-rank-fill{height:100%;background:#ffd21a;border-radius:20px}
+#leaderStats .leader-rank-meta{font-size:11px;color:#b2b9be}
+#leaderStats .leader-chart{display:flex;align-items:flex-end;gap:5px;min-height:150px;overflow-x:auto;padding:12px 0 4px}
+#leaderStats .leader-chart-col{flex:1;min-width:26px;text-align:center;font-size:10px;color:#b4bec5}
+#leaderStats .leader-chart-barbox{height:112px;display:flex;align-items:flex-end;justify-content:center}
+#leaderStats .leader-chart-bar{width:75%;max-width:34px;min-height:2px;background:#ffd21a;border-radius:5px 5px 0 0}
+#leaderStats .leader-filter{margin:8px 0 12px}
+#leaderStats .leader-note{font-size:11px;color:#aeb3b8;margin-top:8px}
+@media(min-width:650px){#leaderStats .leader-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -562,17 +585,38 @@ function drawWorkReport(){
    else services.forEach(([name,count])=>{const line=document.createElement('div');line.className='leader-service-row';line.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;lr.append(line)});
    return;
  }
- const overall=document.createElement('h3');overall.textContent='Общая статистика всех мастеров';lr.append(overall);
- periods.forEach(period=>appendPeriodSummary(lr,period.orders,period.label));
- const table=document.createElement('div');table.className='leader-table';const header=document.createElement('div');header.className='leader-master-row small';header.innerHTML='<strong>Мастер</strong><strong class="leader-num">Услуг</strong><strong class="leader-num">Заказов</strong><strong class="leader-num">Сумма</strong>';table.append(header);
- let totalCount=0,totalOrders=0,totalMoney=0;
- // The master list follows the currently selected day/month/year, so it matches the selected period controls.
- const selectedPeriod=periods.find(p=>p.from===periodBoundsFor(referenceDate,leaderPeriodValue).from&&p.to===periodBoundsFor(referenceDate,leaderPeriodValue).to)||periods[0];$('leaderPeriodButtons').querySelectorAll('[data-period]').forEach(button=>{button.classList.toggle('selected',button.dataset.period===leaderPeriodValue)});
- const normalizeMasterName=normalizeWorkMaster;
- const visibleMasters=[...new Map([...MASTERS,...workOrders.map(o=>o.master),'Гость'].filter(Boolean).map(n=>[normalizeMasterName(n),String(n).replace(/\s+/g,' ').trim()])).values()];
- // «Гость» принудительно включён в список, а совпадение имени не зависит от регистра и лишних пробелов.
- visibleMasters.forEach(name=>{const list=selectedPeriod.orders.filter(o=>normalizeMasterName(o.master)===normalizeMasterName(name)),count=list.reduce((n,o)=>n+orderServiceCount(o),0),sum=list.reduce((n,o)=>n+orderSum(o),0);totalCount+=count;totalOrders+=list.length;totalMoney+=sum;const row=document.createElement('div');row.className='leader-master-row';const button=document.createElement('button');button.type='button';button.textContent=name;button.title='Открыть статистику мастера за день, месяц и год';button.onclick=()=>{leaderSelectedMaster=name;drawWorkReport()};const c=document.createElement('div');c.className='leader-num';c.textContent=count;const n=document.createElement('div');n.className='leader-num';n.textContent=list.length;const m=document.createElement('div');m.className='leader-num';m.textContent=moneyWork(sum);row.append(button,c,n,m);table.append(row)});
- const total=document.createElement('div');total.className='leader-master-row leader-total-row';total.innerHTML=`<strong>ИТОГО</strong><strong class="leader-num">${totalCount}</strong><strong class="leader-num">${totalOrders}</strong><strong class="leader-num">${esc(moneyWork(totalMoney))}</strong>`;table.append(total);lr.append(table);
+ const selectedPeriod=periods.find(p=>p.from===periodBoundsFor(referenceDate,leaderPeriodValue).from&&p.to===periodBoundsFor(referenceDate,leaderPeriodValue).to)||periods[0];
+ $('leaderPeriodButtons').querySelectorAll('[data-period]').forEach(button=>button.classList.toggle('selected',button.dataset.period===leaderPeriodValue));
+ const list=selectedPeriod.orders, totalServices=list.reduce((n,o)=>n+orderServiceCount(o),0),totalSum=list.reduce((n,o)=>n+orderSum(o),0);
+ const avg=list.length?totalSum/list.length:0;
+ const kpis=document.createElement('div');kpis.className='leader-kpis';
+ [['Сумма работ',moneyWork(totalSum)],['Услуг',String(totalServices)],['Заказов',String(list.length)],['Средний чек',moneyWork(avg)]].forEach(([label,value])=>{const box=document.createElement('div');box.className='leader-kpi';const t=document.createElement('span');t.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(t,v);kpis.append(box)});lr.append(kpis);
+ const compareDate=new Date(selectedPeriod.from+'T12:00:00'),prevTo=new Date(compareDate);prevTo.setDate(prevTo.getDate()-1);
+ const prevKey=[prevTo.getFullYear(),String(prevTo.getMonth()+1).padStart(2,'0'),String(prevTo.getDate()).padStart(2,'0')].join('-');
+ const previous=periodBoundsFor(prevKey,leaderPeriodValue),prevOrders=workOrders.filter(o=>o.date>=previous.from&&o.date<=previous.to),prevSum=prevOrders.reduce((n,o)=>n+orderSum(o),0);
+ const comparison=document.createElement('div');comparison.className='leader-note';
+ comparison.textContent='Сравнение с прошлым периодом: '+(prevSum?((totalSum-prevSum)>=0?'+':'')+Math.round((totalSum-prevSum)/prevSum*100)+'% по сумме работ':'нет базы для сравнения');lr.append(comparison);
+ const graphTitle=document.createElement('h3');graphTitle.className='leader-section';graphTitle.textContent='Динамика суммы работ';lr.append(graphTitle);
+ const buckets=new Map();
+ list.forEach(o=>{const key=leaderPeriodValue==='year'?o.date.slice(0,7):o.date;buckets.set(key,(buckets.get(key)||0)+orderSum(o))});
+ const keys=[];
+ if(leaderPeriodValue==='day'){keys.push(selectedPeriod.from)}
+ else if(leaderPeriodValue==='month'){const [y,m]=selectedPeriod.from.split('-').map(Number);for(let d=1;d<=new Date(y,m,0).getDate();d++)keys.push(`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`)}
+ else {for(let m=1;m<=12;m++)keys.push(`${referenceDate.slice(0,4)}-${String(m).padStart(2,'0')}`)}
+ const max=Math.max(1,...keys.map(k=>buckets.get(k)||0)),chart=document.createElement('div');chart.className='leader-chart';
+ keys.forEach((key,i)=>{const value=buckets.get(key)||0,col=document.createElement('div');col.className='leader-chart-col';col.title=key+' — '+moneyWork(value);const bb=document.createElement('div');bb.className='leader-chart-barbox';const bar=document.createElement('div');bar.className='leader-chart-bar';bar.style.height=(value?Math.max(2,value/max*100):0)+'%';bb.append(bar);const lab=document.createElement('div');lab.textContent=leaderPeriodValue==='year'?String(i+1):leaderPeriodValue==='month'?String(i+1):'День';col.append(bb,lab);chart.append(col)});lr.append(chart);
+ const title=document.createElement('h3');title.className='leader-section';title.textContent='Рейтинг 9 мастеров';lr.append(title);
+ const filter=document.createElement('select');filter.className='leader-filter';filter.setAttribute('aria-label','Фильтр по мастеру');filter.innerHTML='<option value="">Все 9 мастеров</option>';
+ const namedMasters=MASTERS.filter(n=>normalizeWorkMaster(n)!==normalizeWorkMaster('Гость')).slice(0,9);
+ namedMasters.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;filter.append(option)});
+ filter.onchange=()=>{if(filter.value){leaderSelectedMaster=filter.value;drawWorkReport()}};lr.append(filter);
+ const ranked=namedMasters.map(name=>{const orders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(name));return {name,orders:orders.length,services:orders.reduce((n,o)=>n+orderServiceCount(o),0),sum:orders.reduce((n,o)=>n+orderSum(o),0)}}).sort((a,b)=>b.sum-a.sum||b.services-a.services||a.name.localeCompare(b.name,'ru'));
+ const highest=Math.max(1,...ranked.map(r=>r.sum));
+ ranked.forEach((r,i)=>{const row=document.createElement('div');row.className='leader-rank';const num=document.createElement('div');num.className='leader-rank-number';num.textContent=i+1;const body=document.createElement('div');body.className='leader-rank-body';const head=document.createElement('div');head.className='leader-rank-head';const btn=document.createElement('button');btn.type='button';btn.textContent=r.name;btn.onclick=()=>{leaderSelectedMaster=r.name;drawWorkReport()};const amount=document.createElement('strong');amount.textContent=moneyWork(r.sum);head.append(btn,amount);const track=document.createElement('div');track.className='leader-rank-track';const fill=document.createElement('div');fill.className='leader-rank-fill';fill.style.width=(r.sum/highest*100)+'%';track.append(fill);const meta=document.createElement('div');meta.className='leader-rank-meta';meta.textContent=r.services+' услуг · '+r.orders+' заказов';body.append(head,track,meta);row.append(num,body);lr.append(row)});
+ const guestOrders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster('Гость'));
+ if(guestOrders.length){const note=document.createElement('div');note.className='leader-note';note.textContent='Заказы «Гость»: '+guestOrders.length+' — включены в общие итоги, но не в рейтинг 9 мастеров.';lr.append(note)}
+ const exportButton=document.createElement('button');exportButton.type='button';exportButton.className='secondary';exportButton.style.marginTop='16px';exportButton.style.width='100%';exportButton.textContent='Скачать рейтинг (Excel / CSV)';
+ exportButton.onclick=()=>{const rows=[['Место','Мастер','Услуг','Заказов','Сумма (₸)'],...ranked.map((r,i)=>[i+1,r.name,r.services,r.orders,r.sum])];const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')).join('\r\n');downloadWork('bardahl-masters-'+leaderPeriodValue+'-'+referenceDate+'.csv',csv,'text/csv;charset=utf-8')};lr.append(exportButton);
 }
 function drawWorkOrders(){const root=$('orderHistory');if(!root)return;root.replaceChildren();const q=$('orderSearch').value.trim().toLowerCase(),date=$('reportDate').value||workToday(),filtered=workOrders.filter(o=>o.date===date&&([o.car,o.master,...o.items.map(i=>i.name)].join(' ').toLowerCase().includes(q)));if(!filtered.length){root.innerHTML='<div class="empty-orders">Заказы за выбранную дату не найдены</div>';return}filtered.forEach(o=>{const card=document.createElement('article');card.className='work-order';const h=document.createElement('h3');h.textContent=o.car;const meta=document.createElement('div');meta.className='meta';meta.textContent=`${o.date} · ${o.master||'Мастер не указан'} · ${o.items.length} услуг(и)`;const details=document.createElement('div');details.className='detail';details.textContent=o.items.map(i=>`${i.name} — ${moneyWork(i.price)}`).join(' • ');const total=document.createElement('div');total.className='sum';total.textContent='Итого: '+moneyWork(o.total);const actions=document.createElement('div');actions.className='actions';const edit=document.createElement('button');edit.className='secondary';edit.textContent='Редактировать';edit.onclick=()=>editWorkOrder(o.id);const del=document.createElement('button');del.className='danger';del.textContent='Удалить';del.onclick=()=>deleteWorkOrder(o.id);actions.append(edit,del);card.append(h,meta,details,total,actions);root.append(card)})}
 function editWorkOrder(id){if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const o=workOrders.find(x=>x.id===id);if(!o)return;editingOrderId=id;$('orderCar').value=o.car;$('orderMaster').value=o.master;$('orderDate').value=o.date;workCart=o.items.map(i=>({...i}));$('saveOrder').textContent='Сохранить изменения';$('cancelEdit').classList.remove('hidden');drawWorkCart();switchPage('orders');window.scrollTo({top:0,behavior:'smooth'})}
