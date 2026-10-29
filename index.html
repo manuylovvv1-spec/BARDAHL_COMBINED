@@ -483,7 +483,34 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
 }
 @media(max-width:700px){#bardahl-bg-picker{margin:8px 0 9px 12px;padding:4px 7px;font-size:12px}#bardahl-bg-picker select{width:132px;font-size:12px}body[data-bg-style="motorsport"]::after{width:76%!important}}
 </style>
-</head>
+<style id="bardahl-four-backgrounds-safe">
+/* Four visibly different, self-contained backgrounds. Never affect application controls. */
+#bardahl-bg-picker{position:relative!important;left:auto!important;top:auto!important;transform:none!important;float:none!important;clear:both!important;z-index:8!important;margin:10px 0 14px 0!important;width:max-content!important;max-width:calc(100vw - 28px)!important;box-sizing:border-box!important}
+#bardahl-bg-picker select{width:145px!important;max-width:48vw!important}
+@media(max-width:700px){#bardahl-bg-picker{margin:9px 0 12px 0!important;padding:5px 8px!important}#bardahl-bg-picker select{width:132px!important}}
+body[data-bg-style]::before{position:fixed!important;inset:0!important;content:''!important;display:block!important;pointer-events:none!important;z-index:-2!important}
+body[data-bg-style]::after{position:fixed!important;pointer-events:none!important;z-index:-1!important}
+/* Original strict look: clean graphite without decorations */
+body[data-bg-style=classic]{background:#0c1014!important}
+body[data-bg-style=classic]::before{background:linear-gradient(180deg,#12171c,#090c0f)!important}
+body[data-bg-style=classic]::after{display:none!important}
+body[data-bg-style=classic] header{background:#101419!important;border-bottom:1px solid #333d43!important}
+/* Carbon Pro: fine cross-weave with a restrained small checkered corner */
+body[data-bg-style=carbon]{background:#090d11!important}
+body[data-bg-style=carbon]::before{background:repeating-linear-gradient(35deg,transparent 0 3px,#28323a44 3px 5px,transparent 5px 11px),repeating-linear-gradient(145deg,#0b1014 0 3px,#18232b 3px 6px,#080b0e 6px 12px)!important}
+body[data-bg-style=carbon]::after{width:38%!important;height:19vh!important;opacity:.38!important;filter:grayscale(1)!important}
+body[data-bg-style=carbon] header{background:linear-gradient(90deg,#101820,#19252c,#101820)!important;border-bottom:2px solid #8d9291!important}
+/* Racing Gold: large golden curves and brighter racing flag */
+body[data-bg-style=gold]{background:#0c0a09!important}
+body[data-bg-style=gold]::before{background:radial-gradient(ellipse 85% 35% at 85% 84%,#d49a243f,transparent 75%),radial-gradient(ellipse 80% 30% at 10% 94%,#e1a71e33,transparent 72%),linear-gradient(156deg,transparent 0 67%,#a26d1380 67.2%,#f4cb55 67.6%,#35220d 68%,transparent 69%),linear-gradient(162deg,transparent 0 78%,#e2b330aa 78.2%,#f8d761 78.5%,transparent 79.2%),repeating-linear-gradient(135deg,#0b0d10 0 3px,#17191c 3px 7px,#0a0b0d 7px 13px)!important}
+body[data-bg-style=gold]::after{width:100%!important;height:34vh!important;opacity:.95!important;filter:drop-shadow(0 -8px 18px #efb82466)!important}
+body[data-bg-style=gold] header{background:linear-gradient(115deg,#17100b,#0b0b0d 40%,#25190c)!important;border-bottom:3px solid #ffd43b!important}
+/* Motorsport: bold track bands with bright yellow corner accents, not gold waves */
+body[data-bg-style=motorsport]{background:#101318!important}
+body[data-bg-style=motorsport]::before{background:linear-gradient(124deg,transparent 0 11%,#ffd100 11% 12.6%,#151a1f 12.6% 15%,#ffd100 15% 15.7%,transparent 15.7%),linear-gradient(124deg,transparent 0 79%,#ffd100 79% 80.3%,#191e23 80.3% 82%,#ffd100 82% 82.6%,transparent 82.6%),repeating-linear-gradient(0deg,#141a21 0 22px,#0b0e12 22px 44px)!important}
+body[data-bg-style=motorsport]::after{width:42%!important;height:23vh!important;opacity:.85!important;filter:grayscale(1) contrast(1.25)!important}
+body[data-bg-style=motorsport] header{background:repeating-linear-gradient(135deg,#151b20 0 24px,#20282d 24px 40px,#ffd000 40px 44px,#0e1115 44px 65px)!important;border-bottom:3px solid #ffd000!important}
+</style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -720,9 +747,7 @@ function drawWorkReport(){
  const guestOrders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster('Гость'));
  if(guestOrders.length){const note=document.createElement('div');note.className='leader-note';note.textContent='Заказы «Гость»: '+guestOrders.length+' — включены в общие итоги, но не в рейтинг 9 мастеров.';lr.append(note)}
  const pdfButton=document.createElement('button');pdfButton.type='button';pdfButton.className='secondary';pdfButton.style.marginTop='12px';pdfButton.style.width='100%';pdfButton.textContent='PDF-отчёт руководителя';
- pdfButton.onclick=()=>{const report=window.open('','_blank');if(!report){toast('Разрешите открытие окна для PDF-отчёта');return}const returnUrl=window.location.href;const escPdf=v=>String(v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));const rows=ranked.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+escPdf(r.name)+'</td><td>'+r.services+'</td><td>'+r.orders+'</td><td>'+escPdf(moneyWork(r.sum))+'</td></tr>').join('');report.document.write('<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>BARDAHL — отчёт руководителя</title><style>body{font:14px Arial,sans-serif;color:#111;padding:24px}h1{font-size:24px}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{border:1px solid #aaa;padding:9px;text-align:left}th{background:#eee}p{line-height:1.6}@media print{.report-actions{display:none!important}}.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;margin-bottom:16px}.report-actions button{padding:12px 18px;border:0;border-radius:9px;background:#243b59;color:white;font-size:15px;cursor:pointer}</style></head><body><h1>BARDAHL — статистика мастеров</h1><p>Период: '+escPdf(selectedPeriod.from)+' — '+escPdf(selectedPeriod.to)+'</p><p>Сумма работ: '+escPdf(moneyWork(totalSum))+'<br>Заказов: '+list.length+'<br>Услуг: '+totalServices+'</p><h2>Рейтинг 9 мастеров</h2><table><thead><tr><th>№</th><th>Мастер</th><th>Услуг</th><th>Заказов</th><th>Сумма работ</th></tr></thead><tbody>'+rows+'</tbody></table><p>Отчёт сформирован на основе сохранённых заказов BARDAHL.</p><div class="report-actions"><button id="back-to-app" type="button">← Вернуться в приложение</button><button id="save-report-pdf" type="button">Сохранить PDF</button></div>
-
-</body></html>');report.document.close();const backButton=report.document.getElementById('back-to-app');backButton.onclick=()=>{try{report.close()}catch(e){}setTimeout(()=>{if(!report.closed)report.location.replace(returnUrl)},120)};const saveButton=report.document.getElementById('save-report-pdf');saveButton.onclick=async()=>{const original=saveButton.textContent;saveButton.disabled=true;saveButton.textContent='Создаётся PDF…';try{
+ pdfButton.onclick=()=>{const report=window.open('','_blank');if(!report){toast('Разрешите открытие окна для PDF-отчёта');return}const returnUrl=window.location.href;const escPdf=v=>String(v).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));const rows=ranked.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+escPdf(r.name)+'</td><td>'+r.services+'</td><td>'+r.orders+'</td><td>'+escPdf(moneyWork(r.sum))+'</td></tr>').join('');report.document.write('<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>BARDAHL — отчёт руководителя</title><style>body{font:14px Arial,sans-serif;color:#111;padding:24px}h1{font-size:24px}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{border:1px solid #aaa;padding:9px;text-align:left}th{background:#eee}p{line-height:1.6}@media print{.report-actions{display:none!important}}.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;margin-bottom:16px}.report-actions button{padding:12px 18px;border:0;border-radius:9px;background:#243b59;color:white;font-size:15px;cursor:pointer}</style></head><body><h1>BARDAHL — статистика мастеров</h1><p>Период: '+escPdf(selectedPeriod.from)+' — '+escPdf(selectedPeriod.to)+'</p><p>Сумма работ: '+escPdf(moneyWork(totalSum))+'<br>Заказов: '+list.length+'<br>Услуг: '+totalServices+'</p><h2>Рейтинг 9 мастеров</h2><table><thead><tr><th>№</th><th>Мастер</th><th>Услуг</th><th>Заказов</th><th>Сумма работ</th></tr></thead><tbody>'+rows+'</tbody></table><p>Отчёт сформирован на основе сохранённых заказов BARDAHL.</p><div class="report-actions"><button id="back-to-app" type="button">← Вернуться в приложение</button><button id="save-report-pdf" type="button">Сохранить PDF</button></div></body></html>');report.document.close();const backButton=report.document.getElementById('back-to-app');backButton.onclick=()=>{try{report.close()}catch(e){}setTimeout(()=>{if(!report.closed)report.location.replace(returnUrl)},120)};const saveButton=report.document.getElementById('save-report-pdf');saveButton.onclick=async()=>{const original=saveButton.textContent;saveButton.disabled=true;saveButton.textContent='Создаётся PDF…';try{
 // Offline PDF writer: each A4 page is drawn on canvas with native Cyrillic font.
 const W=1240,H=1754,margin=65;const pages=[];let canvas,ctx,y;
 function page(){canvas=report.document.createElement('canvas');canvas.width=W;canvas.height=H;ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);ctx.fillStyle='#111';y=margin;pages.push(canvas)}
@@ -797,7 +822,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var select=document.createElement('select');select.setAttribute('aria-label','Выбор фона BARDAHL');
  [['classic','Classic'],['carbon','Carbon Pro'],['gold','Racing Gold'],['motorsport','Motorsport']].forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];select.appendChild(o)});
  picker.appendChild(select);
- var main=document.querySelector('main');if(main){main.parentNode.insertBefore(picker,main)}else{document.body.appendChild(picker)}
+ var main=document.querySelector('main');if(main){main.insertBefore(picker,main.firstChild)}else{document.body.appendChild(picker)}
  var selected='gold';try{selected=localStorage.getItem('bardahl-bg-choice')||'gold'}catch(e){}
  if(!['classic','carbon','gold','motorsport'].includes(selected))selected='gold';
  function apply(v){document.body.setAttribute('data-bg-style',v);select.value=v}
