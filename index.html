@@ -403,27 +403,58 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 @media(min-width:650px){#leaderStats .leader-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 <style id="leader-dynamics-style">#leaderStats .leader-dynamics{margin-top:20px;padding:14px;border:1px solid #39434a;border-radius:12px;background:#1d2328}#leaderStats .leader-dynamic-item{padding:10px 0;border-bottom:1px solid #343b40;font-size:13px;line-height:1.5}#leaderStats .leader-dynamic-item:last-child{border:0}</style><style id="bardahl-themes">
-/* Visual-only themes. No queue, data, authorization or layout logic changed. */
-:root[data-bardahl-theme="dark"]{--bg:#090b0e;--panel:#1b2026;--text:#f7f8fa;--muted:#b9c0c8;--yellow:#ffd32b;--line:#3c454f;--green:#36c879;--theme-header:#090b0e;--theme-input:#12171c;--theme-secondary:#29323a;--theme-border:#46515c}
-:root[data-bardahl-theme="midnight"]{--bg:#0a1424;--panel:#15253b;--text:#eef6ff;--muted:#b4c6dd;--yellow:#65c9ff;--line:#344c67;--green:#45d6b1;--theme-header:#08162a;--theme-input:#102039;--theme-secondary:#203c59;--theme-border:#42617e}
-:root[data-bardahl-theme="light"]{--bg:#f3f5f8;--panel:#ffffff;--text:#202630;--muted:#5a6471;--yellow:#edc320;--line:#d2d8e0;--green:#16884d;--theme-header:#ffffff;--theme-input:#ffffff;--theme-secondary:#e9edf3;--theme-border:#c4ccd6}
-:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) header{background:var(--theme-header)}
+/* Visual skins only; Classic inherits every original rule. */
+:root[data-bardahl-theme="racing"]{--bg:#0b0d0f;--panel:#1b1d20;--text:#f7f7f7;--muted:#b9bdc0;--yellow:#f8cf16;--line:#44464b;--green:#39c77c;--skin-head:#0b0b0c;--skin-field:#17191b;--skin-alt:#25272a;--skin-border:#505157;--skin-row:#222326;--skin-radius:3px;--skin-shadow:none;--skin-table:#17191c;--skin-accent-text:#161616}
+:root[data-bardahl-theme="midnight"]{--bg:#09162b;--panel:#152b48;--text:#eff7ff;--muted:#b7cce4;--yellow:#61caff;--line:#355777;--green:#59d8b4;--skin-head:#0a1d38;--skin-field:#0f2340;--skin-alt:#1c3b5d;--skin-border:#466b90;--skin-row:#193452;--skin-radius:15px;--skin-shadow:0 5px 18px #0004;--skin-table:#1b3655;--skin-accent-text:#102235}
+:root[data-bardahl-theme="titanium"]{--bg:#151c1e;--panel:#2a3335;--text:#f4f7f6;--muted:#bdc9c5;--yellow:#68d8ac;--line:#51605e;--green:#76dfa9;--skin-head:#1b2426;--skin-field:#202b2d;--skin-alt:#374345;--skin-border:#63716e;--skin-row:#303c3d;--skin-radius:9px;--skin-shadow:0 4px 12px #0005;--skin-table:#344143;--skin-accent-text:#10271d}
+:root[data-bardahl-theme="arctic"]{--bg:#e9edf2;--panel:#fff;--text:#202934;--muted:#526273;--yellow:#e7b500;--line:#cbd4df;--green:#168853;--skin-head:#f8fafc;--skin-field:#fff;--skin-alt:#edf1f6;--skin-border:#b9c7d5;--skin-row:#f3f6fa;--skin-radius:12px;--skin-shadow:0 4px 15px #273d5217;--skin-table:#e7edf4;--skin-accent-text:#1c242d}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) header{background:var(--skin-head);border-bottom-color:var(--yellow)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .card,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .work-order,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .leader-detail-order,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .master-panel,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #leaderStats .leader-dynamics{background:var(--panel);border-color:var(--line);border-radius:var(--skin-radius);box-shadow:var(--skin-shadow)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) button:not(.service-choice):not(.service-remove),
 :root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) input,
 :root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) select,
-:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) textarea{background:var(--theme-input);color:var(--text);border-color:var(--theme-border)}
-:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .secondary{background:var(--theme-secondary);color:var(--text);border-color:var(--theme-border)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) textarea{border-radius:var(--skin-radius)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) input,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) select,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) textarea,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #ordersPage input,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #ordersPage select,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #ordersPage textarea{background:var(--skin-field);color:var(--text);border-color:var(--skin-border)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .secondary,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .leader-period-btn:not(.selected),
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .service-btn:not(.service-choice):not(.done-service){background:var(--skin-alt);color:var(--text);border:1px solid var(--skin-border)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .primary,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #tabQueue.primary,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #tabOrders.primary,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) #ordersPage #addWork,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .leader-period-btn.selected{background:var(--yellow);color:var(--skin-accent-text);border-color:var(--yellow)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .queue-table th{background:var(--skin-table);color:var(--text);border-color:var(--line)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .queue-table td{border-color:var(--line);color:var(--text)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .queue-table tbody tr:nth-child(even):not(.mine){background:var(--skin-row)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .queue-table tr.mine{background:var(--skin-alt)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .queue-name-mini{color:var(--text)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .stat,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .empty,
 :root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .banner,
-:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .round-dot.no{background:var(--theme-secondary);color:var(--text)}
-:root[data-bardahl-theme="light"] .brand,:root[data-bardahl-theme="light"] header{color:#202630}
-:root[data-bardahl-theme="light"] .queue-table th,:root[data-bardahl-theme="light"] .queue-table td{color:var(--text)}
-:root[data-bardahl-theme="light"] .queue-name-mini{color:#596576}
-:root[data-bardahl-theme="light"] .primary{color:#151515}
-#bardahlThemeControl{display:flex;align-items:center;justify-content:flex-end;gap:7px;max-width:760px;margin:0 auto;padding:5px 14px 0;font-size:12px;color:var(--muted)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .empty-service-slot{background:var(--skin-alt);border-color:var(--skin-border);color:var(--text)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .service-chip,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .service-choice{border-radius:var(--skin-radius)}
+:root[data-bardahl-theme="arctic"] .brand{color:#a47a00}
+:root[data-bardahl-theme="arctic"] .service-none,:root[data-bardahl-theme="arctic"] .queue-meta{color:#536273}
+:root[data-bardahl-theme="arctic"] #queuePage>.row:has(#logoutBtn){background:#fff;border-color:var(--line)}
+:root[data-bardahl-theme="arctic"] #logoutBtn{color:#a62432}
+:root[data-bardahl-theme="arctic"] .car-picker-list{background:#fff;color:#202934;border-color:#b9c7d5}
+:root[data-bardahl-theme="racing"] .primary{clip-path:polygon(0 0,96% 0,100% 18%,100% 100%,4% 100%,0 82%)}
+#bardahlThemeControl{display:flex;align-items:center;justify-content:flex-start;gap:7px;max-width:760px;margin:0 auto;padding:7px 14px 0;font-size:12px;color:var(--muted)}
 #bardahlThemeControl label{margin:0;font-size:12px;white-space:nowrap}
-#bardahlThemeSelect{width:auto;min-height:32px;padding:4px 26px 4px 8px;border-radius:8px;font-size:12px}
+#bardahlThemeSelect{width:auto;max-width:190px;min-height:34px;padding:5px 25px 5px 9px;border-radius:8px;font-size:12px}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
-<div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="dark">Dark</option><option value="midnight">Midnight</option><option value="light">Light</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
+<div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="racing">Racing</option><option value="midnight">Midnight Pro</option><option value="titanium">Titanium</option><option value="arctic">Arctic</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
 <section class="card hidden" id="passwordChangeCard"><h2>Смените временный пароль</h2><p class="small">Для продолжения придумайте постоянный пароль длиной не менее 10 символов.</p><label for="newPassword">Новый пароль</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10"><label for="confirmPassword">Повторите пароль</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10"><button id="changePasswordBtn" class="primary" style="width:100%;margin-top:12px">Сохранить новый пароль</button></section>
 <section id="app" class="hidden">
@@ -721,7 +752,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
 </script><script id="bardahl-theme-script">
 (function(){
  const KEY='bardahl_ui_theme_v1';
- const allowed=['classic','dark','midnight','light'];
+ const allowed=['classic','racing','midnight','titanium','arctic'];
  const picker=document.getElementById('bardahlThemeSelect');
  function setTheme(value){
    const theme=allowed.includes(value)?value:'classic';
@@ -729,9 +760,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
    if(picker) picker.value=theme;
    try{localStorage.setItem(KEY,theme)}catch(e){}
    const meta=document.querySelector('meta[name="theme-color"]');
-   if(meta)meta.setAttribute('content',({classic:'#111111',dark:'#090b0e',midnight:'#08162a',light:'#ffffff'})[theme]);
+   if(meta)meta.setAttribute('content',({classic:'#111111',racing:'#0b0d0f',midnight:'#0a1d38',titanium:'#1b2426',arctic:'#f8fafc'})[theme]);
  }
- let initial='classic';try{initial=localStorage.getItem(KEY)||'classic'}catch(e){}
+ let initial='classic';try{initial=localStorage.getItem(KEY)||'classic'}catch(e){};if(initial==='dark')initial='racing';if(initial==='light')initial='arctic';
  setTheme(initial);
  if(picker)picker.addEventListener('change',function(){setTheme(this.value)});
 })();
