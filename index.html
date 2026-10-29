@@ -452,6 +452,60 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #bardahlThemeControl{display:flex;align-items:center;justify-content:flex-start;gap:7px;max-width:760px;margin:0 auto;padding:7px 14px 0;font-size:12px;color:var(--muted)}
 #bardahlThemeControl label{margin:0;font-size:12px;white-space:nowrap}
 #bardahlThemeSelect{width:auto;max-width:190px;min-height:34px;padding:5px 25px 5px 9px;border-radius:8px;font-size:12px}
+
+/* Racing concept v3: visual-only layer, no markup or application logic changes. */
+:root[data-bardahl-theme="racing"] body{
+ background-color:#080a0c!important;
+ background-image:linear-gradient(125deg,transparent 0 72%,rgba(255,206,0,.08) 72.2%,transparent 73.3%),repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0 2px,transparent 2px 8px),radial-gradient(ellipse at 70% 0%,#25292b 0%,#080a0c 62%)!important;
+ background-attachment:fixed!important;color:#f8f8f8!important}
+:root[data-bardahl-theme="racing"] header{background:repeating-linear-gradient(130deg,#111416 0 8px,#1c2022 8px 13px,#0a0c0e 13px 19px)!important;border-bottom:3px solid #ffd000!important;box-shadow:0 7px 26px #000b!important}
+:root[data-bardahl-theme="racing"] header .brand{color:#ffcf00!important;text-shadow:0 2px 13px #e8b90055!important}
+:root[data-bardahl-theme="racing"] .card,
+:root[data-bardahl-theme="racing"] .work-order,
+:root[data-bardahl-theme="racing"] .leader-detail-order,
+:root[data-bardahl-theme="racing"] .master-panel,
+:root[data-bardahl-theme="racing"] #leaderStats .leader-dynamics{
+ background:linear-gradient(145deg,#22272b 0%,#0d1013 62%,#191d21 100%)!important;
+ border:1px solid #aa8a16!important;border-left:3px solid #ffcd00!important;
+ border-radius:9px!important;box-shadow:inset 0 1px 0 #ffffff25,0 9px 24px #0009,0 0 0 1px #161616!important}
+:root[data-bardahl-theme="racing"] .card h2,
+:root[data-bardahl-theme="racing"] .work-order h3{color:#fff!important;text-shadow:0 1px 2px #000!important}
+:root[data-bardahl-theme="racing"] #tabQueue,
+:root[data-bardahl-theme="racing"] #tabOrders,
+:root[data-bardahl-theme="racing"] .primary,
+:root[data-bardahl-theme="racing"] #ordersPage #addWork{
+ clip-path:polygon(3% 0,96% 0,100% 18%,100% 83%,97% 100%,3% 100%,0 83%,0 18%)!important;
+ border:2px solid #ffd000!important;border-radius:0!important;
+ box-shadow:inset 0 2px 0 #ffffff55,inset 0 -5px 0 #0003,0 5px 14px #0009!important;
+ font-weight:800!important;letter-spacing:.15px!important}
+:root[data-bardahl-theme="racing"] #tabQueue.primary,
+:root[data-bardahl-theme="racing"] #tabOrders.primary,
+:root[data-bardahl-theme="racing"] .primary,
+:root[data-bardahl-theme="racing"] #ordersPage #addWork{
+ background:linear-gradient(165deg,#fff070 0%,#ffcf00 35%,#e4a900 100%)!important;color:#111!important}
+:root[data-bardahl-theme="racing"] #tabQueue:not(.primary),
+:root[data-bardahl-theme="racing"] #tabOrders:not(.primary){background:linear-gradient(155deg,#30363b,#101316)!important;color:#f5f5f5!important;border-color:#778089!important}
+:root[data-bardahl-theme="racing"] button:active{filter:brightness(1.16);transform:translateY(1px)}
+:root[data-bardahl-theme="racing"] .queue-table th{background:linear-gradient(180deg,#30363a,#111519)!important;color:#ffe071!important;border-bottom:2px solid #b28e00!important}
+:root[data-bardahl-theme="racing"] .queue-table td{background:linear-gradient(150deg,#1d2125,#101316)!important;border-color:#52575b!important}
+:root[data-bardahl-theme="racing"] .queue-table tr.mine td{background:linear-gradient(145deg,#342b0b,#181b1e)!important}
+:root[data-bardahl-theme="racing"] #countPill{background:linear-gradient(#ffed65,#f3b900)!important;box-shadow:0 0 0 2px #8b6c00,0 2px 8px #0008!important}
+:root[data-bardahl-theme="racing"] .service-choice,
+:root[data-bardahl-theme="racing"] .service-btn.service-choice{border-width:2px!important;border-radius:12px!important;box-shadow:inset 0 2px 7px #ffffff25,0 4px 14px #000a!important}
+:root[data-bardahl-theme="racing"] .service-choice.done-service{outline:3px solid #ffdb00!important;outline-offset:3px!important;filter:brightness(1.12)}
+:root[data-bardahl-theme="racing"] input,
+:root[data-bardahl-theme="racing"] select,
+:root[data-bardahl-theme="racing"] textarea{background:linear-gradient(160deg,#242a2e,#111416)!important;color:#fff!important;border:1px solid #8b791f!important;border-radius:7px!important}
+:root[data-bardahl-theme="racing"] input::placeholder,
+:root[data-bardahl-theme="racing"] textarea::placeholder{color:#bfc5ca!important;opacity:1!important}
+:root[data-bardahl-theme="racing"] .secondary{background:linear-gradient(160deg,#30373b,#141719)!important;color:#fff!important;border:1px solid #7e8388!important;box-shadow:inset 0 1px #ffffff28,0 3px 7px #0008!important}
+:root[data-bardahl-theme="racing"] .work-order,
+:root[data-bardahl-theme="racing"] .leader-detail-order{border-top:2px solid #ffd000!important}
+:root[data-bardahl-theme="racing"] .work-order button,
+:root[data-bardahl-theme="racing"] #ordersPage button{font-weight:700}
+:root[data-bardahl-theme="racing"] #bardahlThemeControl{background:linear-gradient(90deg,#181b1e,#0d0f11)!important;border-left:3px solid #ffd000!important;padding-bottom:7px!important}
+@media(prefers-reduced-motion:no-preference){:root[data-bardahl-theme="racing"] button{transition:filter .14s ease,transform .14s ease!important}}
+
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="racing">Racing</option><option value="midnight">Midnight Pro</option><option value="titanium">Titanium</option><option value="arctic">Arctic</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
