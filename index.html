@@ -636,18 +636,15 @@ header{position:relative!important}
   body[data-bg-style]::after{bottom:0!important;right:0!important;}
   body > header{position:relative!important;top:auto!important;z-index:2!important;}
 }
-</style>
-<style id="bardahl-ios-blur-isolation-test">
-/* DIAGNOSTIC ONLY: eliminate all decorative compositing surfaces on iPhone. */
+</style><style id="bardahl-ios-native-scroll-test">
+/* Diagnostic: restore native document scrolling on iOS without changing artwork. */
 @media screen and (max-width:700px){
- html,body,body[data-bg-style]{background:#10161c!important;background-image:none!important;overscroll-behavior-y:auto!important;}
- body,body[data-bg-style]{isolation:auto!important;overflow-x:hidden!important;}
- body::before,body::after,body[data-bg-style]::before,body[data-bg-style]::after{content:none!important;display:none!important;filter:none!important;-webkit-filter:none!important;mask:none!important;-webkit-mask:none!important;}
- body>header,html body[data-bg-style]>header{position:relative!important;background:#10161c!important;background-image:none!important;transform:none!important;filter:none!important;-webkit-filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;isolation:auto!important;}
- body>header::before,body>header::after{content:none!important;display:none!important;}
+  html {overflow-x:visible!important;overflow-y:auto!important;overscroll-behavior:auto!important;height:auto!important;}
+  body {overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;overscroll-behavior:auto!important;isolation:auto!important;min-height:100vh!important;}
+  body > header {position:relative!important;}
+  #queueTableCard .table-wrap {overflow-x:auto!important;-webkit-overflow-scrolling:touch;}
 }
-</style>
-</head>
+</style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
