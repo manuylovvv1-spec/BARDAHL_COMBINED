@@ -636,6 +636,35 @@ header{position:relative!important}
   body[data-bg-style]::after{bottom:0!important;right:0!important;}
   body > header{position:relative!important;top:auto!important;z-index:2!important;}
 }
+</style><style id="bardahl-ios-scroll-background-stable-v2">
+/* iPhone: paint the carbon on the page itself, not on a composited pseudo-layer.
+   The flag stays in the document, without Safari's GPU mask compositing. */
+@media screen and (max-width:700px){
+ html{background:#0b0e12!important;overscroll-behavior-y:auto!important}
+ body,body[data-bg-style]{isolation:auto!important;position:relative!important;min-height:100dvh!important;
+   background-color:#0b0e12!important;
+   background-image:repeating-linear-gradient(135deg,rgba(36,43,49,.16) 0 2px,transparent 2px 9px),linear-gradient(145deg,#080b0e,#11161b)!important;
+   background-attachment:scroll!important;background-repeat:repeat!important;
+   -webkit-transform:none!important;transform:none!important;filter:none!important;
+ }
+ body[data-bg-style="classic"]{background:#0d1013!important}
+ body[data-bg-style="carbon"]{background-image:repeating-linear-gradient(132deg,#11171c 0 2px,#090d11 2px 7px,#10151a 7px 9px)!important}
+ body[data-bg-style="gold"]{background-image:repeating-linear-gradient(135deg,rgba(64,47,19,.15) 0 2px,transparent 2px 9px),linear-gradient(145deg,#090b0d,#20170d)!important}
+ body[data-bg-style="motorsport"]{background-image:repeating-linear-gradient(130deg,transparent 0 36px,rgba(255,208,0,.11) 36px 40px,transparent 40px 80px),linear-gradient(145deg,#10151b,#0b0e12)!important}
+ body[data-bg-style]::before{content:none!important;display:none!important}
+ body[data-bg-style]::after{
+   position:absolute!important;inset:auto 0 0 auto!important;
+   -webkit-mask-image:none!important;mask-image:none!important;
+   -webkit-mask-composite:initial!important;mask-composite:initial!important;
+   filter:none!important;-webkit-filter:none!important;
+   transform:none!important;-webkit-transform:none!important;
+   will-change:auto!important;pointer-events:none!important;
+   opacity:.30!important;z-index:0!important;
+ }
+ body[data-bg-style="classic"]::after{display:none!important}
+ body > header{position:relative!important;z-index:2!important;background:#10161c!important;background-image:none!important}
+ body > main,body > footer{position:relative;z-index:1}
+}
 </style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
