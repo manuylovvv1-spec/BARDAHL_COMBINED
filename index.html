@@ -557,6 +557,18 @@ header{position:relative!important}
  #bardahl-palette-button svg{width:17px!important;height:17px!important;display:block!important}
  #bardahl-palette-menu{top:calc(100% + 12px)!important;right:0!important}
 }
+</style><style id="bardahl-mobile-header-crisp-fix">
+/* Only the mobile header lettering and logo: remove the remaining glow. */
+@media (max-width:700px){
+ header .brandmark,header .brandmark .brand,header .sub{
+  filter:none!important;-webkit-filter:none!important;
+  text-shadow:none!important;opacity:1!important;
+  transform:none!important;-webkit-transform:none!important;
+  -webkit-font-smoothing:antialiased!important;
+ }
+ header .brandmark .brand{color:#ffd316!important;font-weight:900!important}
+ header .brandmark img{filter:none!important;-webkit-filter:none!important;opacity:1!important;image-rendering:auto!important}
+}
 </style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
