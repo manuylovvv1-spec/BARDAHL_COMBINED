@@ -620,6 +620,22 @@ header{position:relative!important}
  html body > header .brandmark,html body > header .brandmark .brand,html body > header .sub{filter:none!important;-webkit-filter:none!important;text-shadow:none!important;transform:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
  html body > header{background:#10161c!important;background-image:none!important;}
 }
+</style><style id="bardahl-ios-scroll-compositing-fix">
+/* iOS Safari: fixed, masked background pseudo-elements create composited
+   surfaces that can smear the header during rubber-band scrolling.
+   Keep the same background artwork but render it in normal page coordinates. */
+@media screen and (max-width:700px){
+  html{background:#10161c;}
+  body{position:relative;min-height:100vh;isolation:isolate;}
+  body[data-bg-style]::before,body[data-bg-style]::after{
+    position:absolute!important;
+    -webkit-transform:none!important;transform:none!important;
+    will-change:auto!important;
+  }
+  body[data-bg-style]::before{inset:0!important;}
+  body[data-bg-style]::after{bottom:0!important;right:0!important;}
+  body > header{position:relative!important;top:auto!important;z-index:2!important;}
+}
 </style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
