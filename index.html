@@ -442,6 +442,37 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
 .swatch-gold{background:linear-gradient(145deg,#1a160b,#8c6513,#14100b)}.swatch-motorsport{background:repeating-linear-gradient(130deg,#10151b 0 9px,#ffd000 9px 14px,#20272d 14px 22px)}
 @media(max-width:700px){header{position:sticky}.brandmark{padding-right:40px}#bardahl-bg-picker{position:absolute;right:10px;top:50%;transform:translateY(-50%)}#bardahl-palette-button{width:31px;height:31px;min-height:31px}#bardahl-palette-button svg{width:17px;height:17px}}
 </style>
+
+<style id="bardahl-manager-queue-refinement">
+/* Manager queue only: narrow actions, wider rounds, original pictograms. */
+#queueTableCard .queue-table{width:100%!important;min-width:1060px!important;table-layout:fixed!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:76px!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:51px!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:auto!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table th.queue-action-cell,#queueTableCard .queue-table td.queue-action-cell,#queueTableCard .queue-table th#queueActionHead{width:68px!important;min-width:68px!important;max-width:68px!important;padding:3px!important}
+#queueTableCard .remove-master-btn{width:36px!important;height:34px!important;min-height:34px!important;min-width:36px!important;padding:0!important;font-size:20px!important;font-weight:800!important;line-height:1!important;border-radius:8px!important}
+#queueTableCard .queue-table tbody tr{height:66px!important}
+#queueTableCard .service-chip{width:100%!important;max-width:none!important;height:54px!important;min-height:54px!important;padding:5px 17px 5px 7px!important;gap:6px!important;overflow:hidden!important}
+#queueTableCard .service-chip .chip-symbol{width:33px!important;height:39px!important;flex:0 0 33px!important}
+#queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:33px!important;height:39px!important;object-fit:contain!important}
+#queueTableCard .chip-copy{display:flex!important;flex:1!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:4px!important;min-width:0!important;font-size:12px!important;line-height:1.1!important}
+#queueTableCard .chip-copy > span{font-size:12px!important;font-weight:800!important;white-space:nowrap!important;overflow:visible!important}
+#queueTableCard .chip-copy small{font-size:13px!important;font-weight:900!important;color:#ffe25b!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}
+#queueTableCard .empty-service-slot{height:54px!important;min-height:54px!important}
+@media(max-width:600px){
+ #queueTableCard .queue-table{min-width:920px!important;width:920px!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:54px!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:39px!important}
+ #queueTableCard .queue-table th#queueActionHead,#queueTableCard .queue-table td.queue-action-cell{width:53px!important;min-width:53px!important;max-width:53px!important}
+ #queueTableCard .service-chip{height:46px!important;min-height:46px!important;padding:4px 14px 4px 4px!important;gap:3px!important}
+ #queueTableCard .service-chip .chip-symbol{width:24px!important;height:31px!important;flex:0 0 24px!important}
+ #queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:24px!important;height:31px!important}
+ #queueTableCard .chip-copy > span{font-size:10px!important}
+ #queueTableCard .chip-copy small{font-size:11px!important}
+ #queueTableCard .empty-service-slot{height:46px!important;min-height:46px!important}
+ #queueTableCard .remove-master-btn{width:30px!important;height:30px!important;min-height:30px!important;min-width:30px!important}
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -509,7 +540,7 @@ function render(){
  const ordered=members.filter(m=>m.position!==null&&m.position!==undefined&&m.box!==null&&m.box!==undefined).slice().sort((a,b)=>Number(a.position)-Number(b.position)||Number(a.box)-Number(b.box));
  $('countPill').textContent=ordered.length;
  $('managerActions').classList.toggle('hidden',!isManager);$('queueActionHead').classList.toggle('hidden',!isManager);
- $('queue').innerHTML=ordered.length?ordered.map(m=>{const logs=snapshot.services.filter(x=>x.master_name===m.name).slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||Number(a.id)-Number(b.id));const cells=Array.from({length:6},(_,i)=>{const log=logs[i]||null;const service=log?log.service:'';const mayRemove=log&&(isManager||(m.name===me&&role==='master'));const kind=service==='АКПП'?'akpp':service==='Антифриз'?'antifriz':'haldex';const tm=log&&log.created_at?new Date(log.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'';return '<td>'+(log?'<div class="service-chip '+kind+'" title="'+esc(service)+'"><span class="chip-symbol">'+queueServiceIcon(kind)+'</span><span class="chip-copy"><span>'+esc(service)+'</span><small>'+esc(tm)+'</small></span>'+(mayRemove?'<button type="button" class="service-remove" data-action="remove-service" data-log-id="'+esc(log.id)+'" title="Убрать услугу" aria-label="Убрать услугу '+esc(service)+'">×</button>':'')+'</div>':'<div class="empty-service-slot">–</div>')+'</td>'}).join('');return '<tr class="'+(m.name===me?'mine':'')+'"><td><div class="queue-position-number">№'+Number(m.position)+'</div><div class="queue-name-mini">'+esc(m.name)+'</div></td><td><div class="queue-box-number">№ '+Number(m.box)+'</div></td>'+cells+(isManager?'<td class="queue-action-cell"><button type="button" class="remove-master-btn" data-action="remove-master" data-master="'+esc(m.name)+'" aria-label="Освободить место в очереди">✕ Убрать место</button></td>':'')+'</tr>' }).join(''):'<tr><td class="queue-empty" colspan="9">Пока нет занятых мест в очереди.</td></tr>';
+ $('queue').innerHTML=ordered.length?ordered.map(m=>{const logs=snapshot.services.filter(x=>x.master_name===m.name).slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||Number(a.id)-Number(b.id));const cells=Array.from({length:6},(_,i)=>{const log=logs[i]||null;const service=log?log.service:'';const mayRemove=log&&(isManager||(m.name===me&&role==='master'));const kind=service==='АКПП'?'akpp':service==='Антифриз'?'antifriz':'haldex';const tm=log&&log.created_at?new Date(log.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'';return '<td>'+(log?'<div class="service-chip '+kind+'" title="'+esc(service)+'"><span class="chip-symbol">'+queueServiceIcon(kind)+'</span><span class="chip-copy"><span>'+esc(service)+'</span><small>'+esc(tm)+'</small></span>'+(mayRemove?'<button type="button" class="service-remove" data-action="remove-service" data-log-id="'+esc(log.id)+'" title="Убрать услугу" aria-label="Убрать услугу '+esc(service)+'">×</button>':'')+'</div>':'<div class="empty-service-slot">–</div>')+'</td>'}).join('');return '<tr class="'+(m.name===me?'mine':'')+'"><td><div class="queue-position-number">№'+Number(m.position)+'</div><div class="queue-name-mini">'+esc(m.name)+'</div></td><td><div class="queue-box-number">№ '+Number(m.box)+'</div></td>'+cells+(isManager?'<td class="queue-action-cell"><button type="button" class="remove-master-btn" data-action="remove-master" data-master="'+esc(m.name)+'" aria-label="Освободить место в очереди" title="Убрать место">✕</button></td>':'')+'</tr>' }).join(''):'<tr><td class="queue-empty" colspan="9">Пока нет занятых мест в очереди.</td></tr>';
  const member=!!mine,positioned=!!(mine&&mine.position!==null&&mine.position!==undefined&&mine.box!==null&&mine.box!==undefined);
  $('positionCard').classList.toggle('hidden',role!=='master'||(member&&positioned&&!positionEditorOpen));
  if(role==='master'&&!positioned)positionEditorOpen=true;
