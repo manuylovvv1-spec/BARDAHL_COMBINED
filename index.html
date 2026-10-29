@@ -506,6 +506,39 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 :root[data-bardahl-theme="racing"] #bardahlThemeControl{background:linear-gradient(90deg,#181b1e,#0d0f11)!important;border-left:3px solid #ffd000!important;padding-bottom:7px!important}
 @media(prefers-reduced-motion:no-preference){:root[data-bardahl-theme="racing"] button{transition:filter .14s ease,transform .14s ease!important}}
 
+
+/* BARDAHL Racing approved concept — CSS-only, isolated to Racing. */
+:root[data-bardahl-theme="racing"] body{
+ background-color:#07090b!important;
+ background-image:repeating-linear-gradient(125deg,transparent 0 5px,#ffffff06 5px 7px,transparent 7px 12px),linear-gradient(135deg,#e5b40016 0 1%,transparent 1% 74%,#e5b40012 74.5%,transparent 76%),radial-gradient(ellipse at 70% 5%,#22272b,#080a0c 65%)!important;
+ background-attachment:fixed!important;
+}
+:root[data-bardahl-theme="racing"] header{position:relative;background:repeating-linear-gradient(135deg,#13171a 0 5px,#0b0e11 5px 10px)!important;overflow:hidden;border-bottom:3px solid #ffd400!important}
+:root[data-bardahl-theme="racing"] header:before{content:"";position:absolute;left:-25px;top:0;width:110px;height:100%;pointer-events:none;background:repeating-linear-gradient(130deg,transparent 0 17px,#ffd000 17px 28px,#141414 28px 34px,transparent 34px 51px);opacity:.9;transform:skewX(-10deg)}
+:root[data-bardahl-theme="racing"] header:after{content:"";position:absolute;right:4px;top:5px;width:75px;height:65px;opacity:.22;pointer-events:none;background:conic-gradient(#fff 25%,transparent 0 50%,#fff 0 75%,transparent 0) 0 0/24px 24px;transform:skewX(-16deg)}
+:root[data-bardahl-theme="racing"] header .brand{color:#ffda00!important;text-shadow:0 2px 12px #ffc9006b!important}
+:root[data-bardahl-theme="racing"] #bardahlThemeControl{border-left:0!important;background:linear-gradient(105deg,#0b0e10,#25201a 70%,#100f0d)!important;border-bottom:1px solid #a78a2d;padding:8px 14px!important}
+:root[data-bardahl-theme="racing"] #bardahlThemeSelect{border:1px solid #ffce00!important;box-shadow:inset 0 1px #ffffff35,0 0 9px #ffc40022!important}
+:root[data-bardahl-theme="racing"] .card,:root[data-bardahl-theme="racing"] .work-order,:root[data-bardahl-theme="racing"] .leader-detail-order{position:relative;background:linear-gradient(125deg,#181d21 0%,#090c0f 58%,#202327 100%)!important;border:1px solid #a88c2a!important;border-top:2px solid #ffcf00!important;border-radius:14px!important;box-shadow:inset 0 1px #ffffff22,0 7px 16px #000a,0 0 9px #ffca0012!important}
+:root[data-bardahl-theme="racing"] #myPanelCard{background-image:linear-gradient(120deg,#171b1e,#080a0d 62%),repeating-linear-gradient(135deg,#fff1 0 2px,transparent 2px 9px)!important}
+:root[data-bardahl-theme="racing"] #tabQueue,:root[data-bardahl-theme="racing"] #tabOrders,:root[data-bardahl-theme="racing"] .primary,:root[data-bardahl-theme="racing"] .secondary{border-radius:0!important;clip-path:polygon(5% 0,96% 0,100% 18%,100% 82%,96% 100%,5% 100%,0 82%,0 18%)!important}
+:root[data-bardahl-theme="racing"] #tabQueue.primary,:root[data-bardahl-theme="racing"] #tabOrders.primary,:root[data-bardahl-theme="racing"] .primary{background:linear-gradient(170deg,#fff27a 0%,#ffdc00 30%,#e6a700 100%)!important;color:#101010!important;border:2px solid #ffe900!important;box-shadow:inset 0 2px #ffffff88,inset 0 -5px #ae780055,0 0 15px #ffd00055!important}
+:root[data-bardahl-theme="racing"] #tabQueue:not(.primary),:root[data-bardahl-theme="racing"] #tabOrders:not(.primary){background:linear-gradient(155deg,#34393e,#0a0e12)!important;border:2px solid #818b92!important;color:#f7f7f7!important}
+:root[data-bardahl-theme="racing"] .queue-table th{background:linear-gradient(#282e34,#0a0c0e)!important;color:#fff!important;border-color:#687079!important}
+:root[data-bardahl-theme="racing"] .queue-table td{background:linear-gradient(145deg,#1b2024,#0e1114)!important;border-color:#50565b!important}
+:root[data-bardahl-theme="racing"] #queueTableCard h2{border-bottom:1px solid #d8a900;padding-bottom:9px!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions{gap:9px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice{position:relative;isolation:isolate;overflow:hidden;width:min(100%,116px)!important;height:auto!important;min-height:0!important;aspect-ratio:1/1!important;padding:10px!important;border:3px solid #ffd600!important;border-radius:0!important;clip-path:polygon(15% 0,85% 0,100% 15%,100% 85%,85% 100%,15% 100%,0 85%,0 15%)!important;background:radial-gradient(circle at 50% 75%,#574008,#171204 78%)!important;box-shadow:inset 0 0 0 3px #211a08,inset 0 0 22px #ffdb0050,0 0 15px #ffcf0050!important;display:flex!important;align-items:center!important;justify-content:center!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice.antifriz{background:radial-gradient(circle at 50% 75%,#710e1b,#210409 80%)!important;border-color:#ff394c!important;box-shadow:inset 0 0 0 3px #2b070e,inset 0 0 20px #ff2c4650,0 0 13px #ff304955!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice.haldex{background:radial-gradient(circle at 50% 75%,#006439,#002616 80%)!important;border-color:#08e982!important;box-shadow:inset 0 0 0 3px #002c18,inset 0 0 20px #00ef8550,0 0 13px #00ed8555!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-choice .choice-copy{display:none!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-choice .chip-symbol{display:flex!important;align-items:center!important;justify-content:center!important;width:72%!important;height:72%!important;flex:0 0 72%!important;filter:drop-shadow(0 2px 3px #000b)}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-choice .chip-symbol img,:root[data-bardahl-theme="racing"] #myPanelCard .service-choice .chip-symbol svg{width:100%!important;height:100%!important;object-fit:contain!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-choice.done-service{outline:3px solid #fff!important;outline-offset:3px!important;filter:brightness(1.15)!important}
+:root[data-bardahl-theme="racing"] input,:root[data-bardahl-theme="racing"] select,:root[data-bardahl-theme="racing"] textarea{background:#101418!important;color:#fff!important;border:1px solid #9b873b!important}
+:root[data-bardahl-theme="racing"] .work-order,:root[data-bardahl-theme="racing"] .leader-detail-order{border-top:2px solid #ffd400!important}
+@media(max-width:600px){:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice{width:min(100%,105px)!important;padding:7px!important}}
+@media(prefers-reduced-motion:no-preference){:root[data-bardahl-theme="racing"] button{transition:filter .15s ease,transform .15s ease!important}:root[data-bardahl-theme="racing"] button:active{filter:brightness(1.18);transform:scale(.98)}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="racing">Racing</option><option value="midnight">Midnight Pro</option><option value="titanium">Titanium</option><option value="arctic">Arctic</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
