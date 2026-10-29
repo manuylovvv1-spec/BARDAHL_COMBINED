@@ -402,9 +402,28 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #leaderStats .leader-note{font-size:11px;color:#aeb3b8;margin-top:8px}
 @media(min-width:650px){#leaderStats .leader-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
-<style id="leader-dynamics-style">#leaderStats .leader-dynamics{margin-top:20px;padding:14px;border:1px solid #39434a;border-radius:12px;background:#1d2328}#leaderStats .leader-dynamic-item{padding:10px 0;border-bottom:1px solid #343b40;font-size:13px;line-height:1.5}#leaderStats .leader-dynamic-item:last-child{border:0}</style></head>
+<style id="leader-dynamics-style">#leaderStats .leader-dynamics{margin-top:20px;padding:14px;border:1px solid #39434a;border-radius:12px;background:#1d2328}#leaderStats .leader-dynamic-item{padding:10px 0;border-bottom:1px solid #343b40;font-size:13px;line-height:1.5}#leaderStats .leader-dynamic-item:last-child{border:0}</style><style id="bardahl-themes">
+/* Visual-only themes. No queue, data, authorization or layout logic changed. */
+:root[data-bardahl-theme="dark"]{--bg:#090b0e;--panel:#1b2026;--text:#f7f8fa;--muted:#b9c0c8;--yellow:#ffd32b;--line:#3c454f;--green:#36c879;--theme-header:#090b0e;--theme-input:#12171c;--theme-secondary:#29323a;--theme-border:#46515c}
+:root[data-bardahl-theme="midnight"]{--bg:#0a1424;--panel:#15253b;--text:#eef6ff;--muted:#b4c6dd;--yellow:#65c9ff;--line:#344c67;--green:#45d6b1;--theme-header:#08162a;--theme-input:#102039;--theme-secondary:#203c59;--theme-border:#42617e}
+:root[data-bardahl-theme="light"]{--bg:#f3f5f8;--panel:#ffffff;--text:#202630;--muted:#5a6471;--yellow:#edc320;--line:#d2d8e0;--green:#16884d;--theme-header:#ffffff;--theme-input:#ffffff;--theme-secondary:#e9edf3;--theme-border:#c4ccd6}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) header{background:var(--theme-header)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) input,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) select,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) textarea{background:var(--theme-input);color:var(--text);border-color:var(--theme-border)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .secondary{background:var(--theme-secondary);color:var(--text);border-color:var(--theme-border)}
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .banner,
+:root[data-bardahl-theme]:not([data-bardahl-theme="classic"]) .round-dot.no{background:var(--theme-secondary);color:var(--text)}
+:root[data-bardahl-theme="light"] .brand,:root[data-bardahl-theme="light"] header{color:#202630}
+:root[data-bardahl-theme="light"] .queue-table th,:root[data-bardahl-theme="light"] .queue-table td{color:var(--text)}
+:root[data-bardahl-theme="light"] .queue-name-mini{color:#596576}
+:root[data-bardahl-theme="light"] .primary{color:#151515}
+#bardahlThemeControl{display:flex;align-items:center;justify-content:flex-end;gap:7px;max-width:760px;margin:0 auto;padding:5px 14px 0;font-size:12px;color:var(--muted)}
+#bardahlThemeControl label{margin:0;font-size:12px;white-space:nowrap}
+#bardahlThemeSelect{width:auto;min-height:32px;padding:4px 26px 4px 8px;border-radius:8px;font-size:12px}
+</style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
-<main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
+<div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="dark">Dark</option><option value="midnight">Midnight</option><option value="light">Light</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
 <section class="card hidden" id="passwordChangeCard"><h2>Смените временный пароль</h2><p class="small">Для продолжения придумайте постоянный пароль длиной не менее 10 символов.</p><label for="newPassword">Новый пароль</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10"><label for="confirmPassword">Повторите пароль</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10"><button id="changePasswordBtn" class="primary" style="width:100%;margin-top:12px">Сохранить новый пароль</button></section>
 <section id="app" class="hidden">
@@ -699,4 +718,21 @@ initCarPicker();
 initWorkForm();$('orderDate').value=workToday();
 restoreSession();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script><script id="bardahl-theme-script">
+(function(){
+ const KEY='bardahl_ui_theme_v1';
+ const allowed=['classic','dark','midnight','light'];
+ const picker=document.getElementById('bardahlThemeSelect');
+ function setTheme(value){
+   const theme=allowed.includes(value)?value:'classic';
+   document.documentElement.setAttribute('data-bardahl-theme',theme);
+   if(picker) picker.value=theme;
+   try{localStorage.setItem(KEY,theme)}catch(e){}
+   const meta=document.querySelector('meta[name="theme-color"]');
+   if(meta)meta.setAttribute('content',({classic:'#111111',dark:'#090b0e',midnight:'#08162a',light:'#ffffff'})[theme]);
+ }
+ let initial='classic';try{initial=localStorage.getItem(KEY)||'classic'}catch(e){}
+ setTheme(initial);
+ if(picker)picker.addEventListener('change',function(){setTheme(this.value)});
+})();
 </script></body></html>
