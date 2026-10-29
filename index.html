@@ -444,7 +444,8 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
 </style>
 
 <style id="bardahl-manager-queue-refinement">
-/* Manager queue only: narrow actions, wider rounds, original pictograms. */
+/* Desktop manager queue only; mobile keeps original styling. */
+@media(min-width:701px){
 #queueTableCard .queue-table{width:100%!important;min-width:1060px!important;table-layout:fixed!important}
 #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:76px!important;min-width:0!important;max-width:none!important}
 #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:51px!important;min-width:0!important;max-width:none!important}
@@ -459,18 +460,15 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
 #queueTableCard .chip-copy > span{font-size:12px!important;font-weight:800!important;white-space:nowrap!important;overflow:visible!important}
 #queueTableCard .chip-copy small{font-size:13px!important;font-weight:900!important;color:#ffe25b!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}
 #queueTableCard .empty-service-slot{height:54px!important;min-height:54px!important}
-@media(max-width:600px){
- #queueTableCard .queue-table{min-width:920px!important;width:920px!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:54px!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:39px!important}
- #queueTableCard .queue-table th#queueActionHead,#queueTableCard .queue-table td.queue-action-cell{width:53px!important;min-width:53px!important;max-width:53px!important}
- #queueTableCard .service-chip{height:46px!important;min-height:46px!important;padding:4px 14px 4px 4px!important;gap:3px!important}
- #queueTableCard .service-chip .chip-symbol{width:24px!important;height:31px!important;flex:0 0 24px!important}
- #queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:24px!important;height:31px!important}
- #queueTableCard .chip-copy > span{font-size:10px!important}
- #queueTableCard .chip-copy small{font-size:11px!important}
- #queueTableCard .empty-service-slot{height:46px!important;min-height:46px!important}
- #queueTableCard .remove-master-btn{width:30px!important;height:30px!important;min-height:30px!important;min-width:30px!important}
+#queueTableCard .queue-table{min-width:1140px!important}
+ #queueTableCard .queue-table tbody tr{height:82px!important}
+ #queueTableCard .service-chip{height:67px!important;min-height:67px!important;padding:6px 20px 6px 8px!important;gap:9px!important}
+ #queueTableCard .service-chip .chip-symbol{width:45px!important;height:50px!important;flex:0 0 45px!important}
+ #queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:45px!important;height:50px!important;object-fit:contain!important}
+ #queueTableCard .chip-copy{gap:5px!important}
+ #queueTableCard .chip-copy > span{font-size:16px!important;font-weight:850!important;letter-spacing:-.3px!important}
+ #queueTableCard .chip-copy small{font-size:17px!important;font-weight:900!important;color:#ffe25b!important}
+ #queueTableCard .empty-service-slot{height:67px!important;min-height:67px!important}
 }
 </style>
 </head>
