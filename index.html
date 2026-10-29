@@ -491,6 +491,18 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
  #queueTableCard .queue-table thead th:nth-child(2){z-index:4!important}
 }
 </style>
+<style id="bardahl-desktop-position-box-type-last-touch">
+/* Desktop only: improve readability of position, box and surname. */
+@media (min-width:701px){
+ #queueTableCard .queue-table th:first-child,
+ #queueTableCard .queue-table td:first-child{width:112px!important;min-width:112px!important;max-width:112px!important}
+ #queueTableCard .queue-table th:nth-child(2),
+ #queueTableCard .queue-table td:nth-child(2){width:68px!important;min-width:68px!important;max-width:68px!important}
+ #queueTableCard .queue-position-number,
+ #queueTableCard .queue-box-number{font-size:22px!important;line-height:1.12!important;font-weight:900!important}
+ #queueTableCard .queue-name-mini{display:block!important;max-width:106px!important;width:100%!important;margin:4px auto 0!important;font-size:14px!important;line-height:1.18!important;font-weight:750!important;color:#f5f5f5!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;letter-spacing:-.25px!important}
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
