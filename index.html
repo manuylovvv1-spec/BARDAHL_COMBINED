@@ -596,8 +596,25 @@ header{position:relative!important}
  body > header .brandmark img{filter:none!important;box-shadow:none!important}
  body > header .sub{text-shadow:none!important;filter:none!important}
 }
+</style><style id="bardahl-iphone-sharp-header-vfinal">
+.mobile-sharp-flag{display:none}
+@media screen and (max-width:700px){
+  html body > header,html body[data-bg-style] > header{
+    background:#10161c!important;background-image:none!important;
+    position:relative!important;isolation:auto!important;
+    filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+    box-shadow:none!important;transform:none!important;-webkit-transform:none!important;
+    opacity:1!important;overflow:visible!important;
+  }
+  html body > header::before,html body > header::after{display:none!important;content:none!important}
+  html body > header .brandmark{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;transform:none!important;filter:none!important;opacity:1!important}
+  html body > header .brandmark img{display:none!important}
+  html body > header .brandmark .mobile-sharp-flag{display:block!important;width:27px!important;height:27px!important;flex:0 0 27px!important;filter:none!important}
+  html body > header .brandmark .brand{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:19px!important;font-weight:900!important;letter-spacing:1px!important;color:#ffdb19!important;text-shadow:none!important;filter:none!important;-webkit-filter:none!important;opacity:1!important;transform:none!important;-webkit-transform:none!important}
+  html body > header .sub{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;color:#b5b8bd!important;font-size:9px!important;letter-spacing:.25px!important;text-shadow:none!important;filter:none!important;opacity:1!important;transform:none!important}
+}
 </style></head>
-<body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
+<body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><svg class="mobile-sharp-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 3v26" stroke="#ffdb19" stroke-width="2" stroke-linecap="round"/><path d="M7 5 Q15 2 23 6 L28 20 Q18 17 7 21Z" fill="#fff" stroke="#d4d7d9" stroke-width=".7"/><path d="M7 5L14 4 16 9 9 10ZM21 5L24 6 26 12 18 10ZM9 10L16 9 18 15 11 16ZM18 15L26 12 28 20 20 18Z" fill="#0b1015"/></svg><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
 <section class="card hidden" id="passwordChangeCard"><h2>Смените временный пароль</h2><p class="small">Для продолжения придумайте постоянный пароль длиной не менее 10 символов.</p><label for="newPassword">Новый пароль</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10"><label for="confirmPassword">Повторите пароль</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10"><button id="changePasswordBtn" class="primary" style="width:100%;margin-top:12px">Сохранить новый пароль</button></section>
@@ -896,9 +913,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
 </script><script id="bardahl-approved-desktop-clock">
 (function(){
  var h=document.querySelector('header');if(!h)return;
- var el=document.createElement('div');el.className='bardahl-desktop-clock';el.setAttribute('aria-label','Время Казахстана');
+ var el=document.createElement('div');el.className='bardahl-desktop-clock';el.setAttribute('aria-label','Местное время компьютера');
  el.innerHTML='<strong class="clock-time">--:--</strong><small class="clock-date"></small>';h.appendChild(el);
- function tick(){var d=new Date();try{el.querySelector('.clock-time').textContent=new Intl.DateTimeFormat('ru-RU',{timeZone:'Asia/Almaty',hour:'2-digit',minute:'2-digit',hour12:false}).format(d);el.querySelector('.clock-date').textContent=new Intl.DateTimeFormat('ru-RU',{timeZone:'Asia/Almaty',day:'2-digit',month:'2-digit',year:'numeric'}).format(d)}catch(e){el.querySelector('.clock-time').textContent=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}}
+ function tick(){var d=new Date();try{el.querySelector('.clock-time').textContent=new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit',hour12:false}).format(d);el.querySelector('.clock-date').textContent=new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d)}catch(e){el.querySelector('.clock-time').textContent=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}}
  tick();setInterval(tick,15000);
 })();
 </script><script id="bardahl-background-choices-script">
