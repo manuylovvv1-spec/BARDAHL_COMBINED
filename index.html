@@ -569,6 +569,14 @@ header{position:relative!important}
  header .brandmark .brand{color:#ffd316!important;font-weight:900!important}
  header .brandmark img{filter:none!important;-webkit-filter:none!important;opacity:1!important;image-rendering:auto!important}
 }
+</style><style id="bardahl-ios-header-raster-fix">
+/* iOS Safari: avoid rasterized sticky/isolation header layer; keep native text rendering. */
+@media screen and (max-width:700px){
+  body > header{position:relative!important;top:auto!important;isolation:auto!important;contain:none!important;will-change:auto!important;transform:none!important;-webkit-transform:none!important;filter:none!important;-webkit-filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;opacity:1!important;}
+  body > header .brandmark,body > header .brandmark .brand,body > header .sub{transform:none!important;-webkit-transform:none!important;filter:none!important;-webkit-filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;opacity:1!important;text-shadow:none!important;-webkit-font-smoothing:auto!important;}
+  body > header .brandmark .brand{font-weight:900!important;color:#ffdb1a!important;letter-spacing:1px!important;}
+  body > header .brandmark img{transform:none!important;-webkit-transform:none!important;filter:none!important;image-rendering:auto!important;}
+}
 </style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
