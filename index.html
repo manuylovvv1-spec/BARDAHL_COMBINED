@@ -510,6 +510,13 @@ body[data-bg-style=motorsport]{background:#101318!important}
 body[data-bg-style=motorsport]::before{background:linear-gradient(124deg,transparent 0 11%,#ffd100 11% 12.6%,#151a1f 12.6% 15%,#ffd100 15% 15.7%,transparent 15.7%),linear-gradient(124deg,transparent 0 79%,#ffd100 79% 80.3%,#191e23 80.3% 82%,#ffd100 82% 82.6%,transparent 82.6%),repeating-linear-gradient(0deg,#141a21 0 22px,#0b0e12 22px 44px)!important}
 body[data-bg-style=motorsport]::after{width:42%!important;height:23vh!important;opacity:.85!important;filter:grayscale(1) contrast(1.25)!important}
 body[data-bg-style=motorsport] header{background:repeating-linear-gradient(135deg,#151b20 0 24px,#20282d 24px 40px,#ffd000 40px 44px,#0e1115 44px 65px)!important;border-bottom:3px solid #ffd000!important}
+</style><style id="bardahl-picker-corner-fix">
+@media (min-width:701px){
+ header{position:relative!important}
+ #bardahl-bg-picker{position:absolute!important;top:50%!important;left:20px!important;right:auto!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;max-width:185px!important;z-index:20!important;padding:5px 7px!important;font-size:12px!important;box-sizing:border-box!important}
+ #bardahl-bg-picker select{width:112px!important;max-width:112px!important;font-size:12px!important;padding:5px!important}
+}
+@media(max-width:700px){#bardahl-bg-picker{position:relative!important;transform:none!important;margin:8px 0 10px 12px!important;max-width:calc(100% - 24px)!important}}
 </style></head>
 <body data-bg-style="gold"><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -822,7 +829,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var select=document.createElement('select');select.setAttribute('aria-label','Выбор фона BARDAHL');
  [['classic','Classic'],['carbon','Carbon Pro'],['gold','Racing Gold'],['motorsport','Motorsport']].forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];select.appendChild(o)});
  picker.appendChild(select);
- var main=document.querySelector('main');if(main){main.insertBefore(picker,main.firstChild)}else{document.body.appendChild(picker)}
+ var header=document.querySelector('header');if(header){header.appendChild(picker)}else{document.body.appendChild(picker)}
  var selected='gold';try{selected=localStorage.getItem('bardahl-bg-choice')||'gold'}catch(e){}
  if(!['classic','carbon','gold','motorsport'].includes(selected))selected='gold';
  function apply(v){document.body.setAttribute('data-bg-style',v);select.value=v}
