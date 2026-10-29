@@ -539,6 +539,31 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 :root[data-bardahl-theme="racing"] .work-order,:root[data-bardahl-theme="racing"] .leader-detail-order{border-top:2px solid #ffd400!important}
 @media(max-width:600px){:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice{width:min(100%,105px)!important;padding:7px!important}}
 @media(prefers-reduced-motion:no-preference){:root[data-bardahl-theme="racing"] button{transition:filter .15s ease,transform .15s ease!important}:root[data-bardahl-theme="racing"] button:active{filter:brightness(1.18);transform:scale(.98)}}
+
+/* BARDAHL Racing 2.1 — presentation only. No queue/order/auth logic changed. */
+/* Compact left-aligned theme selector across desktop and mobile. */
+#bardahlThemeControl{box-sizing:border-box!important;width:100%!important;max-width:none!important;margin:0!important;padding:7px 14px!important;display:flex!important;justify-content:flex-start!important;align-items:center!important;gap:8px!important;min-height:48px!important}
+#bardahlThemeControl label{flex:0 0 auto!important;margin:0!important;white-space:nowrap!important}
+#bardahlThemeSelect{box-sizing:border-box!important;flex:0 0 154px!important;width:154px!important;max-width:154px!important;min-width:0!important;min-height:34px!important;padding:5px 22px 5px 9px!important;font-size:13px!important}
+:root[data-bardahl-theme="racing"] #bardahlThemeControl{border-left:0!important;border-bottom:1px solid #9d7c20!important;background:linear-gradient(95deg,#181a1c,#111315 65%,#101214)!important}
+/* Distinct illuminated bevels on the three existing icon-only choices. */
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice{border-width:3px!important;border-style:solid!important;outline:1px solid #ffe66c88!important;outline-offset:2px!important;box-shadow:inset 0 0 0 2px #fff4,inset 0 0 0 5px #0008,inset 0 0 23px #ffdd0055,0 0 7px #ffd000bb,0 0 19px #ffcb0055,0 6px 13px #000b!important;transition:filter .16s ease,transform .16s ease,box-shadow .16s ease!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice.antifriz{outline-color:#ff758288!important;box-shadow:inset 0 0 0 2px #fff4,inset 0 0 0 5px #0008,inset 0 0 23px #ff334d66,0 0 7px #ff3049bb,0 0 19px #ff304955,0 6px 13px #000b!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice.haldex{outline-color:#73ffbb88!important;box-shadow:inset 0 0 0 2px #fff4,inset 0 0 0 5px #0008,inset 0 0 23px #00ee8866,0 0 7px #00e887bb,0 0 19px #00e88755,0 6px 13px #000b!important}
+:root[data-bardahl-theme="racing"] #myPanelCard .service-choice.done-service{outline:3px solid #fff!important;outline-offset:3px!important;filter:brightness(1.18)!important}
+/* Keep disabled semantics, make enabled save button clearly yellow. */
+:root[data-bardahl-theme="racing"] #saveServicesBtn:not(:disabled){opacity:1!important;background:linear-gradient(165deg,#fff582 0%,#ffe000 32%,#f3bd00 75%,#dc9c00 100%)!important;color:#111!important;text-shadow:none!important;border:2px solid #fff07a!important;box-shadow:inset 0 2px #fff9,inset 0 -5px #9d690077,0 0 16px #ffdb0077!important}
+:root[data-bardahl-theme="racing"] #saveServicesBtn:disabled{opacity:.46!important;filter:saturate(.55)!important;box-shadow:none!important}
+/* More pronounced racing header on wide desktop screens without shifting content. */
+@media(min-width:850px){
+ :root[data-bardahl-theme="racing"] header{background:linear-gradient(115deg,#13171a,#080a0c 48%,#15191c)!important}
+ :root[data-bardahl-theme="racing"] header:before{width:220px!important;background:repeating-linear-gradient(130deg,transparent 0 24px,#ffd000 24px 42px,#141414 42px 49px,transparent 49px 73px)!important;opacity:.95!important}
+ :root[data-bardahl-theme="racing"] header:after{right:28px!important;top:0!important;width:220px!important;height:100%!important;opacity:.3!important;background:conic-gradient(#fff 25%,transparent 0 50%,#fff 0 75%,transparent 0) 0 0/30px 30px!important}
+}
+:root[data-bardahl-theme="racing"] .queue-table{border-color:#b99a34!important}
+:root[data-bardahl-theme="racing"] .queue-table th{box-shadow:inset 0 1px #ffffff20!important}
+:root[data-bardahl-theme="racing"] .work-order,:root[data-bardahl-theme="racing"] .leader-detail-order{box-shadow:inset 0 1px #ffffff2b,0 6px 16px #0009,0 0 0 1px #a88c2a55!important}
+@media(prefers-reduced-motion:reduce){:root[data-bardahl-theme="racing"] #myPanelCard .service-actions .service-btn.service-choice{transition:none!important}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <div id="bardahlThemeControl"><label for="bardahlThemeSelect">🎨 Тема</label><select id="bardahlThemeSelect" aria-label="Тема оформления"><option value="classic">Classic (как сейчас)</option><option value="racing">Racing</option><option value="midnight">Midnight Pro</option><option value="titanium">Titanium</option><option value="arctic">Arctic</option></select></div><main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
