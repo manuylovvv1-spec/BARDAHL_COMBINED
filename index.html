@@ -594,6 +594,18 @@ function drawWorkReport(){
    const metrics=[['Сумма работ',current.reduce((n,o)=>n+orderSum(o),0),previous.reduce((n,o)=>n+orderSum(o),0),true],['Заказы',current.length,previous.length,false],['Услуги',current.reduce((n,o)=>n+orderServiceCount(o),0),previous.reduce((n,o)=>n+orderServiceCount(o),0),false]];
    metrics.forEach(([label,now,old,isMoney])=>{const item=document.createElement('div');item.className='leader-dynamic-item';const change=old?((now-old)/old*100):null;const value=isMoney?moneyWork(now):String(now);const oldValue=isMoney?moneyWork(old):String(old);const diff=change===null?'нет базы для сравнения':(change>0?'+':'')+change.toFixed(1)+'%';item.textContent=label+': '+value+' (прошлый месяц: '+oldValue+') · '+diff;dynamics.append(item)});
    lr.append(dynamics);
+   // Read-only order history for the selected master, across all saved dates.
+   const history=workOrders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(leaderSelectedMaster)).sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+   const historyTitle=document.createElement('h3');historyTitle.className='leader-section';historyTitle.textContent='История заказов мастера ('+history.length+')';lr.append(historyTitle);
+   const historySearch=document.createElement('input');historySearch.type='search';historySearch.placeholder='Поиск по автомобилю, услуге или комментарию';historySearch.setAttribute('aria-label','Поиск по истории заказов');historySearch.style.cssText='width:100%;margin:8px 0 12px;padding:12px;border-radius:10px;border:1px solid #555;background:#161819;color:inherit;font:inherit';lr.append(historySearch);
+   const historyList=document.createElement('div');lr.append(historyList);
+   function renderMasterHistory(){
+     historyList.replaceChildren();const q=historySearch.value.trim().toLocaleLowerCase('ru');
+     const found=history.filter(o=>[o.car,o.date,o.comment,...(Array.isArray(o.items)?o.items:[]).map(it=>it.name)].join(' ').toLocaleLowerCase('ru').includes(q));
+     if(!found.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='Заказы не найдены';historyList.append(empty);return}
+     found.forEach(o=>{const card=document.createElement('article');card.className='work-order';const heading=document.createElement('h3');heading.textContent=o.car||'Автомобиль не указан';const meta=document.createElement('div');meta.className='meta';meta.textContent=o.date+' · '+orderServiceCount(o)+' услуг(и)';const details=document.createElement('div');details.className='detail';details.style.whiteSpace='pre-wrap';details.textContent=(Array.isArray(o.items)?o.items:[]).map(it=>String(it.name||'Услуга')+' — '+moneyWork(it.price)).join('\n');const sum=document.createElement('div');sum.className='sum';sum.textContent='Итого: '+moneyWork(orderSum(o));card.append(heading,meta,details);if(o.comment){const note=document.createElement('div');note.className='detail';note.style.whiteSpace='pre-wrap';note.textContent='Комментарий: '+o.comment;card.append(note)}card.append(sum);historyList.append(card)})
+   }
+   historySearch.addEventListener('input',renderMasterHistory);renderMasterHistory();
    return;
  }
  const selectedPeriod=periods.find(p=>p.from===periodBoundsFor(referenceDate,leaderPeriodValue).from&&p.to===periodBoundsFor(referenceDate,leaderPeriodValue).to)||periods[0];
