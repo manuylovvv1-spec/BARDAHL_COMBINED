@@ -471,6 +471,26 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
  #queueTableCard .empty-service-slot{height:67px!important;min-height:67px!important}
 }
 </style>
+<style id="bardahl-queue-visibility-and-mobile-sticky">
+/* Desktop only: improve legibility of the existing service labels and time. */
+@media (min-width:701px){
+ #queueTableCard .service-chip .chip-copy > span{font-size:17px!important;font-weight:900!important;letter-spacing:0!important;color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.5)!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:18px!important;font-weight:900!important;color:#fff0a0!important;letter-spacing:0!important;text-shadow:0 1px 1px rgba(0,0,0,.55)!important}
+}
+/* Phone only: position and box stay visible while six rounds scroll horizontally. */
+@media (max-width:700px){
+ #queueTableCard .table-wrap{position:relative!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+ #queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
+ #queueTableCard .queue-table th:first-child,
+ #queueTableCard .queue-table td:first-child{position:sticky!important;left:0!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important}
+ #queueTableCard .queue-table th:nth-child(2),
+ #queueTableCard .queue-table td:nth-child(2){position:sticky!important;left:42px!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important;box-shadow:3px 0 5px rgba(0,0,0,.35)!important}
+ #queueTableCard .queue-table tr.mine td:first-child,
+ #queueTableCard .queue-table tr.mine td:nth-child(2){background:#222116!important}
+ #queueTableCard .queue-table thead th:first-child,
+ #queueTableCard .queue-table thead th:nth-child(2){z-index:4!important}
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
