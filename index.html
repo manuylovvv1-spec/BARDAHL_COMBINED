@@ -546,6 +546,21 @@ body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:ce
 #queueTableCard .service-chip.antifriz{background:linear-gradient(115deg,#0b365d,#101a27)!important;border:1px solid #267dc0!important}
 #queueTableCard .service-chip.haldex{background:linear-gradient(115deg,#49320d,#1c1a17)!important;border:1px solid #b6872e!important}
 @media(max-width:600px){.service-actions{gap:7px!important}.service-actions .service-btn.service-choice{border-radius:13px!important}#queueTableCard .service-chip{height:42px!important;min-height:42px!important}#queueTableCard .service-chip .chip-symbol{width:32px!important;height:32px!important;flex-basis:32px!important}}
+</style><style id="bardahl-service-polish">
+/* Original artwork fills service buttons, retaining aspect ratio. */
+.service-actions .service-btn.service-choice{background:#080b10!important;border:2px solid transparent!important;padding:0!important;aspect-ratio:1/1!important;min-width:0!important;overflow:hidden!important}
+.service-actions .service-btn.service-choice .chip-symbol{width:100%!important;height:100%!important;display:block!important;min-width:0!important}
+.service-actions .service-btn.service-choice .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important;display:block!important}
+.service-actions .service-btn.service-choice.akpp{border-color:#ff3348!important}
+.service-actions .service-btn.service-choice.antifriz{border-color:#36b9ff!important}
+.service-actions .service-btn.service-choice.haldex{border-color:#f3ad31!important}
+.service-actions .service-btn.service-choice.done-service{outline:2px solid #ffdf36!important;outline-offset:1px!important}
+#queueTableCard .service-chip{padding:3px 15px 3px 3px!important;gap:4px!important;min-width:0!important}
+#queueTableCard .service-chip .chip-symbol{flex:0 0 clamp(23px,2.7vw,39px)!important;width:clamp(23px,2.7vw,39px)!important;height:36px!important}
+#queueTableCard .service-chip .chip-copy{flex:1 1 0!important;min-width:0!important;overflow:visible!important;font-size:clamp(8px,.85vw,12px)!important;letter-spacing:-.2px!important}
+#queueTableCard .service-chip .chip-copy>span{white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;max-width:none!important}
+#queueTableCard .service-chip .chip-copy small{font-size:clamp(9px,.85vw,12px)!important}
+@media(max-width:650px){#queueTableCard .service-chip{padding:2px 12px 2px 2px!important;gap:3px!important}#queueTableCard .service-chip .chip-symbol{flex-basis:clamp(20px,5vw,31px)!important;width:clamp(20px,5vw,31px)!important;height:30px!important}#queueTableCard .service-chip .chip-copy{font-size:clamp(7px,1.65vw,10px)!important;letter-spacing:-.4px!important}#queueTableCard .service-chip .chip-copy small{font-size:10px!important}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
