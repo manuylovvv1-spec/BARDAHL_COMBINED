@@ -588,6 +588,20 @@ body[data-bg-style="kittens"] #queuePage .queue-bottom-actions{overflow:visible!
 }
 @media(max-width:900px){body[data-bg-style="kittens"] #queuePage .queue-bottom-actions::after{content:none!important}}
 </style>
+<style id="bardahl-kittens-final-integration-20261102">
+/* Seamless neon environment: applies exclusively to manager Kittens theme. */
+@media(min-width:901px){
+body[data-bg-style="kittens"]{background:linear-gradient(180deg,#170323 0%,#250637 40%,#220632 76%,#160320 100%)!important}
+body[data-bg-style="kittens"] header{min-height:112px!important;background:linear-gradient(180deg,#160320,#250638 85%,#29043c)!important;border-bottom:2px solid #f24de8!important;box-shadow:0 4px 22px #e827d155!important}
+body[data-bg-style="kittens"] header::before,body[data-bg-style="kittens"] header::after{width:clamp(170px,19vw,285px)!important;height:115px!important;top:auto!important;bottom:-2px!important;background-position:center bottom!important;background-size:contain!important;-webkit-mask-image:radial-gradient(ellipse 70% 78% at 50% 58%,black 55%,transparent 100%)!important;mask-image:radial-gradient(ellipse 70% 78% at 50% 58%,black 55%,transparent 100%)!important}
+body[data-bg-style="kittens"] header::before{left:7%!important}
+body[data-bg-style="kittens"] header::after{right:8%!important}
+body[data-bg-style="kittens"] #queuePage .queue-bottom-actions::after{height:clamp(240px,25vw,350px)!important;width:100%!important;max-width:none!important;margin:0!important;background-size:100% 100%!important;background-position:center bottom!important;background-repeat:no-repeat!important;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 70%,transparent 100%),linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%)!important;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 70%,transparent 100%),linear-gradient(to right,transparent 0%,black 7%,black 93%,transparent 100%)!important;mask-composite:intersect!important;-webkit-mask-composite:source-in!important}
+body[data-bg-style="kittens"] #queuePage .queue-bottom-actions{gap:0!important}
+body[data-bg-style="kittens"] #queuePage .queue-bottom-actions > #logoutBtn{margin-bottom:0!important}
+}
+@media(max-width:900px){body[data-bg-style="kittens"] header::before,body[data-bg-style="kittens"] header::after,body[data-bg-style="kittens"] #queuePage .queue-bottom-actions::after{display:none!important;content:none!important}}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
