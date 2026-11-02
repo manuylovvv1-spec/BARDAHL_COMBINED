@@ -602,7 +602,21 @@ body[data-bg-style="kittens"] #queuePage .queue-bottom-actions > #logoutBtn{marg
 }
 @media(max-width:900px){body[data-bg-style="kittens"] header::before,body[data-bg-style="kittens"] header::after,body[data-bg-style="kittens"] #queuePage .queue-bottom-actions::after{display:none!important;content:none!important}}
 </style>
-</head>
+<style id="bardahl-role-opacity-fix-20261102">
+/* Every current and newly rendered queue row inherits the same transparency. */
+#queueTableCard .queue-table tbody tr,
+#queueTableCard .queue-table tbody tr td,
+#queueTableCard .queue-table thead tr,
+#queueTableCard .queue-table thead th {background-color:rgba(21,25,29,var(--queue-alpha,1))!important;background-image:none!important}
+#queueTableCard .queue-table tbody tr.mine td{background-color:rgba(39,35,23,var(--queue-alpha,1))!important}
+body[data-bg-style="kittens"] #queueTableCard .queue-table tbody tr td{background-color:rgba(33,13,48,var(--queue-alpha,1))!important}
+body[data-bg-style="kittens"] #queueTableCard .queue-table thead th{background-color:rgba(45,24,59,var(--queue-alpha,1))!important}
+/* The kittens theme is manager-only even when a previous selection is cached. */
+body:not([data-user-role="manager"])[data-bg-style="kittens"] header::before,
+body:not([data-user-role="manager"])[data-bg-style="kittens"] header::after,
+body:not([data-user-role="manager"])[data-bg-style="kittens"] #queuePage .queue-bottom-actions::after{display:none!important;content:none!important}
+#bardahl-palette-menu .bardahl-theme-option[hidden]{display:none!important}
+</style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
