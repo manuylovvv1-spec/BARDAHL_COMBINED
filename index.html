@@ -558,6 +558,22 @@ body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:ce
 #bardahl-opacity-control input{width:110px;min-height:22px;height:22px;padding:0;accent-color:#ffd21a;cursor:pointer}
 #bardahl-opacity-control output{min-width:39px;text-align:right;font-variant-numeric:tabular-nums}
 @media(max-width:600px){#bardahl-opacity-control{font-size:10px;gap:5px}#bardahl-opacity-control input{width:70px;height:20px;min-height:20px}}
+</style><style id="bardahl-final-art-opacity-patch">
+/* Keep the complete approved composition inside the actual document height. */
+@media(min-width:701px){
+ body[data-bg-style="kittens"]{background-size:100% 100%!important;background-position:center top!important;background-repeat:no-repeat!important;min-height:100vh!important}
+ body[data-bg-style="kittens"] main{padding-bottom:clamp(20px,2vw,45px)!important}
+}
+/* Alpha is applied only to backgrounds, not to labels, icons or controls. */
+#queueTableCard{--queue-opacity:1;--queue-cell-bg:rgba(23,28,32,var(--queue-opacity));--queue-mine-bg:rgba(34,33,22,var(--queue-opacity));}
+#queueTableCard .queue-table,#queueTableCard .queue-table tbody,#queueTableCard .queue-table thead,#queueTableCard .queue-table tr{background:transparent!important;}
+#queueTableCard .queue-table th,#queueTableCard .queue-table td{background:var(--queue-cell-bg)!important;background-image:none!important;}
+#queueTableCard .queue-table tr.mine td{background:var(--queue-mine-bg)!important;}
+#queueTableCard .queue-table td:first-child,#queueTableCard .queue-table td:nth-child(2),#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){background:var(--queue-cell-bg)!important;}
+#queueTableCard .queue-table tr.mine td:first-child,#queueTableCard .queue-table tr.mine td:nth-child(2){background:var(--queue-mine-bg)!important;}
+/* The table card and scroll layer previously hid the visual change. */
+#queueTableCard .table-wrap{background:transparent!important;}
+body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(--queue-opacity) * .80))!important;}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
