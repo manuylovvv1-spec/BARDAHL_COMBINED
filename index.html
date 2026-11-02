@@ -654,6 +654,45 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #app>.row:first-child>#tabQueue::before,#app>.row:first-child>#tabQueue::after,
 #app>.row:first-child>#tabOrders::before,#app>.row:first-child>#tabOrders::after{content:none!important;display:none!important}
 </style>
+
+<style id="bardahl-20261102-final-visual-corrections">
+/* Desktop: readable content while keeping all nine columns inside the table. */
+@media (min-width:701px){
+ #queueTableCard .queue-table thead th{font-size:clamp(11px,1.04vw,14px)!important;font-weight:750!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:9%!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:6%!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:12.8%!important}
+ #queueTableCard .queue-table th:last-child,#queueTableCard .queue-table td:last-child{width:8.2%!important}
+ #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(18px,1.8vw,25px)!important}
+ #queueTableCard .queue-name-mini{font-size:clamp(10px,1.05vw,13px)!important}
+ #queueTableCard .service-chip{height:clamp(45px,4.2vw,58px)!important;min-height:45px!important;gap:5px!important;padding:4px 5px!important;overflow:hidden!important}
+ #queueTableCard .service-chip .chip-symbol{width:clamp(28px,2.9vw,39px)!important;height:clamp(30px,3.2vw,42px)!important;flex:0 0 clamp(28px,2.9vw,39px)!important}
+ #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
+ #queueTableCard .service-chip .chip-copy{min-width:0!important;flex:1!important;gap:3px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:clamp(11px,1.07vw,15px)!important;font-weight:750!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:clamp(10px,1vw,13px)!important}
+ /* Clock above, transparent palette button directly below, both at top right. */
+ header .bardahl-header-tools{position:absolute!important;right:15px!important;top:9px!important;transform:none!important;display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:5px!important;z-index:20!important}
+ header .bardahl-header-tools .bardahl-desktop-clock{order:0!important;padding:5px 9px!important;gap:6px!important;min-height:0!important;border-radius:9px!important;border-width:1px!important}
+ header .bardahl-header-tools .bardahl-desktop-clock strong{font-size:clamp(19px,1.9vw,26px)!important;line-height:1!important}
+ header .bardahl-header-tools .bardahl-desktop-clock small{font-size:10px!important}
+ header .bardahl-header-tools #bardahl-bg-picker{order:1!important;position:relative!important;right:auto!important;top:auto!important;transform:none!important}
+ header .bardahl-header-tools #bardahl-palette-button{width:31px!important;height:29px!important;min-height:29px!important;background:rgba(15,17,26,.20)!important;border:1px solid rgba(240,214,255,.42)!important;border-radius:8px!important;box-shadow:none!important;outline:none!important;color:inherit!important}
+ header .bardahl-header-tools #bardahl-palette-menu{right:0!important;top:calc(100% + 5px)!important}
+}
+/* Mobile: prevent tab decoration from protruding, retain both role-dependent tabs. */
+@media (max-width:700px){
+ #app>.row:first-child{overflow:hidden!important;isolation:isolate!important;border-radius:14px!important}
+ #app>.row:first-child>#tabQueue,#app>.row:first-child>#tabOrders{overflow:hidden!important;box-shadow:none!important;outline:none!important;filter:none!important}
+ /* A consistent surface behind the first two sticky cells masks scrolling rounds.
+    Avoid the old yellow/brown pseudo-underlay, which caused the visible blocks. */
+ #queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
+ #queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{background:#20252b!important}
+ #queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#20252b!important}
+ #myPanelCard .service-actions{background:transparent!important}
+ #myPanelCard .service-actions .service-btn.service-choice{box-shadow:none!important}
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
