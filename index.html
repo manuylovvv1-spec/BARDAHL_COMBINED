@@ -794,10 +794,10 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 }
 /* Phone: narrower columns, service cards flush within their own cells. */
 @media (max-width:700px){
- #queueTableCard .queue-table{min-width:610px!important;width:100%!important;table-layout:fixed!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:58px!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:43px!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:84px!important;min-width:0!important}
+ #queueTableCard .queue-table{min-width:732px!important;width:732px!important;table-layout:fixed!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:48px!important;min-width:0!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:36px!important;min-width:0!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:108px!important;min-width:0!important}
  #queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){padding:1px!important}
  #queueTableCard .service-chip{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;margin:0!important;height:36px!important;min-height:36px!important;gap:2px!important;padding:2px 17px 2px 2px!important}
  #queueTableCard .service-chip .chip-symbol{width:17px!important;height:22px!important;flex:0 0 17px!important}
@@ -806,6 +806,12 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
  #queueTableCard .service-chip .chip-copy>span{font-size:10px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
  #queueTableCard .service-chip .chip-copy small{font-size:9px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;white-space:nowrap!important;margin-left:0!important}
  #queueTableCard .empty-service-slot{height:36px!important;min-height:36px!important}
+}
+</style>
+<style id="bardahl-desktop-time-final">
+/* Desktop only: make timestamp more legible and move it left; leave remove buttons untouched. */
+@media (min-width:701px){
+ #queueTableCard .service-chip .chip-copy small{font-size:clamp(13px,1.2vw,16px)!important;font-weight:800!important;position:relative!important;left:-9px!important;margin-right:28px!important;line-height:1.1!important}
 }
 </style>
 </head>
