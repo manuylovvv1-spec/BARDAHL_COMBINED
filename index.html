@@ -574,6 +574,10 @@ body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:ce
 /* The table card and scroll layer previously hid the visual change. */
 #queueTableCard .table-wrap{background:transparent!important;}
 body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(--queue-opacity) * .80))!important;}
+</style><style id="bardahl-final-compact-reset">
+#queuePage #managerActions {text-align:center!important;}
+#queuePage #resetCirclesBtn {display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-height:36px!important;height:36px!important;padding:5px 14px!important;margin:0 auto!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#ff525d!important;font-size:15px!important;font-weight:700!important;}
+@media(max-width:600px){#queuePage #resetCirclesBtn{min-height:36px!important;height:36px!important;padding:5px!important;font-size:12px!important;}}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -885,7 +889,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var picker=document.createElement('div');picker.id='bardahl-bg-picker';
  var btn=document.createElement('button');btn.type='button';btn.id='bardahl-palette-button';btn.setAttribute('aria-label','Выбрать фон');btn.setAttribute('aria-haspopup','true');btn.setAttribute('aria-expanded','false');btn.title='Выбрать фон';btn.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.3a2.2 2.2 0 0 0 1.7-3.6 1.8 1.8 0 0 1 1.4-2.9H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/><circle cx="17" cy="11.5" r="1"/></svg>';
  var menu=document.createElement('div');menu.id='bardahl-palette-menu';menu.setAttribute('role','menu');menu.hidden=true;
- var choices=[['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens Pink & Purple']];
+ var choices=[['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}))selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
@@ -906,7 +910,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
   if(!page||!card)return;
   var heading=card.querySelector('h2');if(!heading)return;
   var wrap=document.getElementById('bardahl-opacity-control');
-  if(!wrap){wrap=document.createElement('label');wrap.id='bardahl-opacity-control';wrap.innerHTML='<span>Прозрачность</span><input id="bardahl-opacity-range" type="range" min="20" max="100" step="5" value="100" aria-label="Прозрачность вкладки Очередь"><output id="bardahl-opacity-value">100%</output>';heading.appendChild(wrap)}
+  if(!wrap){wrap=document.createElement('label');wrap.id='bardahl-opacity-control';wrap.innerHTML='<input id="bardahl-opacity-range" type="range" min="20" max="100" step="5" value="100" aria-label="Прозрачность вкладки Очередь"><output id="bardahl-opacity-value">100%</output>';heading.appendChild(wrap)}
   var range=wrap.querySelector('input'),out=wrap.querySelector('output');
   var saved=100;try{saved=Number(localStorage.getItem('bardahl-queue-opacity')||100)}catch(e){}
   if(!Number.isFinite(saved))saved=100;
@@ -916,6 +920,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
    var a=current/100;
    // Only Queue page; do not fade text, icons, background art or other tabs.
    page.querySelectorAll('.card').forEach(function(el){bg(el,21,25,29,a)});
+   var title=card.querySelector('h2');if(title){var kittens=document.body.dataset.bgStyle==='kittens';bg(title,kittens?16:21,kittens?4:25,kittens?37:29,a)}
    page.querySelectorAll('.master-panel,.stat,.empty').forEach(function(el){bg(el,23,27,31,a)});
    page.querySelectorAll('.queue-table th,.queue-table td').forEach(function(el){
     var mine=el.parentElement&&el.parentElement.classList.contains('mine');
