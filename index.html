@@ -578,7 +578,39 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #queuePage #managerActions {text-align:center!important;}
 #queuePage #resetCirclesBtn {display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-height:36px!important;height:36px!important;padding:5px 14px!important;margin:0 auto!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#ff525d!important;font-size:15px!important;font-weight:700!important;}
 @media(max-width:600px){#queuePage #resetCirclesBtn{min-height:36px!important;height:36px!important;padding:5px!important;font-size:12px!important;}}
-</style></head>
+</style>
+<style id="bardahl-mobile-sticky-tabs-desktop-headings-v5">
+/* Mask background artwork leaking through/around the navigation tabs. */
+#app > .row:first-child {position:relative!important;z-index:1!important;isolation:isolate!important;background:#0b0e11!important;overflow:hidden!important;border-radius:14px!important;}
+#app > .row:first-child > #tabQueue,
+#app > .row:first-child > #tabOrders {position:relative!important;z-index:1!important;min-width:0!important;}
+/* Only the column labels grow on desktop; the row dimensions stay intact. */
+@media (min-width:701px){
+ #queueTableCard .queue-table thead th {font-size:15px!important;font-weight:800!important;letter-spacing:.15px!important;}
+}
+/* A separate opaque underlay prevents scrolling service chips from showing through
+   the two pinned columns, regardless of the transparency slider's inline styles. */
+@media (max-width:700px){
+ #queueTableCard .queue-table th:first-child,
+ #queueTableCard .queue-table td:first-child,
+ #queueTableCard .queue-table th:nth-child(2),
+ #queueTableCard .queue-table td:nth-child(2){
+   position:sticky!important;z-index:12!important;isolation:isolate!important;
+ }
+ #queueTableCard .queue-table th:first-child,
+ #queueTableCard .queue-table th:nth-child(2){z-index:14!important;}
+ #queueTableCard .queue-table th:first-child::before,
+ #queueTableCard .queue-table td:first-child::before,
+ #queueTableCard .queue-table th:nth-child(2)::before,
+ #queueTableCard .queue-table td:nth-child(2)::before{
+   content:""!important;position:absolute!important;inset:0!important;
+   background:#20252b!important;z-index:-1!important;pointer-events:none!important;
+ }
+ #queueTableCard .queue-table tr.mine td:first-child::before,
+ #queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important;}
+ }
+</style>
+<style id="bardahl-desktop-clock-opacity-v6">@media(min-width:701px){.bardahl-desktop-clock{background:rgba(8,11,14,.75)!important;}}</style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -933,7 +965,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
     bg(el,kind[0],kind[1],kind[2],a);
    });
   }
-  function update(v){current=Math.max(20,Math.min(100,Number(v)||100));range.value=String(current);out.textContent=current+'%';paint();try{localStorage.setItem('bardahl-queue-opacity',String(current))}catch(e){}}
+  function update(v){current=Math.max(20,Math.min(100,Number(v)||100));range.value=String(current);out.textContent=current+'%';paint();var clock=document.querySelector('.bardahl-desktop-clock');if(clock){clock.style.setProperty('background','rgba(8,11,14,'+(current/100)+')','important');}try{localStorage.setItem('bardahl-queue-opacity',String(current))}catch(e){}}
   range.addEventListener('input',function(){update(range.value)});
   range.addEventListener('change',function(){update(range.value)});
   var queued=false;
