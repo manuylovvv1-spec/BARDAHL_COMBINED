@@ -610,7 +610,51 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
  #queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important;}
  }
 </style>
-<style id="bardahl-desktop-clock-opacity-v6">@media(min-width:701px){.bardahl-desktop-clock{background:rgba(8,11,14,.75)!important;}}</style></head>
+<style id="bardahl-desktop-clock-opacity-v6">@media(min-width:701px){.bardahl-desktop-clock{background:rgba(8,11,14,.75)!important;}}</style>
+<style id="bardahl-mobile-fixed20-desktop-fit-v7">
+/* Mobile: always use 20% surface fill; no slider or percentage. */
+@media(max-width:700px){
+ #bardahl-opacity-control{display:none!important}
+ #queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child,
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){
+   position:sticky!important;z-index:30!important;isolation:isolate!important;
+   background:rgba(23,28,32,.2)!important;background-image:none!important;
+ }
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){z-index:32!important}
+ /* The independent opaque backing blocks scrolling chips; the visible face remains translucent. */
+ #queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
+ #queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{
+  content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;
+  background:#20252b!important;pointer-events:none!important;
+ }
+ #queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){box-shadow:2px 0 2px rgba(0,0,0,.12)!important}
+}
+/* Desktop: fit all columns into available width and hide the scrollbar. */
+@media(min-width:701px){
+ #queueTableCard .table-wrap{overflow-x:hidden!important;scrollbar-width:none!important}
+ #queueTableCard .table-wrap::-webkit-scrollbar{display:none!important}
+ #queueTableCard .queue-table{min-width:0!important;width:100%!important;table-layout:fixed!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:8.5%!important;min-width:0!important;max-width:none!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:5.5%!important;min-width:0!important;max-width:none!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:13.4%!important;min-width:0!important;max-width:none!important}
+ #queueTableCard .queue-table thead th{font-size:12px!important;letter-spacing:0!important}
+ #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(13px,1.5vw,19px)!important}
+ #queueTableCard .queue-name-mini{font-size:clamp(9px,1vw,12px)!important;max-width:100%!important}
+ #queueTableCard .service-chip{min-width:0!important;max-width:100%!important;gap:3px!important;padding:3px!important}
+ #queueTableCard .service-chip .chip-symbol{width:clamp(17px,2.5vw,28px)!important;flex:0 0 clamp(17px,2.5vw,28px)!important}
+ #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:auto!important;max-height:29px!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:clamp(9px,1vw,13px)!important;overflow:hidden!important;text-overflow:ellipsis!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:clamp(9px,1vw,12px)!important}
+}
+/* Tab edges: remove stray outlines, shadows and decorative protrusions. */
+#app>.row:first-child{overflow:hidden!important;background:#0b0e11!important;isolation:isolate!important}
+#app>.row:first-child>#tabQueue,#app>.row:first-child>#tabOrders{outline:0!important;box-shadow:none!important;background-clip:padding-box!important}
+#app>.row:first-child>#tabQueue::before,#app>.row:first-child>#tabQueue::after,
+#app>.row:first-child>#tabOrders::before,#app>.row:first-child>#tabOrders::after{content:none!important;display:none!important}
+</style>
+</head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -965,9 +1009,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
     bg(el,kind[0],kind[1],kind[2],a);
    });
   }
-  function update(v){current=Math.max(20,Math.min(100,Number(v)||100));range.value=String(current);out.textContent=current+'%';paint();var clock=document.querySelector('.bardahl-desktop-clock');if(clock){clock.style.setProperty('background','rgba(8,11,14,'+(current/100)+')','important');}try{localStorage.setItem('bardahl-queue-opacity',String(current))}catch(e){}}
+  function update(v){current=window.matchMedia('(max-width:700px)').matches?20:Math.max(20,Math.min(100,Number(v)||100));range.value=String(current);out.textContent=current+'%';paint();var clock=document.querySelector('.bardahl-desktop-clock');if(clock){clock.style.setProperty('background','rgba(8,11,14,'+(current/100)+')','important');}try{localStorage.setItem('bardahl-queue-opacity',String(current))}catch(e){}}
   range.addEventListener('input',function(){update(range.value)});
   range.addEventListener('change',function(){update(range.value)});
+  window.addEventListener('resize',function(){update(window.matchMedia('(max-width:700px)').matches?20:range.value)});
   var queued=false;
   new MutationObserver(function(records){if(queued||!records.some(function(r){return r.type==='childList'}))return;queued=true;requestAnimationFrame(function(){queued=false;paint()})}).observe(page,{subtree:true,childList:true});
   update(current);
