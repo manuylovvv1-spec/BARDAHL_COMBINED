@@ -783,6 +783,31 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
  #queueTableCard .empty-service-slot {min-height:40px!important;height:40px!important}
 }
 </style>
+
+<style id="bardahl-queue-layout-20261102">
+/* Desktop: readable labels and timestamps, without changing the remove button. */
+@media (min-width:701px){
+ #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(17px,1.55vw,22px)!important;line-height:1.08!important}
+ #queueTableCard .queue-name-mini{font-size:clamp(11px,1.03vw,14px)!important;line-height:1.1!important}
+ #queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;align-items:flex-start!important;text-align:left!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:clamp(11px,1.03vw,14px)!important;align-self:flex-start!important;text-align:left!important;margin-left:0!important;margin-right:22px!important;max-width:calc(100% - 22px)!important;white-space:nowrap!important}
+}
+/* Phone: narrower columns, service cards flush within their own cells. */
+@media (max-width:700px){
+ #queueTableCard .queue-table{min-width:610px!important;width:100%!important;table-layout:fixed!important}
+ #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:58px!important;min-width:0!important}
+ #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:43px!important;min-width:0!important}
+ #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:84px!important;min-width:0!important}
+ #queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){padding:1px!important}
+ #queueTableCard .service-chip{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;margin:0!important;height:36px!important;min-height:36px!important;gap:2px!important;padding:2px 17px 2px 2px!important}
+ #queueTableCard .service-chip .chip-symbol{width:17px!important;height:22px!important;flex:0 0 17px!important}
+ #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important}
+ #queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;gap:1px!important;align-items:flex-start!important}
+ #queueTableCard .service-chip .chip-copy>span{font-size:10px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+ #queueTableCard .service-chip .chip-copy small{font-size:9px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;white-space:nowrap!important;margin-left:0!important}
+ #queueTableCard .empty-service-slot{height:36px!important;min-height:36px!important}
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
