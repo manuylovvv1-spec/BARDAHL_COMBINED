@@ -911,6 +911,25 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
   outline:2px solid #ffd21a;outline-offset:1px;
 }
 </style>
+<style id="bardahl-report-date-overflow-fix">
+/* Keep the native date picker inside its card at all viewport sizes. */
+#masterReportControls .master-compact-controls > .report-date-tile {
+  width:100%; max-width:100%; min-width:0; overflow:hidden;
+}
+#ordersPage #masterReportControls .report-date-tile #reportDate {
+  display:block!important;
+  width:100%!important; max-width:100%!important; min-width:0!important;
+  margin:0!important; box-sizing:border-box!important;
+  padding-left:4px!important; padding-right:4px!important;
+  font-size:clamp(11px,2.7vw,15px)!important;
+  background:#252a2e!important; color:#f4f5f7!important;
+  border:1px solid #caa600!important; border-radius:8px!important;
+  text-align:center!important;
+}
+#ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-date-and-time-value {
+  min-width:0!important; max-width:100%!important;
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
