@@ -889,6 +889,28 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
  #leaderControls .leader-period-btn{font-size:17px}
 }
 </style>
+
+<style id="bardahl-report-date-centered-style">
+/* Match the report date selector to the adjacent month card. */
+#ordersPage #masterReportControls .report-date-tile #reportDate{
+  display:block!important;width:100%!important;max-width:100%!important;
+  height:32px!important;min-height:32px!important;box-sizing:border-box!important;
+  padding:3px 9px!important;border-radius:8px!important;
+  background:#252a2e!important;color:#f4f5f7!important;
+  border:1px solid #caa600!important;
+  text-align:center!important;text-align-last:center!important;
+  font-weight:600!important; color-scheme:dark;
+}
+#ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-date-and-time-value{
+  text-align:center!important;min-height:1em;width:100%;
+}
+#ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-datetime-edit{
+  text-align:center!important;display:block!important;width:100%;
+}
+#ordersPage #masterReportControls .report-date-tile #reportDate:focus{
+  outline:2px solid #ffd21a;outline-offset:1px;
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -1059,14 +1081,38 @@ function computeMasterRecords(orders){
 }
 function recordPeriodLabel(key,month){if(!key)return '—';if(!month)return key.split('-').reverse().join('.');const [y,m]=key.split('-').map(Number);return new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(new Date(y,m-1,1))}
 function renderRecordPair(target,records,showNames=false){if(!target)return;target.replaceChildren();for(const [label,entry,month] of [['Лучший день',records.day,false],['Лучший месяц',records.month,true]]){const tile=document.createElement('div');tile.className='record-tile';const title=document.createElement('span');title.className='record-label';title.textContent=label;const amount=document.createElement('strong');amount.textContent=entry?moneyWork(entry.amount):'—';const date=document.createElement('small');date.textContent=entry?recordPeriodLabel(entry.key,month):'Нет заказов';tile.append(title,amount,date);if(showNames&&entry){const name=document.createElement('div');name.className='record-master';name.textContent=entry.master;tile.append(name)}target.append(tile)}}
-// October 2026 is excluded from the leader's totals and records for these two masters only.
+// October 2026 is excluded from ordinary leader statistics for these two masters.
+// Leader records have separate rules: October counts for best month, not best day.
 // Their original orders and their own personal reports remain untouched.
 function countsForLeader(o){
  const master=normalizeWorkMaster(o.master);
  return !(String(o.date||'').startsWith('2026-10') &&
    (master==='драгункин'||master==='овчинников'));
 }
-function leaderBestRecords(orders){const masters=new Map();for(const o of orders){const key=normalizeWorkMaster(o.master);if(!key)continue;if(!masters.has(key))masters.set(key,{name:o.master,orders:[]});masters.get(key).orders.push(o)}const all=[];for(const m of masters.values()){const r=computeMasterRecords(m.orders);for(const kind of ['day','month'])if(r[kind])all.push({kind,key:r[kind][0],amount:r[kind][1],master:m.name})}const best=kind=>all.filter(r=>r.kind===kind).sort((a,b)=>b.amount-a.amount||a.master.localeCompare(b.master,'ru'))[0]||null;return {day:best('day'),month:best('month')}}
+function leaderBestRecords(orders){
+ const masters=new Map();
+ for(const o of orders){
+  const key=normalizeWorkMaster(o.master);
+  if(!key)continue;
+  if(!masters.has(key))masters.set(key,{name:o.master,orders:[]});
+  masters.get(key).orders.push(o);
+ }
+ const all=[];
+ for(const [masterKey,m] of masters){
+  // October 2026: Dragunkin and Ovchinnikov count toward best MONTH,
+  // but not best DAY. From November onward both records include them.
+  const eligibleDailyOrders=m.orders.filter(o=>!(
+   (masterKey==='драгункин'||masterKey==='овчинников') &&
+   String(o.date||'').startsWith('2026-10')
+  ));
+  const day=computeMasterRecords(eligibleDailyOrders).day;
+  const month=computeMasterRecords(m.orders).month;
+  if(day)all.push({kind:'day',key:day[0],amount:day[1],master:m.name});
+  if(month)all.push({kind:'month',key:month[0],amount:month[1],master:m.name});
+ }
+ const best=kind=>all.filter(r=>r.kind===kind).sort((a,b)=>b.amount-a.amount||a.master.localeCompare(b.master,'ru'))[0]||null;
+ return {day:best('day'),month:best('month')};
+}
 function drawWorkReport(){
  const date=$('reportDate').value||workToday(),month=date.slice(0,7),year=date.slice(0,4),root=$('workReport');root.replaceChildren();
  const masterDaily=$('masterDailyServices'),masterDailyList=$('masterDailyServicesList');
