@@ -4,31 +4,26 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111111"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BARDAHL Queue"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-180.png">
 <title>BARDAHL — Автосервис</title>
-<style>
-:root{--bg:#101112;--panel:#1b1d1f;--text:#f6f6f6;--muted:#aeb3b8;--yellow:#f4d21f;--line:#34383c;--green:#36c879}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{padding:18px 16px 14px;background:#080909;border-bottom:3px solid var(--yellow);position:sticky;top:0;z-index:2}.brand{font-weight:1000;letter-spacing:2px;font-size:25px}.sub{color:var(--muted);font-size:12px;margin-top:4px;text-align:center}main{max-width:760px;margin:auto;padding:16px 14px 40px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}h2{font-size:17px;margin:0 0 12px;text-align:center}h3{font-size:15px;margin:0}label{display:block;color:var(--muted);font-size:13px;margin:10px 0 6px}input,select{width:100%;background:#0f1011;color:var(--text);border:1px solid #44494e;border-radius:10px;padding:12px;font:inherit;min-height:44px}button{border:0;border-radius:11px;padding:11px 12px;font:700 14px -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;min-height:42px}.primary{background:var(--yellow);color:#111}.secondary{background:#24272a;color:var(--text);border:1px solid #45494d}.danger{background:#5b2424;color:#fff}.green{background:#174b36;color:#a2f5c9;border:1px solid #277b53}button:disabled{opacity:.45;cursor:not-allowed}.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.small{font-size:12px;color:var(--muted)}.hidden{display:none!important}.banner{padding:11px 12px;border-radius:10px;background:#2a2d30;margin-bottom:12px;font-size:13px}.warn{border:1px solid #8c6b16}.person{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.person:last-child{border:0}.num{width:34px;height:34px;display:grid;place-items:center;background:#303337;border-radius:50%;font-weight:800;color:var(--yellow);flex-shrink:0}.pinfo{flex:1;min-width:0}.pname{font-weight:750}.pstatus{font-size:12px;color:var(--muted);margin-top:3px}.pill{padding:5px 8px;border-radius:99px;background:#33383b;font-size:11px;font-weight:700;white-space:nowrap}.done{background:#174b36;color:#8df0bd}.active{background:#4d4211;color:#ffeb78}.master-panel{background:#141617;border:1px solid #3b4044;border-radius:13px;padding:13px;margin-top:12px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.stat{background:#25282a;border-radius:9px;padding:9px 6px;text-align:center}.stat strong{display:block;color:var(--yellow);font-size:20px}.stat span{font-size:11px;color:var(--muted)}.service-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.service-btn{background:#24272a;color:#eee;border:1px solid #44494e;padding:10px 5px;font-size:12px;min-height:48px}.service-btn.done-service{background:#174b36;border-color:#277b53;color:#a2f5c9}.skip-row{display:grid;grid-template-columns:1fr 120px;align-items:center;gap:10px;margin-top:12px}.skip-row label{margin:0}.history{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.log-item{padding:9px 0;border-bottom:1px solid #303437}.log-item:last-child{border-bottom:0}.log-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.log-controls{display:grid;grid-template-columns:1fr 85px auto;gap:6px;margin-top:7px}.log-controls select,.log-controls input{min-height:36px;padding:7px;font-size:12px}.log-controls button{min-height:36px;padding:7px;font-size:12px}.empty{padding:10px;background:#151718;border:1px dashed #45494d;border-radius:10px;color:var(--muted);font-size:12px;margin-top:8px}footer{text-align:center;color:#777;font-size:11px;padding:10px}#toast{position:fixed;bottom:18px;left:14px;right:14px;max-width:600px;margin:auto;background:var(--yellow);color:#111;font-weight:700;padding:12px 14px;border-radius:12px;display:none;z-index:5;box-shadow:0 6px 24px #0008}@media(max-width:420px){.service-actions{gap:5px}.service-btn{font-size:11px}.skip-row{grid-template-columns:1fr 100px}.log-controls{grid-template-columns:1fr 68px}.log-controls button{grid-column:1/-1}}
+<style>:root{--bg:#101112;--panel:#1b1d1f;--text:#f6f6f6;--muted:#aeb3b8;--yellow:#f4d21f;--line:#34383c;--green:#36c879}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{padding:18px 16px 14px;background:#080909;border-bottom:3px solid var(--yellow);position:sticky;top:0;z-index:2}.brand{font-weight:1000;letter-spacing:2px;font-size:25px}.sub{color:var(--muted);font-size:12px;margin-top:4px;text-align:center}main{max-width:760px;margin:auto;padding:16px 14px 40px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}h2{font-size:17px;margin:0 0 12px;text-align:center}h3{font-size:15px;margin:0}label{display:block;color:var(--muted);font-size:13px;margin:10px 0 6px}input,select{width:100%;background:#0f1011;color:var(--text);border:1px solid #44494e;border-radius:10px;padding:12px;font:inherit;min-height:44px}button{border:0;border-radius:11px;padding:11px 12px;font:700 14px -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;min-height:42px}.primary{background:var(--yellow);color:#111}.secondary{background:#24272a;color:var(--text);border:1px solid #45494d}.danger{background:#5b2424;color:#fff}.green{background:#174b36;color:#a2f5c9;border:1px solid #277b53}button:disabled{opacity:.45;cursor:not-allowed}.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.small{font-size:12px;color:var(--muted)}.hidden{display:none!important}.banner{padding:11px 12px;border-radius:10px;background:#2a2d30;margin-bottom:12px;font-size:13px}.warn{border:1px solid #8c6b16}.person{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.person:last-child{border:0}.num{width:34px;height:34px;display:grid;place-items:center;background:#303337;border-radius:50%;font-weight:800;color:var(--yellow);flex-shrink:0}.pinfo{flex:1;min-width:0}.pname{font-weight:750}.pstatus{font-size:12px;color:var(--muted);margin-top:3px}.pill{padding:5px 8px;border-radius:99px;background:#33383b;font-size:11px;font-weight:700;white-space:nowrap}.done{background:#174b36;color:#8df0bd}.active{background:#4d4211;color:#ffeb78}.master-panel{background:#141617;border:1px solid #3b4044;border-radius:13px;padding:13px;margin-top:12px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.stat{background:#25282a;border-radius:9px;padding:9px 6px;text-align:center}.stat strong{display:block;color:var(--yellow);font-size:20px}.stat span{font-size:11px;color:var(--muted)}.service-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.service-btn{background:#24272a;color:#eee;border:1px solid #44494e;padding:10px 5px;font-size:12px;min-height:48px}.service-btn.done-service{background:#174b36;border-color:#277b53;color:#a2f5c9}.skip-row{display:grid;grid-template-columns:1fr 120px;align-items:center;gap:10px;margin-top:12px}.skip-row label{margin:0}.history{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.log-item{padding:9px 0;border-bottom:1px solid #303437}.log-item:last-child{border-bottom:0}.log-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.log-controls{display:grid;grid-template-columns:1fr 85px auto;gap:6px;margin-top:7px}.log-controls select,.log-controls input{min-height:36px;padding:7px;font-size:12px}.log-controls button{min-height:36px;padding:7px;font-size:12px}.empty{padding:10px;background:#151718;border:1px dashed #45494d;border-radius:10px;color:var(--muted);font-size:12px;margin-top:8px}footer{text-align:center;color:#777;font-size:11px;padding:10px}#toast{position:fixed;bottom:18px;left:14px;right:14px;max-width:600px;margin:auto;background:var(--yellow);color:#111;font-weight:700;padding:12px 14px;border-radius:12px;display:none;z-index:5;box-shadow:0 6px 24px #0008}@media(max-width:420px){.service-actions{gap:5px}.service-btn{font-size:11px}.skip-row{grid-template-columns:1fr 100px}.log-controls{grid-template-columns:1fr 68px}.log-controls button{grid-column:1/-1}}
 .table-wrap{overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch}.queue-table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}.queue-table th,.queue-table td{padding:11px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}.queue-table th{color:var(--muted);font-size:11px;font-weight:700}.queue-table th:nth-child(2),.queue-table td:nth-child(2){text-align:left}.queue-table td:first-child{color:var(--yellow);font-weight:900}.queue-table tr.mine{background:#282718}.round-dot{font-size:20px;line-height:1}.round-dot.yes{color:var(--green)}.round-dot.no{color:#d0d3d5}.service-cell{display:flex;flex-direction:column;gap:3px;align-items:center;white-space:normal;min-width:58px}.service-tag{display:block;background:#174b36;color:#a2f5c9;border:1px solid #277b53;border-radius:5px;padding:3px 5px;font-size:10px;font-weight:800;line-height:1.2}.service-entry{display:flex;align-items:center;justify-content:center;gap:4px}.service-remove{min-width:23px;min-height:23px;padding:1px 5px;border-radius:6px;background:#5b2424;color:#fff;font-size:14px;line-height:1;border:1px solid #884343}.service-remove:disabled{opacity:.5}.service-none{color:#777;font-size:17px}.queue-name{font-weight:750}.queue-meta{font-size:10px;color:var(--muted);margin-top:3px}.queue-empty{text-align:center!important;color:var(--muted);padding:18px!important}
 .formgrid{display:grid;grid-template-columns:1fr;gap:2px}.formgrid>div{min-width:0}#ordersPage input,#ordersPage select,#ordersPage textarea{width:100%;background:#0f1011;color:var(--text);border:1px solid #44494e;border-radius:10px;padding:12px;font:inherit;min-height:44px}#ordersPage label{display:block;color:var(--muted);font-size:13px;margin:10px 0 6px}#reportDate{width:132px;max-width:100%;min-height:30px;padding:4px 6px;font-size:12px;border-radius:8px}#ordersPage #workService{margin-bottom:2px}#ordersPage #addWork{width:100%;margin-top:10px;background:var(--yellow);color:#111;border:1px solid #e0bd00;font-weight:800}#ordersPage #saveOrder{width:100%;margin-top:12px}.work-order{border:1px solid var(--line);border-radius:12px;padding:13px;margin:9px 0;background:#17191a}.work-order h3{margin:0 0 5px}.work-order .meta{font-size:12px;color:var(--muted)}.work-order .detail{font-size:13px;line-height:1.5;margin:8px 0}.work-order .sum{font-size:18px;color:var(--yellow);font-weight:800}.work-order .actions{display:flex;gap:7px;flex-wrap:wrap}.work-order .actions button{width:auto}.empty-orders{text-align:center;padding:18px;color:var(--muted)}@media(max-width:420px){.formgrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .leader-periods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:8px 0 12px}.leader-period-btn{background:#24272a;color:var(--text);border:1px solid #45494d}.leader-period-btn.selected{background:var(--yellow);color:#111;border-color:var(--yellow)}.leader-master-row{display:grid;grid-template-columns:minmax(100px,1.2fr) repeat(3,minmax(68px,1fr));gap:7px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.leader-master-row:last-child{border-bottom:0}.leader-master-row button{padding:7px 5px;min-height:38px;text-align:left;background:transparent;color:var(--yellow);border:0;font-size:14px}.leader-master-row .leader-num{text-align:center}.leader-total-row{font-weight:800;border-top:2px solid var(--yellow);padding-top:12px;margin-top:4px}.leader-detail-order{background:#17191a;border:1px solid var(--line);border-radius:10px;padding:12px;margin:9px 0}.leader-service-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #303437;font-size:13px}.leader-service-row:last-child{border-bottom:0}.leader-back{margin:0 0 12px;width:100%}.service-count-badge{display:inline-block;min-width:34px;text-align:center;background:var(--yellow);color:#111;font-weight:900;border-radius:7px;padding:4px 8px}.daily-service-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.daily-service-row:last-child{border-bottom:0}.leader-period-summary{margin-top:12px}.leader-period-summary h3{margin:0 0 8px}.leader-period-summary .stats{margin-top:0}@media(max-width:420px){.leader-master-row{grid-template-columns:minmax(90px,1.1fr) repeat(3,minmax(58px,1fr));gap:3px;font-size:11px}.leader-master-row button{font-size:12px}}
 .brandmark{display:flex;align-items:center;justify-content:center;gap:9px}.brandmark img{width:38px;height:38px;object-fit:contain}.brandmark .brand{font-size:24px;color:var(--yellow)}.remove-master-btn{background:#5b2424;color:#fff;border:1px solid #884343;border-radius:8px;padding:6px 9px;min-height:32px;font-size:12px}.queue-action-cell{width:1%;white-space:nowrap}.queue-table{min-width:600px}
-/* Выпадающий список автомобилей */
 .car-picker{position:relative}.car-picker-list{position:absolute;top:100%;left:0;right:0;z-index:20;max-height:260px;overflow-y:auto;background:#1b1d1f;border:1px solid #555;border-radius:10px;box-shadow:0 10px 24px #0009;margin-top:4px}.car-picker-list[hidden]{display:none!important}.car-picker-option{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #34383c;border-radius:0;background:#1b1d1f;color:#f6f6f6;padding:12px;font-size:14px}.car-picker-option:active,.car-picker-option:focus{background:#383b3e}.car-picker-empty{padding:12px;color:#aeb3b8;font-size:13px}
 .queue-position-number{font-size:21px;font-weight:900;line-height:1.15;color:var(--yellow)}.queue-box-number{font-size:21px;font-weight:900;line-height:1.15;color:var(--yellow)}.queue-name-mini{margin-top:4px;font-size:10px;line-height:1.2;color:#c3c5c8;font-weight:400;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:auto;margin-right:auto}
-/* Approved matching outline for both bottom exit buttons. */
 #queuePage .queue-bottom-actions > #leaveBtn,
 #queuePage .queue-bottom-actions > #logoutBtn {
-  display:block;width:100%;min-height:62px;
-  border:1px solid #647782 !important;
-  border-radius:14px !important;
-  background:linear-gradient(120deg,#202a30,#192127) !important;
-  color:#ff525d !important;
-  font-size:16px;font-weight:750;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+display:block;width:100%;min-height:62px;
+border:1px solid #647782 !important;
+border-radius:14px !important;
+background:linear-gradient(120deg,#202a30,#192127) !important;
+color:#ff525d !important;
+font-size:16px;font-weight:750;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
 }
 #queuePage .queue-bottom-actions > #leaveBtn::before,
 #queuePage .queue-bottom-actions > #logoutBtn::before {content:'⇥';font-size:24px;margin-right:10px;vertical-align:-2px}
 @media(max-width:600px){#queuePage .queue-bottom-actions > #leaveBtn,#queuePage .queue-bottom-actions > #logoutBtn{min-height:54px}}
-
-/* Compact queue presentation: six master rows, same existing colors and behavior. */
 #queueTableCard h2{padding:6px 9px!important;font-size:14px!important}
 #queueTableCard #countPill{height:23px!important;min-width:25px!important;font-size:13px!important}
 #queueTableCard .queue-table{min-width:850px!important;font-size:10px!important}
@@ -48,8 +43,6 @@
 #queueTableCard .chip-copy small{font-size:10px!important}
 #queueTableCard .empty-service-slot{height:40px!important;min-height:40px!important}
 #queueTableCard .service-remove{right:0!important;top:0!important}
-
-/* BARDAHL queue layout refinement 2026-11-02: desktop legibility and mobile full-cell chips */
 #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(16px,1.45vw,21px)!important;line-height:1.08!important}
 #queueTableCard .queue-name-mini{font-size:clamp(11px,1vw,14px)!important;line-height:1.1!important}
 #queueTableCard .service-chip{position:relative!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;padding:3px 25px 3px 4px!important;gap:4px!important}
@@ -58,21 +51,17 @@
 #queueTableCard .service-chip .chip-copy small{font-size:clamp(12px,1.1vw,15px)!important;font-weight:800!important;line-height:1.05!important;white-space:nowrap!important;align-self:flex-start!important;margin-left:-2px!important}
 #queueTableCard .service-chip .service-remove{position:absolute!important;right:3px!important;top:3px!important;width:20px!important;height:20px!important;min-width:20px!important;min-height:20px!important;font-size:16px!important;line-height:18px!important;padding:0!important;border-radius:50%!important;z-index:3!important}
 @media(max-width:700px){
- #queueTableCard .queue-table td{padding:1px!important}
- #queueTableCard .service-chip{width:100%!important;min-width:0!important;height:36px!important;min-height:36px!important;padding:2px 16px 2px 2px!important;gap:2px!important;border-radius:7px!important}
- #queueTableCard .service-chip .chip-symbol{width:17px!important;height:23px!important;flex:0 0 17px!important}
- #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important}
- #queueTableCard .service-chip .chip-copy>span{font-size:10px!important;letter-spacing:-.2px!important}
- #queueTableCard .service-chip .chip-copy small{font-size:10px!important;margin-left:0!important}
- #queueTableCard .service-chip .service-remove{right:1px!important;top:1px!important;width:15px!important;height:15px!important;min-width:15px!important;min-height:15px!important;font-size:13px!important;line-height:13px!important}
- #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:15px!important}
- #queueTableCard .queue-name-mini{font-size:10px!important}
+#queueTableCard .queue-table td{padding:1px!important}
+#queueTableCard .service-chip{width:100%!important;min-width:0!important;height:36px!important;min-height:36px!important;padding:2px 16px 2px 2px!important;gap:2px!important;border-radius:7px!important}
+#queueTableCard .service-chip .chip-symbol{width:17px!important;height:23px!important;flex:0 0 17px!important}
+#queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important}
+#queueTableCard .service-chip .chip-copy>span{font-size:10px!important;letter-spacing:-.2px!important}
+#queueTableCard .service-chip .chip-copy small{font-size:10px!important;margin-left:0!important}
+#queueTableCard .service-chip .service-remove{right:1px!important;top:1px!important;width:15px!important;height:15px!important;min-width:15px!important;min-height:15px!important;font-size:13px!important;line-height:13px!important}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:15px!important}
+#queueTableCard .queue-name-mini{font-size:10px!important}
 }
-</style><style>
-/* BARDAHL mobile queue redesign */
-.queue-table{min-width:610px;font-size:12px}.queue-table th,.queue-table td{padding:9px 3px;text-align:center!important}.queue-table th:first-child{min-width:80px}.queue-table th:nth-child(2){min-width:40px}.queue-name-mini{display:block;font-size:10px;color:#b7b9bd;font-weight:400;max-width:85px;overflow:hidden;text-overflow:ellipsis}.service-logo{width:62px;height:62px;max-width:none;object-fit:contain;filter:drop-shadow(0 0 5px #333)}.service-entry{position:relative;min-width:62px}.service-remove{position:absolute;right:-3px;top:-6px;z-index:2}.round-dot.no{display:inline-block;width:39px;height:39px;border-radius:50%;background:#25292c;color:transparent;box-shadow:inset 0 0 0 1px #383c40}.service-btn{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:106px!important;padding:6px 3px!important;font-size:11px!important}.service-btn img{width:76px;height:76px;object-fit:contain}.service-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}.service-btn.done-service{outline:2px solid var(--yellow)}#positionCard{border-color:#e0bb25}#myPanelCard{margin-top:10px}#queuePage .card h2{margin-top:0}@media(max-width:420px){.service-logo{width:55px;height:55px}.service-entry{min-width:55px}.service-btn img{width:68px;height:68px}}
-
-/* BARDAHL queue visual refresh — screenshot-inspired; no database changes */
+</style><style>.queue-table{min-width:610px;font-size:12px}.queue-table th,.queue-table td{padding:9px 3px;text-align:center!important}.queue-table th:first-child{min-width:80px}.queue-table th:nth-child(2){min-width:40px}.queue-name-mini{display:block;font-size:10px;color:#b7b9bd;font-weight:400;max-width:85px;overflow:hidden;text-overflow:ellipsis}.service-logo{width:62px;height:62px;max-width:none;object-fit:contain;filter:drop-shadow(0 0 5px #333)}.service-entry{position:relative;min-width:62px}.service-remove{position:absolute;right:-3px;top:-6px;z-index:2}.round-dot.no{display:inline-block;width:39px;height:39px;border-radius:50%;background:#25292c;color:transparent;box-shadow:inset 0 0 0 1px #383c40}.service-btn{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:106px!important;padding:6px 3px!important;font-size:11px!important}.service-btn img{width:76px;height:76px;object-fit:contain}.service-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}.service-btn.done-service{outline:2px solid var(--yellow)}#positionCard{border-color:#e0bb25}#myPanelCard{margin-top:10px}#queuePage .card h2{margin-top:0}@media(max-width:420px){.service-logo{width:55px;height:55px}.service-entry{min-width:55px}.service-btn img{width:68px;height:68px}}
 :root{--bg:#0b0e11;--panel:#15191d;--line:#2c333a;--yellow:#ffd21a}
 body{background:radial-gradient(ellipse at 50% 0%,#1a1f23 0%,#0b0e11 55%);color:#f4f5f7}
 header{background:#0d1013;border-bottom:1px solid #2a3036;box-shadow:0 8px 28px #0005}
@@ -107,8 +96,6 @@ main{max-width:1500px;padding:16px 16px 40px}
 #queuePage>.row:has(#logoutBtn){border:1px solid #30373d;border-radius:14px;background:#151a1e;margin-top:14px!important}
 #myPanelCard{margin-top:14px}.service-btn{background:#14191d;border-radius:13px}
 @media(max-width:600px){main{padding:12px 8px 32px}#queueTableCard h2{padding:14px}.queue-table{min-width:860px}.queue-table th:first-child{width:100px}.queue-table th:nth-child(2){width:65px}.queue-position-number,.queue-box-number{font-size:17px!important}.service-chip{gap:4px}.chip-copy{font-size:12px}}
-
-/* Same approved service-card appearance in the selection panel and queue table. */
 .service-actions .service-btn.service-choice{min-height:80px!important;display:flex;flex-direction:row;gap:7px;align-items:center;justify-content:center;border-radius:12px;padding:9px 5px!important;color:#fff;font-size:clamp(10px,1.7vw,14px)!important;font-weight:700;line-height:1.15;box-shadow:none}
 .service-choice.akpp{background:linear-gradient(120deg,#283a45,#344d5c);border:1px solid #455b69}
 .service-choice.antifriz{background:linear-gradient(120deg,#552024,#773137);border:1px solid #874247}
@@ -117,8 +104,6 @@ main{max-width:1500px;padding:16px 16px 40px}
 .service-choice.done-service{outline:2px solid #ffd21a;outline-offset:1px;color:white;border-color:#ffd21a}
 .service-choice .choice-copy{min-width:0;overflow-wrap:anywhere}
 @media(max-width:420px){.service-choice .chip-symbol{width:25px}.service-choice .chip-symbol svg{width:25px;height:25px}.service-actions .service-btn.service-choice{gap:3px;padding:7px 2px!important}}
-
-/* Approved compact queue and bottom controls */
 #queueTableCard .queue-table{min-width:780px;font-size:12px}
 #queueTableCard .queue-table th{height:37px;font-size:11px}
 #queueTableCard .queue-table tbody tr{height:68px}
@@ -140,7 +125,6 @@ main{max-width:1500px;padding:16px 16px 40px}
 .queue-bottom-actions .queue-exit-btn{width:100%;min-height:62px;border:1px solid #36424b;border-radius:13px;background:linear-gradient(120deg,#202a30,#192127);color:#ff525d;font-size:16px;font-weight:750}
 .queue-bottom-actions .queue-exit-btn:before{content:'⇥';font-size:24px;margin-right:10px;vertical-align:-2px}
 @media(max-width:600px){#queueTableCard .queue-table{min-width:750px}#queueTableCard .queue-table th:first-child{width:82px}#queueTableCard .queue-table th:nth-child(2){width:54px}.queue-bottom-actions .queue-exit-btn{min-height:54px}}
-/* Exact approved reference: large pictogram left, name and saved time stacked right. */
 #queueTableCard .service-chip{justify-content:flex-start;gap:10px;min-height:64px;padding:7px 10px;border-radius:12px;box-shadow:0 3px 10px #0003}
 #queueTableCard .service-chip.akpp,.service-choice.akpp{background:linear-gradient(120deg,#203845,#1d3541)}
 #queueTableCard .service-chip.haldex,.service-choice.haldex{background:linear-gradient(120deg,#00532d,#006037)}
@@ -156,20 +140,17 @@ main{max-width:1500px;padding:16px 16px 40px}
 #myPanelCard .service-choice .chip-symbol{width:43px;height:43px}
 #myPanelCard .service-actions .service-btn.service-choice{justify-content:flex-start;gap:11px;padding:10px 13px!important;min-height:73px!important}
 @media(max-width:600px){#queueTableCard .queue-table{min-width:940px}}
-
-/* Approved compact, borderless logout controls. */
 #queuePage .queue-bottom-actions{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:10px}
 #queuePage .queue-bottom-actions > #leaveBtn,
 #queuePage .queue-bottom-actions > #logoutBtn{
- display:flex!important;align-items:center;justify-content:center;width:auto!important;
- min-height:36px!important;height:36px!important;padding:5px 14px!important;
- background:transparent!important;border:0!important;outline:0!important;
- box-shadow:none!important;border-radius:0!important;color:#ff525d!important;
- font-size:15px!important;font-weight:700!important;
+display:flex!important;align-items:center;justify-content:center;width:auto!important;
+min-height:36px!important;height:36px!important;padding:5px 14px!important;
+background:transparent!important;border:0!important;outline:0!important;
+box-shadow:none!important;border-radius:0!important;color:#ff525d!important;
+font-size:15px!important;font-weight:700!important;
 }
 #queuePage .queue-bottom-actions > #leaveBtn::before,
 #queuePage .queue-bottom-actions > #logoutBtn::before{content:'⇥';font-size:20px;margin-right:8px;vertical-align:0}
-/* Reference service cards: deep navy, green, crimson; large left icon. */
 #queueTableCard .service-chip{border-radius:15px;min-height:68px;padding:7px 10px;gap:10px;box-shadow:0 3px 10px #0004}
 #queueTableCard .service-chip.akpp,#myPanelCard .service-choice.akpp{background:linear-gradient(115deg,#1d3541,#192e39)!important}
 #queueTableCard .service-chip.haldex,#myPanelCard .service-choice.haldex{background:linear-gradient(115deg,#00512c,#005d32)!important}
@@ -180,8 +161,6 @@ main{max-width:1500px;padding:16px 16px 40px}
 #queueTableCard .chip-copy small{font-size:14px}
 #myPanelCard .service-actions .service-btn.service-choice{min-height:74px!important;gap:10px!important;border:0!important;justify-content:flex-start!important;padding:9px 12px!important}
 #myPanelCard .service-choice .choice-copy{font-size:15px;text-align:left}
-
-/* Final queue-only compact layout: six master rows, six rounds, one-line names. */
 #queueTableCard{padding:0!important;overflow:hidden}
 #queueTableCard h2{padding:9px 11px!important;margin:0!important;font-size:16px!important}
 #queueTableCard .table-wrap{overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch}
@@ -203,205 +182,181 @@ main{max-width:1500px;padding:16px 16px 40px}
 #queueTableCard .empty-service-slot{height:46px!important;min-height:46px!important;border-radius:9px!important}
 #queueTableCard .service-remove{position:absolute!important;right:1px!important;top:0!important;width:13px!important;height:13px!important;min-width:13px!important;min-height:13px!important;padding:0!important;font-size:11px!important;line-height:11px!important;opacity:.7}
 @media(max-width:600px){#queueTableCard .queue-table{min-width:1000px!important}}
-
-/* iPhone-only compact layout. Desktop styles are untouched. */
 @media (max-width: 600px) {
-  body {font-size:13px}
-  header {padding:9px 10px 8px}
-  .brandmark img {width:27px;height:27px}
-  .brandmark .brand {font-size:19px}
-  .sub {font-size:9px;margin-top:2px}
-  main {padding:8px 7px 22px}
-  .card {padding:9px;margin-bottom:8px;border-radius:11px}
-  h2 {font-size:14px;margin-bottom:7px}
-  label {font-size:11px;margin:6px 0 4px}
-  input,select,button {font-size:12px;min-height:34px;padding:7px 8px}
-  #queueTableCard h2 {font-size:12px!important;padding:5px 7px!important}
-  #queueTableCard .queue-table {min-width:790px!important;font-size:10px!important}
-  #queueTableCard .queue-table th:first-child {width:75px!important}
-  #queueTableCard .queue-table th:nth-child(2) {width:36px!important}
-  #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8) {width:113px!important}
-  #queueTableCard .queue-table th {height:22px!important;font-size:9px!important;padding:3px 2px!important}
-  #queueTableCard .queue-table td {padding:2px!important}
-  #queueTableCard .queue-table tbody tr {height:45px!important}
-  #queueTableCard .queue-position-number,#queueTableCard .queue-box-number {font-size:11px!important}
-  #queueTableCard .queue-name-mini {font-size:9px!important}
-  #queueTableCard .service-chip {height:39px!important;min-height:39px!important;padding:3px 4px!important;gap:4px!important;border-radius:8px!important}
-  #queueTableCard .service-chip .chip-symbol {width:25px!important;height:27px!important;flex:0 0 25px!important}
-  #queueTableCard .service-chip .chip-symbol svg {width:25px!important;height:25px!important}
-  #queueTableCard .chip-copy {font-size:10px!important;gap:2px!important}
-  #queueTableCard .chip-copy small {font-size:9px!important}
-  #queueTableCard .empty-service-slot {height:39px!important;min-height:39px!important}
-  #myPanelCard .service-actions {gap:5px}
-  #myPanelCard .service-choice {min-height:56px!important;padding:5px 3px!important;gap:4px!important;font-size:11px!important}
-  #myPanelCard .service-choice .chip-symbol {width:27px!important;height:27px!important}
-  #myPanelCard .service-choice .chip-symbol svg {width:27px!important;height:27px!important}
-  #queuePage .queue-bottom-actions > #leaveBtn,
-  #queuePage .queue-bottom-actions > #logoutBtn {min-height:36px!important;padding:5px!important;font-size:12px!important;border:0!important;box-shadow:none!important}
-  #queuePage .queue-bottom-actions > #leaveBtn::before,
-  #queuePage .queue-bottom-actions > #logoutBtn::before {font-size:16px!important}
+body {font-size:13px}
+header {padding:9px 10px 8px}
+.brandmark img {width:27px;height:27px}
+.brandmark .brand {font-size:19px}
+.sub {font-size:9px;margin-top:2px}
+main {padding:8px 7px 22px}
+.card {padding:9px;margin-bottom:8px;border-radius:11px}
+h2 {font-size:14px;margin-bottom:7px}
+label {font-size:11px;margin:6px 0 4px}
+input,select,button {font-size:12px;min-height:34px;padding:7px 8px}
+#queueTableCard h2 {font-size:12px!important;padding:5px 7px!important}
+#queueTableCard .queue-table {min-width:790px!important;font-size:10px!important}
+#queueTableCard .queue-table th:first-child {width:75px!important}
+#queueTableCard .queue-table th:nth-child(2) {width:36px!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8) {width:113px!important}
+#queueTableCard .queue-table th {height:22px!important;font-size:9px!important;padding:3px 2px!important}
+#queueTableCard .queue-table td {padding:2px!important}
+#queueTableCard .queue-table tbody tr {height:45px!important}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number {font-size:11px!important}
+#queueTableCard .queue-name-mini {font-size:9px!important}
+#queueTableCard .service-chip {height:39px!important;min-height:39px!important;padding:3px 4px!important;gap:4px!important;border-radius:8px!important}
+#queueTableCard .service-chip .chip-symbol {width:25px!important;height:27px!important;flex:0 0 25px!important}
+#queueTableCard .service-chip .chip-symbol svg {width:25px!important;height:25px!important}
+#queueTableCard .chip-copy {font-size:10px!important;gap:2px!important}
+#queueTableCard .chip-copy small {font-size:9px!important}
+#queueTableCard .empty-service-slot {height:39px!important;min-height:39px!important}
+#myPanelCard .service-actions {gap:5px}
+#myPanelCard .service-choice {min-height:56px!important;padding:5px 3px!important;gap:4px!important;font-size:11px!important}
+#myPanelCard .service-choice .chip-symbol {width:27px!important;height:27px!important}
+#myPanelCard .service-choice .chip-symbol svg {width:27px!important;height:27px!important}
+#queuePage .queue-bottom-actions > #leaveBtn,
+#queuePage .queue-bottom-actions > #logoutBtn {min-height:36px!important;padding:5px!important;font-size:12px!important;border:0!important;box-shadow:none!important}
+#queuePage .queue-bottom-actions > #leaveBtn::before,
+#queuePage .queue-bottom-actions > #logoutBtn::before {font-size:16px!important}
 }
-
-/* iPhone: only the three service-selection cards are compacted. */
 @media screen and (max-width: 600px) {
-  #myPanelCard .service-actions { gap: 4px !important; }
-  #myPanelCard .service-actions .service-btn.service-choice {
-    box-sizing: border-box !important;
-    min-width: 0 !important;
-    min-height: 42px !important;
-    height: 42px !important;
-    padding: 4px 5px !important;
-    gap: 4px !important;
-    border-radius: 8px !important;
-    justify-content: flex-start !important;
-  }
-  #myPanelCard .service-choice .chip-symbol {
-    flex: 0 0 19px !important;
-    width: 19px !important;
-    height: 22px !important;
-  }
-  #myPanelCard .service-choice .chip-symbol svg {
-    width: 19px !important;
-    height: 19px !important;
-  }
-  #myPanelCard .service-choice .choice-copy {
-    display: block !important;
-    min-width: 0 !important;
-    font-size: 10px !important;
-    font-weight: 650 !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.25px !important;
-    white-space: nowrap !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    text-align: left !important;
-  }
+#myPanelCard .service-actions { gap: 4px !important; }
+#myPanelCard .service-actions .service-btn.service-choice {
+box-sizing: border-box !important;
+min-width: 0 !important;
+min-height: 42px !important;
+height: 42px !important;
+padding: 4px 5px !important;
+gap: 4px !important;
+border-radius: 8px !important;
+justify-content: flex-start !important;
 }
-
-/* Approved design #1: modern, simple service cards. No app logic changed. */
+#myPanelCard .service-choice .chip-symbol {
+flex: 0 0 19px !important;
+width: 19px !important;
+height: 22px !important;
+}
+#myPanelCard .service-choice .chip-symbol svg {
+width: 19px !important;
+height: 19px !important;
+}
+#myPanelCard .service-choice .choice-copy {
+display: block !important;
+min-width: 0 !important;
+font-size: 10px !important;
+font-weight: 650 !important;
+line-height: 1.1 !important;
+letter-spacing: -0.25px !important;
+white-space: nowrap !important;
+word-break: normal !important;
+overflow-wrap: normal !important;
+text-align: left !important;
+}
+}
 #myPanelCard .service-actions .service-btn.service-choice,
 #queueTableCard .service-chip {
-  background-image:linear-gradient(120deg,rgba(255,255,255,.035),transparent 65%) !important;
-  background-color:#241b06 !important;
-  border:2px solid #ffd21a !important;
-  color:#fff !important;
-  box-shadow:inset 0 0 12px rgba(255,210,26,.12) !important;
+background-image:linear-gradient(120deg,rgba(255,255,255,.035),transparent 65%) !important;
+background-color:#241b06 !important;
+border:2px solid #ffd21a !important;
+color:#fff !important;
+box-shadow:inset 0 0 12px rgba(255,210,26,.12) !important;
 }
 #myPanelCard .service-actions .service-btn.service-choice.haldex,
 #queueTableCard .service-chip.haldex {
-  background-color:#00371e !important;
-  border-color:#16eb5b !important;
-  box-shadow:inset 0 0 12px rgba(22,235,91,.12) !important;
+background-color:#00371e !important;
+border-color:#16eb5b !important;
+box-shadow:inset 0 0 12px rgba(22,235,91,.12) !important;
 }
 #myPanelCard .service-actions .service-btn.service-choice.antifriz,
 #queueTableCard .service-chip.antifriz {
-  background-color:#420b10 !important;
-  border-color:#ff3039 !important;
-  box-shadow:inset 0 0 12px rgba(255,48,57,.12) !important;
+background-color:#420b10 !important;
+border-color:#ff3039 !important;
+box-shadow:inset 0 0 12px rgba(255,48,57,.12) !important;
 }
 #myPanelCard .service-choice .choice-copy,
 #queueTableCard .service-chip .chip-copy > span {white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;}
 #myPanelCard .service-actions .service-btn.service-choice.done-service {outline:2px solid #fff!important;outline-offset:1px;}
-/* On iPhone preserve the previously approved compact dimensions. */
 @media screen and (max-width:600px) {
- #myPanelCard .service-actions .service-btn.service-choice {border-width:1.5px!important;}
- #myPanelCard .service-choice .choice-copy {font-size:10px!important;font-weight:700!important;letter-spacing:-.25px!important;}
- #queueTableCard .service-chip {border-width:1px!important;}
+#myPanelCard .service-actions .service-btn.service-choice {border-width:1.5px!important;}
+#myPanelCard .service-choice .choice-copy {font-size:10px!important;font-weight:700!important;letter-spacing:-.25px!important;}
+#queueTableCard .service-chip {border-width:1px!important;}
 }
-
-/* iPhone only: compact approved three-service panel, identical typography. */
 @media screen and (max-width:600px) {
- #myPanelCard .service-actions{gap:4px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
- #myPanelCard .service-actions .service-btn.service-choice{height:39px!important;min-height:39px!important;padding:3px 4px!important;gap:3px!important}
- #myPanelCard .service-choice .chip-symbol{width:17px!important;height:17px!important;flex:0 0 17px!important}
- #myPanelCard .service-choice .chip-symbol svg{width:17px!important;height:17px!important}
- #myPanelCard .service-choice .choice-copy{font-size:10px!important;font-weight:700!important;letter-spacing:-.2px!important;white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important}
+#myPanelCard .service-actions{gap:4px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#myPanelCard .service-actions .service-btn.service-choice{height:39px!important;min-height:39px!important;padding:3px 4px!important;gap:3px!important}
+#myPanelCard .service-choice .chip-symbol{width:17px!important;height:17px!important;flex:0 0 17px!important}
+#myPanelCard .service-choice .chip-symbol svg{width:17px!important;height:17px!important}
+#myPanelCard .service-choice .choice-copy{font-size:10px!important;font-weight:700!important;letter-spacing:-.2px!important;white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important}
 }
-
-/* Reference-photo pictograms; only iPhone dimensions reduced by 25%. */
 @media screen and (max-width:600px) {
- #myPanelCard .service-actions .service-btn.service-choice{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important;border-radius:7px!important}
- #myPanelCard .service-choice .chip-symbol{width:13px!important;height:13px!important;flex:0 0 13px!important}
- #myPanelCard .service-choice .chip-symbol svg{width:13px!important;height:13px!important}
- #myPanelCard .service-choice .choice-copy{font-size:9px!important;font-weight:700!important;white-space:nowrap!important;letter-spacing:-.3px!important}
- #queueTableCard .service-chip{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important}
- #queueTableCard .service-chip .chip-symbol{width:19px!important;height:19px!important;flex:0 0 19px!important}
- #queueTableCard .service-chip .chip-symbol svg{width:19px!important;height:19px!important}
- #queueTableCard .chip-copy{font-size:9px!important;gap:1px!important}
- #queueTableCard .chip-copy small{font-size:8px!important}
- #queueTableCard .empty-service-slot{height:30px!important;min-height:30px!important}
+#myPanelCard .service-actions .service-btn.service-choice{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important;border-radius:7px!important}
+#myPanelCard .service-choice .chip-symbol{width:13px!important;height:13px!important;flex:0 0 13px!important}
+#myPanelCard .service-choice .chip-symbol svg{width:13px!important;height:13px!important}
+#myPanelCard .service-choice .choice-copy{font-size:9px!important;font-weight:700!important;white-space:nowrap!important;letter-spacing:-.3px!important}
+#queueTableCard .service-chip{height:30px!important;min-height:30px!important;padding:2px 3px!important;gap:3px!important}
+#queueTableCard .service-chip .chip-symbol{width:19px!important;height:19px!important;flex:0 0 19px!important}
+#queueTableCard .service-chip .chip-symbol svg{width:19px!important;height:19px!important}
+#queueTableCard .chip-copy{font-size:9px!important;gap:1px!important}
+#queueTableCard .chip-copy small{font-size:8px!important}
+#queueTableCard .empty-service-slot{height:30px!important;min-height:30px!important}
 }
 #myPanelCard .chip-symbol img,#queueTableCard .chip-symbol img{display:block;width:100%;height:100%;object-fit:contain}
-
-/* Final iPhone-only adjustment: 25% smaller again; narrower Position column. */
 @media screen and (max-width:600px) {
- #myPanelCard .service-actions .service-btn.service-choice{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important;border-radius:5px!important}
- #myPanelCard .service-choice .chip-symbol{width:10px!important;height:10px!important;flex:0 0 10px!important}
- #myPanelCard .service-choice .chip-symbol svg{width:10px!important;height:10px!important}
- #myPanelCard .service-choice .choice-copy{font-size:8px!important;white-space:nowrap!important}
- #queueTableCard .service-chip{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important}
- #queueTableCard .service-chip .chip-symbol{width:14px!important;height:14px!important;flex:0 0 14px!important}
- #queueTableCard .service-chip .chip-symbol svg{width:14px!important;height:14px!important}
- #queueTableCard .chip-copy{font-size:8px!important;gap:1px!important}
- #queueTableCard .chip-copy small{font-size:7px!important}
- #queueTableCard .empty-service-slot{height:23px!important;min-height:23px!important}
- #queueTableCard .queue-table{min-width:770px!important}
- #queueTableCard .queue-table th:first-child{width:56px!important;min-width:56px!important}
- #queueTableCard .queue-table td:first-child{width:56px!important;max-width:56px!important}
- #queueTableCard .queue-name-mini{max-width:52px!important;font-size:8px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+#myPanelCard .service-actions .service-btn.service-choice{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important;border-radius:5px!important}
+#myPanelCard .service-choice .chip-symbol{width:10px!important;height:10px!important;flex:0 0 10px!important}
+#myPanelCard .service-choice .chip-symbol svg{width:10px!important;height:10px!important}
+#myPanelCard .service-choice .choice-copy{font-size:8px!important;white-space:nowrap!important}
+#queueTableCard .service-chip{height:23px!important;min-height:23px!important;padding:1px 2px!important;gap:2px!important}
+#queueTableCard .service-chip .chip-symbol{width:14px!important;height:14px!important;flex:0 0 14px!important}
+#queueTableCard .service-chip .chip-symbol svg{width:14px!important;height:14px!important}
+#queueTableCard .chip-copy{font-size:8px!important;gap:1px!important}
+#queueTableCard .chip-copy small{font-size:7px!important}
+#queueTableCard .empty-service-slot{height:23px!important;min-height:23px!important}
+#queueTableCard .queue-table{min-width:770px!important}
+#queueTableCard .queue-table th:first-child{width:56px!important;min-width:56px!important}
+#queueTableCard .queue-table td:first-child{width:56px!important;max-width:56px!important}
+#queueTableCard .queue-name-mini{max-width:52px!important;font-size:8px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
 }
-
-/* iPhone only: narrower queue columns and photo-style compact service chips. */
 @media screen and (max-width:600px) {
- #queueTableCard .queue-table{min-width:610px!important;width:610px!important;table-layout:fixed!important}
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table td:first-child{width:42px!important;min-width:42px!important;max-width:42px!important;padding:1px!important}
- #queueTableCard .queue-table th:nth-child(2),
- #queueTableCard .queue-table td:nth-child(2){width:32px!important;min-width:32px!important;max-width:32px!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),
- #queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:89px!important;min-width:89px!important;max-width:89px!important;padding:2px!important}
- #queueTableCard .queue-name-mini{max-width:39px!important;font-size:7px!important}
- #queueTableCard .service-chip{width:100%!important;max-width:85px!important;overflow:hidden!important;box-sizing:border-box!important}
- #queueTableCard .service-chip .chip-symbol{width:13px!important;height:16px!important;flex:0 0 13px!important}
- #queueTableCard .chip-copy{font-size:8px!important;white-space:nowrap!important;min-width:0!important}
- #queueTableCard .chip-copy small{font-size:7px!important}
+#queueTableCard .queue-table{min-width:610px!important;width:610px!important;table-layout:fixed!important}
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table td:first-child{width:42px!important;min-width:42px!important;max-width:42px!important;padding:1px!important}
+#queueTableCard .queue-table th:nth-child(2),
+#queueTableCard .queue-table td:nth-child(2){width:32px!important;min-width:32px!important;max-width:32px!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),
+#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:89px!important;min-width:89px!important;max-width:89px!important;padding:2px!important}
+#queueTableCard .queue-name-mini{max-width:39px!important;font-size:7px!important}
+#queueTableCard .service-chip{width:100%!important;max-width:85px!important;overflow:hidden!important;box-sizing:border-box!important}
+#queueTableCard .service-chip .chip-symbol{width:13px!important;height:16px!important;flex:0 0 13px!important}
+#queueTableCard .chip-copy{font-size:8px!important;white-space:nowrap!important;min-width:0!important}
+#queueTableCard .chip-copy small{font-size:7px!important}
 }
-
-/* Approved revision: only the service-selection buttons become large, icon-only squares. */
 #myPanelCard .service-actions {grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;justify-items:center!important;}
 #myPanelCard .service-actions .service-btn.service-choice {
-  width:min(100%,116px)!important;height:116px!important;min-height:116px!important;
-  aspect-ratio:1/1!important;padding:12px!important;display:flex!important;
-  justify-content:center!important;align-items:center!important;border-radius:17px!important;
+width:min(100%,116px)!important;height:116px!important;min-height:116px!important;
+aspect-ratio:1/1!important;padding:12px!important;display:flex!important;
+justify-content:center!important;align-items:center!important;border-radius:17px!important;
 }
 #myPanelCard .service-choice .choice-copy{display:none!important;}
 #myPanelCard .service-choice .chip-symbol{width:74px!important;height:74px!important;flex:0 0 74px!important;}
 #myPanelCard .service-choice .chip-symbol img,#myPanelCard .service-choice .chip-symbol svg{width:74px!important;height:74px!important;object-fit:contain!important;}
 @media screen and (max-width:600px){
- #myPanelCard .service-actions{gap:7px!important;}
- #myPanelCard .service-actions .service-btn.service-choice{width:min(100%,94px)!important;height:auto!important;min-height:0!important;aspect-ratio:1/1!important;padding:9px!important;border-radius:13px!important;}
- #myPanelCard .service-choice .chip-symbol{width:60px!important;height:60px!important;flex:0 0 60px!important;}
- #myPanelCard .service-choice .chip-symbol img,#myPanelCard .service-choice .chip-symbol svg{width:60px!important;height:60px!important;}
+#myPanelCard .service-actions{gap:7px!important;}
+#myPanelCard .service-actions .service-btn.service-choice{width:min(100%,94px)!important;height:auto!important;min-height:0!important;aspect-ratio:1/1!important;padding:9px!important;border-radius:13px!important;}
+#myPanelCard .service-choice .chip-symbol{width:60px!important;height:60px!important;flex:0 0 60px!important;}
+#myPanelCard .service-choice .chip-symbol img,#myPanelCard .service-choice .chip-symbol svg{width:60px!important;height:60px!important;}
 }
-
-/* Role visibility: override old forced display:flex rules. */
 #queuePage .queue-bottom-actions > #leaveBtn.hidden {display:none!important;}
 #app #tabOrders.hidden {display:none!important;}
-
-/* iOS overscroll containment: preserve internal table scrolling. */
 html {width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior:none;background:#0b0e11;}
 body {width:100%;max-width:100%;min-height:100dvh;overflow-x:clip;overscroll-behavior-y:none;background-color:#0b0e11;}
 main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #queueTableCard .table-wrap {max-width:100%;overscroll-behavior-x:contain;}
 @media (pointer:coarse) {input,select,textarea {touch-action:manipulation;}}
-</style><style id="compact-report-date-fix">
-/* Compact report date field on iPhone, without changing report behavior. */
-#ordersPage #reportDate {display:block!important; width:170px!important; max-width:100%!important; min-width:0!important; height:38px!important; min-height:38px!important; padding:5px 9px!important; font-size:14px!important; border-radius:9px!important; box-sizing:border-box!important;}
+</style><style id="compact-report-date-fix">#ordersPage #reportDate {display:block!important; width:170px!important; max-width:100%!important; min-width:0!important; height:38px!important; min-height:38px!important; padding:5px 9px!important; font-size:14px!important; border-radius:9px!important; box-sizing:border-box!important;}
 #ordersPage #masterReportControls {min-width:0;}
 </style>
 
-<style id="leader-dashboard-upgrade">
-#leaderStats .leader-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+<style id="leader-dashboard-upgrade">#leaderStats .leader-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
 #leaderStats .leader-kpi{background:#20262b;border:1px solid #354049;border-radius:13px;padding:14px;min-width:0}
 #leaderStats .leader-kpi span{display:block;color:#adb7be;font-size:12px}
 #leaderStats .leader-kpi strong{display:block;color:#ffd21a;font-size:clamp(17px,3vw,26px);margin-top:6px;overflow-wrap:anywhere}
@@ -423,16 +378,12 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 @media(min-width:650px){#leaderStats .leader-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 <style id="leader-dynamics-style">#leaderStats .leader-dynamics{margin-top:20px;padding:14px;border:1px solid #39434a;border-radius:12px;background:#1d2328}#leaderStats .leader-dynamic-item{padding:10px 0;border-bottom:1px solid #343b40;font-size:13px;line-height:1.5}#leaderStats .leader-dynamic-item:last-child{border:0}</style>
-<style id="bardahl-safe-four-themes">
-/* Backgrounds are painted in the normal page scroll layer; no fixed pseudo-elements,
-   blur, backdrop-filter, isolation or scroll interception. */
-html{background:#0b0e11}
+<style id="bardahl-safe-four-themes">html{background:#0b0e11}
 body{background-color:#0b0e11;background-repeat:no-repeat;background-attachment:scroll;background-position:center top;background-size:100% 100%}
 body[data-bg-style="classic"]{background-image:linear-gradient(145deg,#0c1014,#171c20 52%,#090c10)}
 body[data-bg-style="carbon"]{background-image:repeating-linear-gradient(132deg,#12191e 0 2px,#0a0e12 2px 7px,#151b20 7px 9px)}
 body[data-bg-style="gold"]{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20450%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22checks%22%20width%3D%22112%22%20height%3D%22112%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22skewX%28-20%29%20rotate%28-9%29%22%3E%3Crect%20width%3D%22112%22%20height%3D%22112%22%20fill%3D%22%23e9e9e4%22%2F%3E%3Cpath%20d%3D%22M0%200h56v56H0zM56%2056h56v56H56z%22%20fill%3D%22%230b1015%22%2F%3E%3C%2Fpattern%3E%3ClinearGradient%20id%3D%22shine%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%22.7%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.05%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.25%22%2F%3E%3Cstop%20offset%3D%22.78%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%22.26%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.1%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M0%20445%20C260%20405%20410%20330%20600%20250%20S855%20120%201000%2078%20L1000%20450H0Z%22%20fill%3D%22url%28%23checks%29%22%2F%3E%3Cpath%20d%3D%22M0%20445%20C260%20405%20410%20330%20600%20250%20S855%20120%201000%2078%20L1000%20450H0Z%22%20fill%3D%22url%28%23shine%29%22%2F%3E%3Cpath%20d%3D%22M0%20438%20C260%20398%20410%20323%20600%20243%20S855%20113%201000%2071%22%20fill%3D%22none%22%20stroke%3D%22%23e5b600%22%20stroke-width%3D%225%22%20opacity%3D%22.8%22%2F%3E%3C%2Fsvg%3E"),radial-gradient(ellipse at 90% 75%,rgba(244,182,0,.22),transparent 45%),repeating-linear-gradient(132deg,rgba(43,50,55,.30) 0 2px,transparent 2px 10px),linear-gradient(130deg,#080b0f,#141a20)}
 body[data-bg-style="motorsport"]{background-image:linear-gradient(132deg,transparent 0 6%,rgba(240,195,0,.75) 6% 6.6%,transparent 6.6% 8%,rgba(240,195,0,.45) 8% 8.4%,transparent 8.4% 100%),repeating-linear-gradient(132deg,#12171b 0 3px,#090c10 3px 12px)}
-/* The flag is a static background in the document, not a fixed composited layer. */
 body[data-bg-style="gold"]{background-repeat:no-repeat,no-repeat,repeat,no-repeat;background-size:100% auto,auto,auto,auto;background-position:right bottom,center,center,center} body[data-bg-style="carbon"],body[data-bg-style="motorsport"]{background-repeat:repeat}
 header{position:sticky;top:0;z-index:2}
 body[data-bg-style="classic"] header{background:#0d1013}
@@ -441,12 +392,12 @@ body[data-bg-style="gold"] header{background:linear-gradient(115deg,#0a0d10,#181
 body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130deg,transparent 0 20px,rgba(246,199,0,.22) 20px 24px,transparent 24px 46px),linear-gradient(90deg,#0a0c0f,#1b2025)}
 .brandmark .brand{color:#ffd316}
 @media(min-width:701px){
- header{min-height:96px;padding:15px 210px 13px;display:flex;flex-direction:column;justify-content:center}
- .brandmark img{width:58px;height:58px}.brandmark .brand{font-size:clamp(36px,3.5vw,54px)}
- .bardahl-header-tools{position:absolute;right:22px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:10px;z-index:10}
- .bardahl-desktop-clock{border:2px solid #f4cf12;border-radius:13px;background:#080b0e;padding:8px 14px;display:flex;align-items:center;gap:10px;color:#ffd312}
- .bardahl-desktop-clock strong{font-size:clamp(25px,2.8vw,42px);font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
- .bardahl-desktop-clock small{font-size:12px;color:#f8e28c}
+header{min-height:96px;padding:15px 210px 13px;display:flex;flex-direction:column;justify-content:center}
+.brandmark img{width:58px;height:58px}.brandmark .brand{font-size:clamp(36px,3.5vw,54px)}
+.bardahl-header-tools{position:absolute;right:22px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:10px;z-index:10}
+.bardahl-desktop-clock{border:2px solid #f4cf12;border-radius:13px;background:#080b0e;padding:8px 14px;display:flex;align-items:center;gap:10px;color:#ffd312}
+.bardahl-desktop-clock strong{font-size:clamp(25px,2.8vw,42px);font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
+.bardahl-desktop-clock small{font-size:12px;color:#f8e28c}
 }
 @media(max-width:700px){.bardahl-desktop-clock{display:none!important}}
 #bardahl-bg-picker{position:relative;z-index:10}
@@ -461,7 +412,6 @@ body[data-bg-style="motorsport"] header{background:repeating-linear-gradient(130
 .swatch-classic{background:#15191d}.swatch-carbon{background:repeating-linear-gradient(135deg,#0c1014 0 3px,#303943 3px 5px,#0a0e12 5px 8px)}
 .swatch-gold{background:linear-gradient(145deg,#1a160b,#8c6513,#14100b)}.swatch-motorsport{background:repeating-linear-gradient(130deg,#10151b 0 9px,#ffd000 9px 14px,#20272d 14px 22px)}
 @media(max-width:700px){header{position:sticky}.brandmark{padding-right:40px}#bardahl-bg-picker{position:absolute;right:10px;top:50%;transform:translateY(-50%)}#bardahl-palette-button{width:31px;height:31px;min-height:31px}#bardahl-palette-button svg{width:17px;height:17px}}
-/* User supplied backgrounds; classic remains untouched */
 body[data-bg-style="photo1"]{background-image:linear-gradient(rgba(5,8,11,.58),rgba(5,8,11,.70)),url("assets/background-ca96367234a5.jpg")!important;background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;background-attachment:fixed!important}
 .swatch-photo1{background-image:url("assets/background-ca96367234a5.jpg");background-size:cover;background-position:center}
 body[data-bg-style="photo2"]{background-image:linear-gradient(rgba(5,8,11,.58),rgba(5,8,11,.70)),url("assets/background-86a33ef4b475.jpg")!important;background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;background-attachment:fixed!important}
@@ -475,20 +425,14 @@ body[data-bg-style="photo6"]{background-image:linear-gradient(rgba(5,8,11,.58),r
 </style>
 
 
-<style id="bardahl-responsive-photo-positions">
-/* Original image bytes are embedded above; only presentation changes. */
-body[data-bg-style^="photo"]{background-repeat:no-repeat;background-size:cover;background-position:center top;background-attachment:scroll}
+<style id="bardahl-responsive-photo-positions">body[data-bg-style^="photo"]{background-repeat:no-repeat;background-size:cover;background-position:center top;background-attachment:scroll}
 body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:center top}
 @media(max-width:700px){
-/* On narrow screens display the entire original wide artwork across the width,
-   keeping logos, cars and product packs visible without distortion or cropping. */
 body[data-bg-style^="photo"]{background-size:100% auto;background-position:center 64px;background-repeat:no-repeat;background-color:#0b0e11}
 body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:center 0px}
 }
 </style>
-<style id="bardahl-manager-queue-refinement">
-/* Desktop manager queue only; mobile keeps original styling. */
-@media(min-width:701px){
+<style id="bardahl-manager-queue-refinement">@media(min-width:701px){
 #queueTableCard .queue-table{width:100%!important;min-width:1060px!important;table-layout:fixed!important}
 #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:76px!important;min-width:0!important;max-width:none!important}
 #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:51px!important;min-width:0!important;max-width:none!important}
@@ -504,318 +448,276 @@ body[data-bg-style="photo3"],body[data-bg-style="photo4"]{background-position:ce
 #queueTableCard .chip-copy small{font-size:13px!important;font-weight:900!important;color:#ffe25b!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}
 #queueTableCard .empty-service-slot{height:54px!important;min-height:54px!important}
 #queueTableCard .queue-table{min-width:1140px!important}
- #queueTableCard .queue-table tbody tr{height:82px!important}
- #queueTableCard .service-chip{height:67px!important;min-height:67px!important;padding:6px 20px 6px 8px!important;gap:9px!important}
- #queueTableCard .service-chip .chip-symbol{width:45px!important;height:50px!important;flex:0 0 45px!important}
- #queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:45px!important;height:50px!important;object-fit:contain!important}
- #queueTableCard .chip-copy{gap:5px!important}
- #queueTableCard .chip-copy > span{font-size:16px!important;font-weight:850!important;letter-spacing:-.3px!important}
- #queueTableCard .chip-copy small{font-size:17px!important;font-weight:900!important;color:#ffe25b!important}
- #queueTableCard .empty-service-slot{height:67px!important;min-height:67px!important}
+#queueTableCard .queue-table tbody tr{height:82px!important}
+#queueTableCard .service-chip{height:67px!important;min-height:67px!important;padding:6px 20px 6px 8px!important;gap:9px!important}
+#queueTableCard .service-chip .chip-symbol{width:45px!important;height:50px!important;flex:0 0 45px!important}
+#queueTableCard .service-chip .chip-symbol img,#queueTableCard .service-chip .chip-symbol svg{width:45px!important;height:50px!important;object-fit:contain!important}
+#queueTableCard .chip-copy{gap:5px!important}
+#queueTableCard .chip-copy > span{font-size:16px!important;font-weight:850!important;letter-spacing:-.3px!important}
+#queueTableCard .chip-copy small{font-size:17px!important;font-weight:900!important;color:#ffe25b!important}
+#queueTableCard .empty-service-slot{height:67px!important;min-height:67px!important}
 }
 </style>
-<style id="bardahl-queue-visibility-and-mobile-sticky">
-/* Desktop only: improve legibility of the existing service labels and time. */
-@media (min-width:701px){
- #queueTableCard .service-chip .chip-copy > span{font-size:17px!important;font-weight:900!important;letter-spacing:0!important;color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.5)!important}
- #queueTableCard .service-chip .chip-copy small{font-size:18px!important;font-weight:900!important;color:#fff0a0!important;letter-spacing:0!important;text-shadow:0 1px 1px rgba(0,0,0,.55)!important}
+<style id="bardahl-queue-visibility-and-mobile-sticky">@media (min-width:701px){
+#queueTableCard .service-chip .chip-copy > span{font-size:17px!important;font-weight:900!important;letter-spacing:0!important;color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.5)!important}
+#queueTableCard .service-chip .chip-copy small{font-size:18px!important;font-weight:900!important;color:#fff0a0!important;letter-spacing:0!important;text-shadow:0 1px 1px rgba(0,0,0,.55)!important}
 }
-/* Phone only: position and box stay visible while six rounds scroll horizontally. */
 @media (max-width:700px){
- #queueTableCard .table-wrap{position:relative!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
- #queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table td:first-child{position:sticky!important;left:0!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important}
- #queueTableCard .queue-table th:nth-child(2),
- #queueTableCard .queue-table td:nth-child(2){position:sticky!important;left:42px!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important;box-shadow:3px 0 5px rgba(0,0,0,.35)!important}
- #queueTableCard .queue-table tr.mine td:first-child,
- #queueTableCard .queue-table tr.mine td:nth-child(2){background:#222116!important}
- #queueTableCard .queue-table thead th:first-child,
- #queueTableCard .queue-table thead th:nth-child(2){z-index:4!important}
+#queueTableCard .table-wrap{position:relative!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+#queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table td:first-child{position:sticky!important;left:0!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important}
+#queueTableCard .queue-table th:nth-child(2),
+#queueTableCard .queue-table td:nth-child(2){position:sticky!important;left:42px!important;z-index:3!important;background:#171c20!important;background-clip:padding-box!important;box-shadow:3px 0 5px rgba(0,0,0,.35)!important}
+#queueTableCard .queue-table tr.mine td:first-child,
+#queueTableCard .queue-table tr.mine td:nth-child(2){background:#222116!important}
+#queueTableCard .queue-table thead th:first-child,
+#queueTableCard .queue-table thead th:nth-child(2){z-index:4!important}
 }
 </style>
-<style id="bardahl-desktop-position-box-type-last-touch">
-/* Desktop only: improve readability of position, box and surname. */
-@media (min-width:701px){
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table td:first-child{width:112px!important;min-width:112px!important;max-width:112px!important}
- #queueTableCard .queue-table th:nth-child(2),
- #queueTableCard .queue-table td:nth-child(2){width:68px!important;min-width:68px!important;max-width:68px!important}
- #queueTableCard .queue-position-number,
- #queueTableCard .queue-box-number{font-size:22px!important;line-height:1.12!important;font-weight:900!important}
- #queueTableCard .queue-name-mini{display:block!important;max-width:106px!important;width:100%!important;margin:4px auto 0!important;font-size:14px!important;line-height:1.18!important;font-weight:750!important;color:#f5f5f5!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;letter-spacing:-.25px!important}
+<style id="bardahl-desktop-position-box-type-last-touch">@media (min-width:701px){
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table td:first-child{width:112px!important;min-width:112px!important;max-width:112px!important}
+#queueTableCard .queue-table th:nth-child(2),
+#queueTableCard .queue-table td:nth-child(2){width:68px!important;min-width:68px!important;max-width:68px!important}
+#queueTableCard .queue-position-number,
+#queueTableCard .queue-box-number{font-size:22px!important;line-height:1.12!important;font-weight:900!important}
+#queueTableCard .queue-name-mini{display:block!important;max-width:106px!important;width:100%!important;margin:4px auto 0!important;font-size:14px!important;line-height:1.18!important;font-weight:750!important;color:#f5f5f5!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;letter-spacing:-.25px!important}
 }
 </style>
-<style id="bardahl-kittens-approved-unified-v1">
-/* One continuous approved artwork: no separate rectangular kitten images. */
-@media(min-width:701px){
- body[data-bg-style="kittens"]{background-image:url("assets/background-a79cf83f804d.png")!important;background-color:#23003c!important;background-size:100% auto!important;background-repeat:no-repeat!important;background-position:center top!important}
- body[data-bg-style="kittens"] header{height:clamp(98px,10.4vw,170px)!important;min-height:0!important;background:transparent!important;border:0!important;box-shadow:none!important;position:relative!important}
- body[data-bg-style="kittens"] header .brandmark,body[data-bg-style="kittens"] header .sub{visibility:hidden!important}
- body[data-bg-style="kittens"] header .bardahl-header-tools{top:27%!important;right:15px!important}
- body[data-bg-style="kittens"] main{padding-top:0!important}
- body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,.80)!important;border:1px solid #e850ed!important;box-shadow:0 0 16px #d922c84d!important}
- body[data-bg-style="kittens"] #tabQueue.primary{background:linear-gradient(90deg,#c620ed,#f43cdd)!important}
- body[data-bg-style="kittens"] #queueTableCard h2{color:#fff!important;background:linear-gradient(90deg,#5d087a,#cb26e5)!important}
- body[data-bg-style="kittens"] #countPill{background:#ef51ec!important}
- body[data-bg-style="kittens"] .queue-table th{background:rgba(30,6,57,.75)!important;color:#f4d9ff!important}
- body[data-bg-style="kittens"] #managerActions .danger{background:linear-gradient(90deg,#aa0a79,#e820a7)!important;color:white!important}
- body[data-bg-style="kittens"] .queue-bottom-actions .queue-exit-btn{color:#fff!important}
- body[data-bg-style="kittens"] footer{color:#e5b6ef!important}
+<style id="bardahl-kittens-approved-unified-v1">@media(min-width:701px){
+body[data-bg-style="kittens"]{background-image:url("assets/background-a79cf83f804d.png")!important;background-color:#23003c!important;background-size:100% auto!important;background-repeat:no-repeat!important;background-position:center top!important}
+body[data-bg-style="kittens"] header{height:clamp(98px,10.4vw,170px)!important;min-height:0!important;background:transparent!important;border:0!important;box-shadow:none!important;position:relative!important}
+body[data-bg-style="kittens"] header .brandmark,body[data-bg-style="kittens"] header .sub{visibility:hidden!important}
+body[data-bg-style="kittens"] header .bardahl-header-tools{top:27%!important;right:15px!important}
+body[data-bg-style="kittens"] main{padding-top:0!important}
+body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,.80)!important;border:1px solid #e850ed!important;box-shadow:0 0 16px #d922c84d!important}
+body[data-bg-style="kittens"] #tabQueue.primary{background:linear-gradient(90deg,#c620ed,#f43cdd)!important}
+body[data-bg-style="kittens"] #queueTableCard h2{color:#fff!important;background:linear-gradient(90deg,#5d087a,#cb26e5)!important}
+body[data-bg-style="kittens"] #countPill{background:#ef51ec!important}
+body[data-bg-style="kittens"] .queue-table th{background:rgba(30,6,57,.75)!important;color:#f4d9ff!important}
+body[data-bg-style="kittens"] #managerActions .danger{background:linear-gradient(90deg,#aa0a79,#e820a7)!important;color:white!important}
+body[data-bg-style="kittens"] .queue-bottom-actions .queue-exit-btn{color:#fff!important}
+body[data-bg-style="kittens"] footer{color:#e5b6ef!important}
 }
-/* No kitten artwork on phones, including if a manager selected it on desktop. */
 @media(max-width:700px){body[data-bg-style="kittens"]{background-image:linear-gradient(#0b0e11,#14121a)!important}body[data-bg-style="kittens"] header{background:#0d1013!important}}
-/* Transparent queue backgrounds only: never fade text or service cards. */
 #queueTableCard{--queue-opacity:.9;--queue-cell-bg:rgba(23,28,32,var(--queue-opacity));--queue-mine-bg:rgba(34,33,22,var(--queue-opacity))}
 #queueTableCard .queue-table th,#queueTableCard .queue-table td{background-color:var(--queue-cell-bg)!important;background-image:none!important}
 #queueTableCard .queue-table tr.mine td{background-color:var(--queue-mine-bg)!important}
 @media(max-width:700px){
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child,
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){background:var(--queue-cell-bg)!important;background-clip:padding-box!important}
- #queueTableCard .queue-table tr.mine td:first-child,#queueTableCard .queue-table tr.mine td:nth-child(2){background:var(--queue-mine-bg)!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child,
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){background:var(--queue-cell-bg)!important;background-clip:padding-box!important}
+#queueTableCard .queue-table tr.mine td:first-child,#queueTableCard .queue-table tr.mine td:nth-child(2){background:var(--queue-mine-bg)!important}
 }
 #bardahl-opacity-control{display:flex;align-items:center;gap:8px;margin-left:auto;white-space:nowrap;font-size:12px;font-weight:600;color:inherit}
 #bardahl-opacity-control input{width:110px;min-height:22px;height:22px;padding:0;accent-color:#ffd21a;cursor:pointer}
 #bardahl-opacity-control output{min-width:39px;text-align:right;font-variant-numeric:tabular-nums}
 @media(max-width:600px){#bardahl-opacity-control{font-size:10px;gap:5px}#bardahl-opacity-control input{width:70px;height:20px;min-height:20px}}
-</style><style id="bardahl-final-art-opacity-patch">
-/* Keep the complete approved composition inside the actual document height. */
-@media(min-width:701px){
- body[data-bg-style="kittens"]{background-size:100% 100%!important;background-position:center top!important;background-repeat:no-repeat!important;min-height:100vh!important}
- body[data-bg-style="kittens"] main{padding-bottom:clamp(20px,2vw,45px)!important}
+</style><style id="bardahl-final-art-opacity-patch">@media(min-width:701px){
+body[data-bg-style="kittens"]{background-size:100% 100%!important;background-position:center top!important;background-repeat:no-repeat!important;min-height:100vh!important}
+body[data-bg-style="kittens"] main{padding-bottom:clamp(20px,2vw,45px)!important}
 }
-/* Alpha is applied only to backgrounds, not to labels, icons or controls. */
 #queueTableCard{--queue-opacity:1;--queue-cell-bg:rgba(23,28,32,var(--queue-opacity));--queue-mine-bg:rgba(34,33,22,var(--queue-opacity));}
 #queueTableCard .queue-table,#queueTableCard .queue-table tbody,#queueTableCard .queue-table thead,#queueTableCard .queue-table tr{background:transparent!important;}
 #queueTableCard .queue-table th,#queueTableCard .queue-table td{background:var(--queue-cell-bg)!important;background-image:none!important;}
 #queueTableCard .queue-table tr.mine td{background:var(--queue-mine-bg)!important;}
 #queueTableCard .queue-table td:first-child,#queueTableCard .queue-table td:nth-child(2),#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){background:var(--queue-cell-bg)!important;}
 #queueTableCard .queue-table tr.mine td:first-child,#queueTableCard .queue-table tr.mine td:nth-child(2){background:var(--queue-mine-bg)!important;}
-/* The table card and scroll layer previously hid the visual change. */
 #queueTableCard .table-wrap{background:transparent!important;}
 body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(--queue-opacity) * .80))!important;}
-</style><style id="bardahl-final-compact-reset">
-#queuePage #managerActions {text-align:center!important;}
+</style><style id="bardahl-final-compact-reset">#queuePage #managerActions {text-align:center!important;}
 #queuePage #resetCirclesBtn {display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-height:36px!important;height:36px!important;padding:5px 14px!important;margin:0 auto!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#ff525d!important;font-size:15px!important;font-weight:700!important;}
 @media(max-width:600px){#queuePage #resetCirclesBtn{min-height:36px!important;height:36px!important;padding:5px!important;font-size:12px!important;}}
 </style>
-<style id="bardahl-mobile-sticky-tabs-desktop-headings-v5">
-/* Mask background artwork leaking through/around the navigation tabs. */
-#app > .row:first-child {position:relative!important;z-index:1!important;isolation:isolate!important;background:#0b0e11!important;overflow:hidden!important;border-radius:14px!important;}
+<style id="bardahl-mobile-sticky-tabs-desktop-headings-v5">#app > .row:first-child {position:relative!important;z-index:1!important;isolation:isolate!important;background:#0b0e11!important;overflow:hidden!important;border-radius:14px!important;}
 #app > .row:first-child > #tabQueue,
 #app > .row:first-child > #tabOrders {position:relative!important;z-index:1!important;min-width:0!important;}
-/* Only the column labels grow on desktop; the row dimensions stay intact. */
 @media (min-width:701px){
- #queueTableCard .queue-table thead th {font-size:15px!important;font-weight:800!important;letter-spacing:.15px!important;}
+#queueTableCard .queue-table thead th {font-size:15px!important;font-weight:800!important;letter-spacing:.15px!important;}
 }
-/* A separate opaque underlay prevents scrolling service chips from showing through
-   the two pinned columns, regardless of the transparency slider's inline styles. */
 @media (max-width:700px){
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table td:first-child,
- #queueTableCard .queue-table th:nth-child(2),
- #queueTableCard .queue-table td:nth-child(2){
-   position:sticky!important;z-index:12!important;isolation:isolate!important;
- }
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table th:nth-child(2){z-index:14!important;}
- #queueTableCard .queue-table th:first-child::before,
- #queueTableCard .queue-table td:first-child::before,
- #queueTableCard .queue-table th:nth-child(2)::before,
- #queueTableCard .queue-table td:nth-child(2)::before{
-   content:""!important;position:absolute!important;inset:0!important;
-   background:#20252b!important;z-index:-1!important;pointer-events:none!important;
- }
- #queueTableCard .queue-table tr.mine td:first-child::before,
- #queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important;}
- }
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table td:first-child,
+#queueTableCard .queue-table th:nth-child(2),
+#queueTableCard .queue-table td:nth-child(2){
+position:sticky!important;z-index:12!important;isolation:isolate!important;
+}
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table th:nth-child(2){z-index:14!important;}
+#queueTableCard .queue-table th:first-child::before,
+#queueTableCard .queue-table td:first-child::before,
+#queueTableCard .queue-table th:nth-child(2)::before,
+#queueTableCard .queue-table td:nth-child(2)::before{
+content:""!important;position:absolute!important;inset:0!important;
+background:#20252b!important;z-index:-1!important;pointer-events:none!important;
+}
+#queueTableCard .queue-table tr.mine td:first-child::before,
+#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important;}
+}
 </style>
 <style id="bardahl-desktop-clock-opacity-v6">@media(min-width:701px){.bardahl-desktop-clock{background:rgba(8,11,14,.75)!important;}}</style>
-<style id="bardahl-mobile-fixed20-desktop-fit-v7">
-/* Mobile: always use 20% surface fill; no slider or percentage. */
-@media(max-width:700px){
- #bardahl-opacity-control{display:none!important}
- #queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child,
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){
-   position:sticky!important;z-index:30!important;isolation:isolate!important;
-   background:rgba(23,28,32,.2)!important;background-image:none!important;
- }
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){z-index:32!important}
- /* The independent opaque backing blocks scrolling chips; the visible face remains translucent. */
- #queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
- #queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{
-  content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;
-  background:#20252b!important;pointer-events:none!important;
- }
- #queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){box-shadow:2px 0 2px rgba(0,0,0,.12)!important}
+<style id="bardahl-mobile-fixed20-desktop-fit-v7">@media(max-width:700px){
+#bardahl-opacity-control{display:none!important}
+#queueTableCard .queue-table{border-collapse:separate!important;border-spacing:0!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child,
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){
+position:sticky!important;z-index:30!important;isolation:isolate!important;
+background:rgba(23,28,32,.2)!important;background-image:none!important;
 }
-/* Desktop: fit all columns into available width and hide the scrollbar. */
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table th:nth-child(2){z-index:32!important}
+#queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
+#queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{
+content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;
+background:#20252b!important;pointer-events:none!important;
+}
+#queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#29271c!important}
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){box-shadow:2px 0 2px rgba(0,0,0,.12)!important}
+}
 @media(min-width:701px){
- #queueTableCard .table-wrap{overflow-x:hidden!important;scrollbar-width:none!important}
- #queueTableCard .table-wrap::-webkit-scrollbar{display:none!important}
- #queueTableCard .queue-table{min-width:0!important;width:100%!important;table-layout:fixed!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:8.5%!important;min-width:0!important;max-width:none!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:5.5%!important;min-width:0!important;max-width:none!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:13.4%!important;min-width:0!important;max-width:none!important}
- #queueTableCard .queue-table thead th{font-size:12px!important;letter-spacing:0!important}
- #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(13px,1.5vw,19px)!important}
- #queueTableCard .queue-name-mini{font-size:clamp(9px,1vw,12px)!important;max-width:100%!important}
- #queueTableCard .service-chip{min-width:0!important;max-width:100%!important;gap:3px!important;padding:3px!important}
- #queueTableCard .service-chip .chip-symbol{width:clamp(17px,2.5vw,28px)!important;flex:0 0 clamp(17px,2.5vw,28px)!important}
- #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:auto!important;max-height:29px!important}
- #queueTableCard .service-chip .chip-copy>span{font-size:clamp(9px,1vw,13px)!important;overflow:hidden!important;text-overflow:ellipsis!important}
- #queueTableCard .service-chip .chip-copy small{font-size:clamp(9px,1vw,12px)!important}
+#queueTableCard .table-wrap{overflow-x:hidden!important;scrollbar-width:none!important}
+#queueTableCard .table-wrap::-webkit-scrollbar{display:none!important}
+#queueTableCard .queue-table{min-width:0!important;width:100%!important;table-layout:fixed!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:8.5%!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:5.5%!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:13.4%!important;min-width:0!important;max-width:none!important}
+#queueTableCard .queue-table thead th{font-size:12px!important;letter-spacing:0!important}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(13px,1.5vw,19px)!important}
+#queueTableCard .queue-name-mini{font-size:clamp(9px,1vw,12px)!important;max-width:100%!important}
+#queueTableCard .service-chip{min-width:0!important;max-width:100%!important;gap:3px!important;padding:3px!important}
+#queueTableCard .service-chip .chip-symbol{width:clamp(17px,2.5vw,28px)!important;flex:0 0 clamp(17px,2.5vw,28px)!important}
+#queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:auto!important;max-height:29px!important}
+#queueTableCard .service-chip .chip-copy>span{font-size:clamp(9px,1vw,13px)!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#queueTableCard .service-chip .chip-copy small{font-size:clamp(9px,1vw,12px)!important}
 }
-/* Tab edges: remove stray outlines, shadows and decorative protrusions. */
 #app>.row:first-child{overflow:hidden!important;background:#0b0e11!important;isolation:isolate!important}
 #app>.row:first-child>#tabQueue,#app>.row:first-child>#tabOrders{outline:0!important;box-shadow:none!important;background-clip:padding-box!important}
 #app>.row:first-child>#tabQueue::before,#app>.row:first-child>#tabQueue::after,
 #app>.row:first-child>#tabOrders::before,#app>.row:first-child>#tabOrders::after{content:none!important;display:none!important}
 </style>
 
-<style id="bardahl-20261102-final-visual-corrections">
-/* Desktop: readable content while keeping all nine columns inside the table. */
-@media (min-width:701px){
- #queueTableCard .queue-table thead th{font-size:clamp(11px,1.04vw,14px)!important;font-weight:750!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:9%!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:6%!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:12.8%!important}
- #queueTableCard .queue-table th:last-child,#queueTableCard .queue-table td:last-child{width:8.2%!important}
- #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(18px,1.8vw,25px)!important}
- #queueTableCard .queue-name-mini{font-size:clamp(10px,1.05vw,13px)!important}
- #queueTableCard .service-chip{height:clamp(45px,4.2vw,58px)!important;min-height:45px!important;gap:5px!important;padding:4px 5px!important;overflow:hidden!important}
- #queueTableCard .service-chip .chip-symbol{width:clamp(28px,2.9vw,39px)!important;height:clamp(30px,3.2vw,42px)!important;flex:0 0 clamp(28px,2.9vw,39px)!important}
- #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
- #queueTableCard .service-chip .chip-copy{min-width:0!important;flex:1!important;gap:3px!important}
- #queueTableCard .service-chip .chip-copy>span{font-size:clamp(11px,1.07vw,15px)!important;font-weight:750!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
- #queueTableCard .service-chip .chip-copy small{font-size:clamp(10px,1vw,13px)!important}
- /* Clock above, transparent palette button directly below, both at top right. */
- header .bardahl-header-tools{position:absolute!important;right:15px!important;top:9px!important;transform:none!important;display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:5px!important;z-index:20!important}
- header .bardahl-header-tools .bardahl-desktop-clock{order:0!important;padding:5px 9px!important;gap:6px!important;min-height:0!important;border-radius:9px!important;border-width:1px!important}
- header .bardahl-header-tools .bardahl-desktop-clock strong{font-size:clamp(19px,1.9vw,26px)!important;line-height:1!important}
- header .bardahl-header-tools .bardahl-desktop-clock small{font-size:10px!important}
- header .bardahl-header-tools #bardahl-bg-picker{order:1!important;position:relative!important;right:auto!important;top:auto!important;transform:none!important}
- header .bardahl-header-tools #bardahl-palette-button{width:31px!important;height:29px!important;min-height:29px!important;background:rgba(15,17,26,.20)!important;border:1px solid rgba(240,214,255,.42)!important;border-radius:8px!important;box-shadow:none!important;outline:none!important;color:inherit!important}
- header .bardahl-header-tools #bardahl-palette-menu{right:0!important;top:calc(100% + 5px)!important}
+<style id="bardahl-20261102-final-visual-corrections">@media (min-width:701px){
+#queueTableCard .queue-table thead th{font-size:clamp(11px,1.04vw,14px)!important;font-weight:750!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:9%!important}
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:6%!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:12.8%!important}
+#queueTableCard .queue-table th:last-child,#queueTableCard .queue-table td:last-child{width:8.2%!important}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(18px,1.8vw,25px)!important}
+#queueTableCard .queue-name-mini{font-size:clamp(10px,1.05vw,13px)!important}
+#queueTableCard .service-chip{height:clamp(45px,4.2vw,58px)!important;min-height:45px!important;gap:5px!important;padding:4px 5px!important;overflow:hidden!important}
+#queueTableCard .service-chip .chip-symbol{width:clamp(28px,2.9vw,39px)!important;height:clamp(30px,3.2vw,42px)!important;flex:0 0 clamp(28px,2.9vw,39px)!important}
+#queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
+#queueTableCard .service-chip .chip-copy{min-width:0!important;flex:1!important;gap:3px!important}
+#queueTableCard .service-chip .chip-copy>span{font-size:clamp(11px,1.07vw,15px)!important;font-weight:750!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+#queueTableCard .service-chip .chip-copy small{font-size:clamp(10px,1vw,13px)!important}
+header .bardahl-header-tools{position:absolute!important;right:15px!important;top:9px!important;transform:none!important;display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:5px!important;z-index:20!important}
+header .bardahl-header-tools .bardahl-desktop-clock{order:0!important;padding:5px 9px!important;gap:6px!important;min-height:0!important;border-radius:9px!important;border-width:1px!important}
+header .bardahl-header-tools .bardahl-desktop-clock strong{font-size:clamp(19px,1.9vw,26px)!important;line-height:1!important}
+header .bardahl-header-tools .bardahl-desktop-clock small{font-size:10px!important}
+header .bardahl-header-tools #bardahl-bg-picker{order:1!important;position:relative!important;right:auto!important;top:auto!important;transform:none!important}
+header .bardahl-header-tools #bardahl-palette-button{width:31px!important;height:29px!important;min-height:29px!important;background:rgba(15,17,26,.20)!important;border:1px solid rgba(240,214,255,.42)!important;border-radius:8px!important;box-shadow:none!important;outline:none!important;color:inherit!important}
+header .bardahl-header-tools #bardahl-palette-menu{right:0!important;top:calc(100% + 5px)!important}
 }
-/* Mobile: prevent tab decoration from protruding, retain both role-dependent tabs. */
 @media (max-width:700px){
- #app>.row:first-child{overflow:hidden!important;isolation:isolate!important;border-radius:14px!important}
- #app>.row:first-child>#tabQueue,#app>.row:first-child>#tabOrders{overflow:hidden!important;box-shadow:none!important;outline:none!important;filter:none!important}
- /* A consistent surface behind the first two sticky cells masks scrolling rounds.
-    Avoid the old yellow/brown pseudo-underlay, which caused the visible blocks. */
- #queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
- #queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{background:#20252b!important}
- #queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#20252b!important}
- #myPanelCard .service-actions{background:transparent!important}
- #myPanelCard .service-actions .service-btn.service-choice{box-shadow:none!important}
+#app>.row:first-child{overflow:hidden!important;isolation:isolate!important;border-radius:14px!important}
+#app>.row:first-child>#tabQueue,#app>.row:first-child>#tabOrders{overflow:hidden!important;box-shadow:none!important;outline:none!important;filter:none!important}
+#queueTableCard .queue-table th:first-child::before,#queueTableCard .queue-table td:first-child::before,
+#queueTableCard .queue-table th:nth-child(2)::before,#queueTableCard .queue-table td:nth-child(2)::before{background:#20252b!important}
+#queueTableCard .queue-table tr.mine td:first-child::before,#queueTableCard .queue-table tr.mine td:nth-child(2)::before{background:#20252b!important}
+#myPanelCard .service-actions{background:transparent!important}
+#myPanelCard .service-actions .service-btn.service-choice{box-shadow:none!important}
 }
 </style>
-<style id="bardahl-mobile-sticky-true-transparency-v8">
-@media (max-width:700px) {
- /* Remove previous opaque pseudo-backing, including the brown 'mine' backing. */
- #queueTableCard .queue-table th:first-child::before,
- #queueTableCard .queue-table td:first-child::before,
- #queueTableCard .queue-table th:nth-child(2)::before,
- #queueTableCard .queue-table td:nth-child(2)::before {
-   content:none!important;display:none!important;background:none!important;
- }
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table td:first-child,
- #queueTableCard .queue-table th:nth-child(2),
- #queueTableCard .queue-table td:nth-child(2),
- #queueTableCard .queue-table tr.mine td:first-child,
- #queueTableCard .queue-table tr.mine td:nth-child(2) {
-   background:rgba(23,28,32,.20)!important;
-   background-image:none!important;
-   isolation:auto!important;
-   box-shadow:none!important;
- }
- #queueTableCard .queue-table th:first-child,
- #queueTableCard .queue-table th:nth-child(2) {z-index:42!important}
- #queueTableCard .queue-table td:first-child,
- #queueTableCard .queue-table td:nth-child(2) {z-index:40!important}
- /* Clip moving round cells themselves, rather than placing opaque masks over pinned cells. */
- #queueTableCard .queue-table th:nth-child(n+3),
- #queueTableCard .queue-table td:nth-child(n+3) {
-   clip-path:inset(0 0 0 var(--bardahl-hidden-left,0px))!important;
- }
- /* Keep the two tab surfaces clipped to their actual rounded bounds. */
- #app>.row:first-child {overflow:clip!important;clip-path:inset(0 round 14px)!important;background:#0b0e11!important}
- #app>.row:first-child>#tabQueue,
- #app>.row:first-child>#tabOrders {
-   clip-path:inset(0 round 13px)!important;
-   outline:0!important;box-shadow:none!important;
- }
+<style id="bardahl-mobile-sticky-true-transparency-v8">@media (max-width:700px) {
+#queueTableCard .queue-table th:first-child::before,
+#queueTableCard .queue-table td:first-child::before,
+#queueTableCard .queue-table th:nth-child(2)::before,
+#queueTableCard .queue-table td:nth-child(2)::before {
+content:none!important;display:none!important;background:none!important;
+}
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table td:first-child,
+#queueTableCard .queue-table th:nth-child(2),
+#queueTableCard .queue-table td:nth-child(2),
+#queueTableCard .queue-table tr.mine td:first-child,
+#queueTableCard .queue-table tr.mine td:nth-child(2) {
+background:rgba(23,28,32,.20)!important;
+background-image:none!important;
+isolation:auto!important;
+box-shadow:none!important;
+}
+#queueTableCard .queue-table th:first-child,
+#queueTableCard .queue-table th:nth-child(2) {z-index:42!important}
+#queueTableCard .queue-table td:first-child,
+#queueTableCard .queue-table td:nth-child(2) {z-index:40!important}
+#queueTableCard .queue-table th:nth-child(n+3),
+#queueTableCard .queue-table td:nth-child(n+3) {
+clip-path:inset(0 0 0 var(--bardahl-hidden-left,0px))!important;
+}
+#app>.row:first-child {overflow:clip!important;clip-path:inset(0 round 14px)!important;background:#0b0e11!important}
+#app>.row:first-child>#tabQueue,
+#app>.row:first-child>#tabOrders {
+clip-path:inset(0 round 13px)!important;
+outline:0!important;box-shadow:none!important;
+}
 }
 </style>
-<style id="bardahl-queue-compact-final">
-/* Compact queue: applied last to override visual-refresh sizing. */
-@media (min-width: 701px) {
- #queueTableCard .table-wrap {overflow-x:hidden!important}
- #queueTableCard .queue-table {width:100%!important;min-width:0!important;table-layout:fixed!important;font-size:clamp(9px,.83vw,12px)!important}
- #queueTableCard .queue-table th:first-child {width:9%!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(2) {width:6%!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8) {width:14.16%!important;min-width:0!important}
- #queueTableCard .queue-table th {height:25px!important;padding:3px 2px!important;font-size:clamp(9px,.8vw,11px)!important}
- #queueTableCard .queue-table tbody tr {height:48px!important}
- #queueTableCard .queue-table td {padding:2px!important;min-width:0!important;overflow:hidden!important}
- #queueTableCard .queue-position-number,#queueTableCard .queue-box-number {font-size:clamp(12px,1.15vw,16px)!important}
- #queueTableCard .queue-name-mini {font-size:clamp(9px,.82vw,11px)!important;margin-top:2px!important}
- #queueTableCard .service-chip {height:40px!important;min-height:40px!important;padding:2px 3px!important;gap:3px!important;max-width:100%!important;overflow:hidden!important}
- #queueTableCard .service-chip .chip-symbol {width:clamp(20px,2.15vw,29px)!important;height:clamp(20px,2.15vw,29px)!important;flex:0 0 clamp(20px,2.15vw,29px)!important}
- #queueTableCard .service-chip .chip-symbol svg {width:100%!important;height:100%!important}
- #queueTableCard .chip-copy {min-width:0!important;font-size:clamp(9px,.88vw,12px)!important;gap:1px!important;overflow:hidden!important}
- #queueTableCard .chip-copy > span {display:block!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
- #queueTableCard .chip-copy small {font-size:clamp(8px,.75vw,10px)!important}
- #queueTableCard .empty-service-slot {height:40px!important;min-height:40px!important}
- #queueTableCard h2 {font-size:14px!important;padding:7px 10px!important}
- #queueTableCard #countPill {height:24px!important;min-width:25px!important;font-size:13px!important}
+<style id="bardahl-queue-compact-final">@media (min-width: 701px) {
+#queueTableCard .table-wrap {overflow-x:hidden!important}
+#queueTableCard .queue-table {width:100%!important;min-width:0!important;table-layout:fixed!important;font-size:clamp(9px,.83vw,12px)!important}
+#queueTableCard .queue-table th:first-child {width:9%!important;min-width:0!important}
+#queueTableCard .queue-table th:nth-child(2) {width:6%!important;min-width:0!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8) {width:14.16%!important;min-width:0!important}
+#queueTableCard .queue-table th {height:25px!important;padding:3px 2px!important;font-size:clamp(9px,.8vw,11px)!important}
+#queueTableCard .queue-table tbody tr {height:48px!important}
+#queueTableCard .queue-table td {padding:2px!important;min-width:0!important;overflow:hidden!important}
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number {font-size:clamp(12px,1.15vw,16px)!important}
+#queueTableCard .queue-name-mini {font-size:clamp(9px,.82vw,11px)!important;margin-top:2px!important}
+#queueTableCard .service-chip {height:40px!important;min-height:40px!important;padding:2px 3px!important;gap:3px!important;max-width:100%!important;overflow:hidden!important}
+#queueTableCard .service-chip .chip-symbol {width:clamp(20px,2.15vw,29px)!important;height:clamp(20px,2.15vw,29px)!important;flex:0 0 clamp(20px,2.15vw,29px)!important}
+#queueTableCard .service-chip .chip-symbol svg {width:100%!important;height:100%!important}
+#queueTableCard .chip-copy {min-width:0!important;font-size:clamp(9px,.88vw,12px)!important;gap:1px!important;overflow:hidden!important}
+#queueTableCard .chip-copy > span {display:block!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#queueTableCard .chip-copy small {font-size:clamp(8px,.75vw,10px)!important}
+#queueTableCard .empty-service-slot {height:40px!important;min-height:40px!important}
+#queueTableCard h2 {font-size:14px!important;padding:7px 10px!important}
+#queueTableCard #countPill {height:24px!important;min-width:25px!important;font-size:13px!important}
 }
 @media (max-width:700px) {
- #queueTableCard .queue-table {min-width:760px!important}
- #queueTableCard .queue-table tbody tr {height:48px!important}
- #queueTableCard .queue-table th {height:25px!important;padding:3px 2px!important}
- #queueTableCard .queue-table td {padding:2px!important}
- #queueTableCard .service-chip {min-height:40px!important;height:40px!important;padding:2px 3px!important}
- #queueTableCard .empty-service-slot {min-height:40px!important;height:40px!important}
+#queueTableCard .queue-table {min-width:760px!important}
+#queueTableCard .queue-table tbody tr {height:48px!important}
+#queueTableCard .queue-table th {height:25px!important;padding:3px 2px!important}
+#queueTableCard .queue-table td {padding:2px!important}
+#queueTableCard .service-chip {min-height:40px!important;height:40px!important;padding:2px 3px!important}
+#queueTableCard .empty-service-slot {min-height:40px!important;height:40px!important}
 }
 </style>
 
-<style id="bardahl-queue-layout-20261102">
-/* Desktop: readable labels and timestamps, without changing the remove button. */
-@media (min-width:701px){
- #queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(17px,1.55vw,22px)!important;line-height:1.08!important}
- #queueTableCard .queue-name-mini{font-size:clamp(11px,1.03vw,14px)!important;line-height:1.1!important}
- #queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;align-items:flex-start!important;text-align:left!important}
- #queueTableCard .service-chip .chip-copy small{font-size:clamp(11px,1.03vw,14px)!important;align-self:flex-start!important;text-align:left!important;margin-left:0!important;margin-right:22px!important;max-width:calc(100% - 22px)!important;white-space:nowrap!important}
+<style id="bardahl-queue-layout-20261102">@media (min-width:701px){
+#queueTableCard .queue-position-number,#queueTableCard .queue-box-number{font-size:clamp(17px,1.55vw,22px)!important;line-height:1.08!important}
+#queueTableCard .queue-name-mini{font-size:clamp(11px,1.03vw,14px)!important;line-height:1.1!important}
+#queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;align-items:flex-start!important;text-align:left!important}
+#queueTableCard .service-chip .chip-copy small{font-size:clamp(11px,1.03vw,14px)!important;align-self:flex-start!important;text-align:left!important;margin-left:0!important;margin-right:22px!important;max-width:calc(100% - 22px)!important;white-space:nowrap!important}
 }
-/* Phone: narrower columns, service cards flush within their own cells. */
 @media (max-width:700px){
- #queueTableCard .queue-table{min-width:732px!important;width:732px!important;table-layout:fixed!important}
- #queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:48px!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:36px!important;min-width:0!important}
- #queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:108px!important;min-width:0!important}
- #queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){padding:1px!important}
- #queueTableCard .service-chip{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;margin:0!important;height:36px!important;min-height:36px!important;gap:2px!important;padding:2px 17px 2px 2px!important}
- #queueTableCard .service-chip .chip-symbol{width:17px!important;height:22px!important;flex:0 0 17px!important}
- #queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important}
- #queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;gap:1px!important;align-items:flex-start!important}
- #queueTableCard .service-chip .chip-copy>span{font-size:10px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
- #queueTableCard .service-chip .chip-copy small{font-size:9px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;white-space:nowrap!important;margin-left:0!important}
- #queueTableCard .empty-service-slot{height:36px!important;min-height:36px!important}
+#queueTableCard .queue-table{min-width:732px!important;width:732px!important;table-layout:fixed!important}
+#queueTableCard .queue-table th:first-child,#queueTableCard .queue-table td:first-child{width:48px!important;min-width:0!important}
+#queueTableCard .queue-table th:nth-child(2),#queueTableCard .queue-table td:nth-child(2){width:36px!important;min-width:0!important}
+#queueTableCard .queue-table th:nth-child(n+3):nth-child(-n+8),#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){width:108px!important;min-width:0!important}
+#queueTableCard .queue-table td:nth-child(n+3):nth-child(-n+8){padding:1px!important}
+#queueTableCard .service-chip{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;margin:0!important;height:36px!important;min-height:36px!important;gap:2px!important;padding:2px 17px 2px 2px!important}
+#queueTableCard .service-chip .chip-symbol{width:17px!important;height:22px!important;flex:0 0 17px!important}
+#queueTableCard .service-chip .chip-symbol svg,#queueTableCard .service-chip .chip-symbol img{width:100%!important;height:100%!important;object-fit:contain!important}
+#queueTableCard .service-chip .chip-copy{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;gap:1px!important;align-items:flex-start!important}
+#queueTableCard .service-chip .chip-copy>span{font-size:10px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+#queueTableCard .service-chip .chip-copy small{font-size:9px!important;line-height:1.1!important;max-width:100%!important;overflow:hidden!important;white-space:nowrap!important;margin-left:0!important}
+#queueTableCard .empty-service-slot{height:36px!important;min-height:36px!important}
 }
 </style>
-<style id="bardahl-desktop-time-final">
-/* Desktop only: make timestamp more legible and move it left; leave remove buttons untouched. */
-@media (min-width:701px){
- #queueTableCard .service-chip .chip-copy small{font-size:clamp(13px,1.2vw,16px)!important;font-weight:800!important;position:relative!important;left:-9px!important;margin-right:28px!important;line-height:1.1!important}
+<style id="bardahl-desktop-time-final">@media (min-width:701px){
+#queueTableCard .service-chip .chip-copy small{font-size:clamp(13px,1.2vw,16px)!important;font-weight:800!important;position:relative!important;left:-9px!important;margin-right:28px!important;line-height:1.1!important}
 }
 </style>
-<style id="bardahl-personal-background-css">body[data-bg-style="custom"]{background-image:var(--bardahl-personal-background,none)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:scroll!important}</style><style id="master-month-history-style">
-#masterReportControls .master-month-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 8px;min-width:0}
+<style id="bardahl-personal-background-css">body[data-bg-style="custom"]{background-image:var(--bardahl-personal-background,none)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;background-attachment:scroll!important}</style><style id="master-month-history-style">#masterReportControls .master-month-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 8px;min-width:0}
 #masterReportControls .master-month-nav{display:flex;align-items:center;justify-content:center;gap:3px;margin:0;flex:1;min-width:0;max-width:220px}
 #masterReportControls .master-month-average{flex:0 0 auto;text-align:right;min-width:105px;line-height:1.15}
 #masterReportControls .master-month-average small{display:block;color:#adb7be;font-size:10px}
@@ -824,8 +726,7 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #masterReportControls .master-month-nav button{width:28px;min-width:28px;height:29px;min-height:29px;padding:0;border:1px solid #414a50;border-radius:8px;background:#232a2f;color:#ffd21a;font-size:25px;line-height:1}
 #masterReportControls .master-month-nav span{flex:1;min-width:0;text-align:center;color:#f4f5f7;font-size:13px;font-weight:750;white-space:nowrap}
 </style>
-<style id="personal-records-style">
-#masterReportControls .report-date-records{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,1.7fr);gap:10px;align-items:end;margin:7px 0 9px}
+<style id="personal-records-style">#masterReportControls .report-date-records{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,1.7fr);gap:10px;align-items:end;margin:7px 0 9px}
 #masterReportControls .report-date-records label{margin:0 0 6px}
 #masterReportControls .report-date-records #reportDate{width:100%!important;max-width:230px!important}
 .record-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
@@ -839,8 +740,6 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #leaderRecords .record-tile{padding:10px}
 #leaderRecords .record-master{font-size:12px;color:#fff;overflow-wrap:anywhere}
 @media(max-width:520px){#masterReportControls .report-date-records{grid-template-columns:1fr;gap:8px}.record-tile strong{font-size:13px}}
-
-/* Date and daily average match the personal record tiles. */
 #masterReportControls .master-month-average.record-tile{padding:6px 10px;min-width:115px;flex:0 0 auto}
 #masterReportControls .master-month-average.record-tile small{color:#c9cdd0;font-size:11px}
 #masterReportControls .master-month-average.record-tile strong{color:#ffd21a;font-size:clamp(12px,1.4vw,17px);margin:3px 0}
@@ -848,9 +747,7 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #masterReportControls .report-date-tile.record-tile label{font-size:11px;color:#c9cdd0;margin:0 0 5px}
 #masterReportControls .report-date-tile.record-tile #reportDate{max-width:none!important;width:100%!important;min-width:0;box-sizing:border-box}
 </style>
-<style id="bardahl-compact-reports-and-leader-desktop">
-/* Two small adjacent controls, then a single-line average and unchanged records. */
-#masterReportControls .master-compact-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:2px 0 8px;align-items:stretch}
+<style id="bardahl-compact-reports-and-leader-desktop">#masterReportControls .master-compact-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:2px 0 8px;align-items:stretch}
 #masterReportControls .master-month-tile,#masterReportControls .report-date-tile{padding:8px 9px;min-width:0;min-height:65px;box-sizing:border-box}
 #masterReportControls .master-month-tile{text-align:left}
 #masterReportControls .master-month-tile small,#masterReportControls .report-date-tile label{display:block;color:#c9cdd0;font-size:11px;margin:0 0 5px;line-height:1.2}
@@ -864,95 +761,88 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #masterReportControls .master-records-area{margin:0 0 12px}
 #masterReportControls .master-records-area .record-heading{font-size:13px;margin-bottom:6px}
 @media(max-width:370px){#masterReportControls .master-compact-controls{gap:5px}#masterReportControls .master-month-tile,#masterReportControls .report-date-tile{padding:7px 6px}#masterReportControls .master-month-nav button{flex-basis:22px;width:22px;min-width:22px}}
-/* Desktop only: legible leader dashboard typography. */
 @media(min-width:701px){
- #leaderStats .leader-kpi span{font-size:16px}
- #leaderStats .leader-kpi strong{font-size:clamp(24px,2.5vw,32px)}
- #leaderStats .leader-rank-head{font-size:18px}
- #leaderStats .leader-rank-head button{font-size:18px;font-weight:750}
- #leaderStats .leader-rank-head strong{font-size:19px}
- #leaderStats .leader-rank-number{font-size:19px;width:36px}
- #leaderStats .leader-rank-meta{font-size:15px}
- #leaderStats .leader-note{font-size:15px}
- #leaderStats .leader-chart-col{font-size:13px}
- #leaderStats .leader-dynamic-item{font-size:17px}
- #leaderStats .leader-filter{font-size:17px}
- #leaderStats .leader-service-row{font-size:17px}
- #leaderStats h3{font-size:22px}
- #leaderRecords .record-heading{font-size:17px}
- #leaderRecords .record-tile{padding:15px}
- #leaderRecords .record-label{font-size:16px}
- #leaderRecords .record-tile strong{font-size:25px}
- #leaderRecords .record-tile small{font-size:15px}
- #leaderRecords .record-master{font-size:17px;font-weight:700}
- #leaderControls label,#leaderControls .small{font-size:16px}
- #leaderControls .leader-period-btn{font-size:17px}
+#leaderStats .leader-kpi span{font-size:16px}
+#leaderStats .leader-kpi strong{font-size:clamp(24px,2.5vw,32px)}
+#leaderStats .leader-rank-head{font-size:18px}
+#leaderStats .leader-rank-head button{font-size:18px;font-weight:750}
+#leaderStats .leader-rank-head strong{font-size:19px}
+#leaderStats .leader-rank-number{font-size:19px;width:36px}
+#leaderStats .leader-rank-meta{font-size:15px}
+#leaderStats .leader-note{font-size:15px}
+#leaderStats .leader-chart-col{font-size:13px}
+#leaderStats .leader-dynamic-item{font-size:17px}
+#leaderStats .leader-filter{font-size:17px}
+#leaderStats .leader-service-row{font-size:17px}
+#leaderStats h3{font-size:22px}
+#leaderRecords .record-heading{font-size:17px}
+#leaderRecords .record-tile{padding:15px}
+#leaderRecords .record-label{font-size:16px}
+#leaderRecords .record-tile strong{font-size:25px}
+#leaderRecords .record-tile small{font-size:15px}
+#leaderRecords .record-master{font-size:17px;font-weight:700}
+#leaderControls label,#leaderControls .small{font-size:16px}
+#leaderControls .leader-period-btn{font-size:17px}
 }
 </style>
 
-<style id="bardahl-report-date-centered-style">
-/* Match the report date selector to the adjacent month card. */
-#ordersPage #masterReportControls .report-date-tile #reportDate{
-  display:block!important;width:100%!important;max-width:100%!important;
-  height:32px!important;min-height:32px!important;box-sizing:border-box!important;
-  padding:3px 9px!important;border-radius:8px!important;
-  background:#252a2e!important;color:#f4f5f7!important;
-  border:1px solid #caa600!important;
-  text-align:center!important;text-align-last:center!important;
-  font-weight:600!important; color-scheme:dark;
+<style id="bardahl-report-date-centered-style">#ordersPage #masterReportControls .report-date-tile #reportDate{
+display:block!important;width:100%!important;max-width:100%!important;
+height:32px!important;min-height:32px!important;box-sizing:border-box!important;
+padding:3px 9px!important;border-radius:8px!important;
+background:#252a2e!important;color:#f4f5f7!important;
+border:1px solid #caa600!important;
+text-align:center!important;text-align-last:center!important;
+font-weight:600!important; color-scheme:dark;
 }
 #ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-date-and-time-value{
-  text-align:center!important;min-height:1em;width:100%;
+text-align:center!important;min-height:1em;width:100%;
 }
 #ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-datetime-edit{
-  text-align:center!important;display:block!important;width:100%;
+text-align:center!important;display:block!important;width:100%;
 }
 #ordersPage #masterReportControls .report-date-tile #reportDate:focus{
-  outline:2px solid #ffd21a;outline-offset:1px;
+outline:2px solid #ffd21a;outline-offset:1px;
 }
 </style>
-<style id="bardahl-report-date-overflow-fix">
-/* Keep the native date picker inside its card at all viewport sizes. */
-#masterReportControls .master-compact-controls > .report-date-tile {
-  width:100%; max-width:100%; min-width:0; overflow:hidden;
+<style id="bardahl-report-date-overflow-fix">#masterReportControls .master-compact-controls > .report-date-tile {
+width:100%; max-width:100%; min-width:0; overflow:hidden;
 }
 #ordersPage #masterReportControls .report-date-tile #reportDate {
-  display:block!important;
-  width:100%!important; max-width:100%!important; min-width:0!important;
-  margin:0!important; box-sizing:border-box!important;
-  padding-left:4px!important; padding-right:4px!important;
-  font-size:clamp(11px,2.7vw,15px)!important;
-  background:#252a2e!important; color:#f4f5f7!important;
-  border:1px solid #caa600!important; border-radius:8px!important;
-  text-align:center!important;
+display:block!important;
+width:100%!important; max-width:100%!important; min-width:0!important;
+margin:0!important; box-sizing:border-box!important;
+padding-left:4px!important; padding-right:4px!important;
+font-size:clamp(11px,2.7vw,15px)!important;
+background:#252a2e!important; color:#f4f5f7!important;
+border:1px solid #caa600!important; border-radius:8px!important;
+text-align:center!important;
 }
 #ordersPage #masterReportControls .report-date-tile #reportDate::-webkit-date-and-time-value {
-  min-width:0!important; max-width:100%!important;
+min-width:0!important; max-width:100%!important;
 }
 </style>
-<style id="bardahl-report-date-final-layout">
-/* A separate visual face prevents native date-input intrinsic sizing from escaping. */
-#masterReportControls .report-date-tile{min-width:0!important;overflow:hidden!important;}
+<style id="bardahl-report-date-final-layout">#masterReportControls .report-date-tile{min-width:0!important;overflow:hidden!important;}
 #masterReportControls .report-date-button-wrap{
-  position:relative!important;display:flex!important;align-items:center!important;
-  justify-content:center!important;width:100%!important;max-width:100%!important;
-  min-width:0!important;height:38px!important;box-sizing:border-box!important;
-  overflow:hidden!important;border:1px solid #caa600!important;border-radius:9px!important;
-  background:#252a2e!important;
+position:relative!important;display:flex!important;align-items:center!important;
+justify-content:center!important;width:100%!important;max-width:100%!important;
+min-width:0!important;height:38px!important;box-sizing:border-box!important;
+overflow:hidden!important;border:1px solid #caa600!important;border-radius:9px!important;
+background:#252a2e!important;
 }
 #masterReportControls .report-date-button-wrap #reportDateDisplay{
-  display:block!important;min-width:0!important;max-width:100%!important;
-  padding:0 8px!important;overflow:hidden!important;text-overflow:ellipsis!important;
-  white-space:nowrap!important;text-align:center!important;
-  color:#f4f5f7!important;font-size:clamp(12px,2.5vw,16px)!important;
-  font-weight:650!important;line-height:1.2!important;pointer-events:none!important;
+display:block!important;min-width:0!important;max-width:100%!important;
+padding:0 8px!important;overflow:hidden!important;text-overflow:ellipsis!important;
+white-space:nowrap!important;text-align:center!important;
+color:#f4f5f7!important;font-size:clamp(12px,2.5vw,16px)!important;
+font-weight:650!important;line-height:1.2!important;pointer-events:none!important;
 }
 #ordersPage #masterReportControls .report-date-button-wrap #reportDate{
-  position:absolute!important;inset:0!important;display:block!important;
-  width:100%!important;max-width:100%!important;min-width:0!important;
-  height:100%!important;min-height:0!important;margin:0!important;
-  padding:0!important;opacity:0!important;cursor:pointer!important;
-  box-sizing:border-box!important;z-index:1!important;
+position:absolute!important;inset:0!important;display:block!important;
+width:100%!important;max-width:100%!important;min-width:0!important;
+height:100%!important;min-height:0!important;margin:0!important;
+padding:0!important;opacity:0!important;cursor:pointer!important;
+box-sizing:border-box!important;z-index:1!important;
 }
 #masterReportControls .report-date-button-wrap:focus-within{outline:2px solid #ffd21a;outline-offset:-2px;}
 </style>
