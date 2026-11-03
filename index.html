@@ -847,7 +847,49 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #masterReportControls .report-date-tile.record-tile{text-align:left;padding:7px 9px;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
 #masterReportControls .report-date-tile.record-tile label{font-size:11px;color:#c9cdd0;margin:0 0 5px}
 #masterReportControls .report-date-tile.record-tile #reportDate{max-width:none!important;width:100%!important;min-width:0;box-sizing:border-box}
-</style></head>
+</style>
+<style id="bardahl-compact-reports-and-leader-desktop">
+/* Two small adjacent controls, then a single-line average and unchanged records. */
+#masterReportControls .master-compact-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:2px 0 8px;align-items:stretch}
+#masterReportControls .master-month-tile,#masterReportControls .report-date-tile{padding:8px 9px;min-width:0;min-height:65px;box-sizing:border-box}
+#masterReportControls .master-month-tile{text-align:left}
+#masterReportControls .master-month-tile small,#masterReportControls .report-date-tile label{display:block;color:#c9cdd0;font-size:11px;margin:0 0 5px;line-height:1.2}
+#masterReportControls .master-month-nav{display:flex;align-items:center;justify-content:space-between;gap:3px;max-width:none;margin:0;width:100%}
+#masterReportControls .master-month-nav button{flex:0 0 25px;width:25px;min-width:25px;height:28px;min-height:28px}
+#masterReportControls .master-month-nav span{font-size:clamp(10px,2.8vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ordersPage #masterReportControls .report-date-tile #reportDate{width:100%!important;max-width:100%!important;min-height:30px!important;height:32px!important;padding:3px 5px!important;font-size:clamp(12px,3vw,15px)!important;background:#101214!important;color:#f4f5f7!important;border:1px solid #42484c!important;border-radius:8px!important}
+#masterReportControls .master-month-average.record-tile{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;min-height:42px;padding:8px 12px;margin:0 0 10px}
+#masterReportControls .master-month-average.record-tile small{font-size:13px;line-height:1.2}
+#masterReportControls .master-month-average.record-tile strong{font-size:clamp(15px,3.6vw,20px);margin:0}
+#masterReportControls .master-records-area{margin:0 0 12px}
+#masterReportControls .master-records-area .record-heading{font-size:13px;margin-bottom:6px}
+@media(max-width:370px){#masterReportControls .master-compact-controls{gap:5px}#masterReportControls .master-month-tile,#masterReportControls .report-date-tile{padding:7px 6px}#masterReportControls .master-month-nav button{flex-basis:22px;width:22px;min-width:22px}}
+/* Desktop only: legible leader dashboard typography. */
+@media(min-width:701px){
+ #leaderStats .leader-kpi span{font-size:16px}
+ #leaderStats .leader-kpi strong{font-size:clamp(24px,2.5vw,32px)}
+ #leaderStats .leader-rank-head{font-size:18px}
+ #leaderStats .leader-rank-head button{font-size:18px;font-weight:750}
+ #leaderStats .leader-rank-head strong{font-size:19px}
+ #leaderStats .leader-rank-number{font-size:19px;width:36px}
+ #leaderStats .leader-rank-meta{font-size:15px}
+ #leaderStats .leader-note{font-size:15px}
+ #leaderStats .leader-chart-col{font-size:13px}
+ #leaderStats .leader-dynamic-item{font-size:17px}
+ #leaderStats .leader-filter{font-size:17px}
+ #leaderStats .leader-service-row{font-size:17px}
+ #leaderStats h3{font-size:22px}
+ #leaderRecords .record-heading{font-size:17px}
+ #leaderRecords .record-tile{padding:15px}
+ #leaderRecords .record-label{font-size:16px}
+ #leaderRecords .record-tile strong{font-size:25px}
+ #leaderRecords .record-tile small{font-size:15px}
+ #leaderRecords .record-master{font-size:17px;font-weight:700}
+ #leaderControls label,#leaderControls .small{font-size:16px}
+ #leaderControls .leader-period-btn{font-size:17px}
+}
+</style>
+</head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -873,7 +915,7 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
   <button id="saveOrder" class="primary" style="width:100%;margin-top:10px">Сохранить заказ</button><button id="cancelEdit" class="secondary hidden" type="button">Отменить редактирование</button>
  </div>
  </div>
- <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-month-row"><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div></div><div class="report-date-records"><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><input id="reportDate" type="date"></div><div><div class="record-heading">🏆 Мои рекорды</div><div id="masterRecords" class="record-pair"></div></div></div></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
+ <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><input id="reportDate" type="date"></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><div class="master-records-area"><div class="record-heading">🏆 Мои рекорды</div><div id="masterRecords" class="record-pair"></div></div></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
  <div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Поиск по автомобилю, мастеру или услуге" autocomplete="off"><div class="row"><button id="exportCsv" class="secondary">Экспорт CSV</button><button id="backup" class="secondary">Резервная копия</button></div><button id="restoreBtn" class="secondary">Восстановить из копии</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
@@ -1041,7 +1083,7 @@ function drawWorkReport(){
    if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
  }
  const leaderOrders=workOrders.filter(countsForLeader);
- const leaderRecordBox=$('leaderRecords');if(leaderRecordBox){leaderRecordBox.classList.toggle('hidden',!isLeader);if(isLeader){leaderRecordBox.replaceChildren();const heading=document.createElement('div');heading.className='record-heading';heading.textContent='🏆 Рекорды среди мастеров · за всё время';const pair=document.createElement('div');pair.className='record-pair';leaderRecordBox.append(heading,pair);renderRecordPair(pair,leaderBestRecords(leaderOrders),true)}}
+ const leaderRecordBox=$('leaderRecords');if(leaderRecordBox){leaderRecordBox.classList.toggle('hidden',!isLeader);if(isLeader){leaderRecordBox.replaceChildren();const heading=document.createElement('div');heading.className='record-heading';heading.textContent='🏆 Рекорды среди мастеров · за всё время';const pair=document.createElement('div');pair.className='record-pair';leaderRecordBox.append(heading,pair);renderRecordPair(pair,leaderBestRecords(workOrders),true)}}
  const lr=$('leaderStats');if(!lr)return;lr.classList.toggle('hidden',!isLeader);$('leaderControls').classList.toggle('hidden',!isLeader);$('masterReportControls').classList.toggle('hidden',isLeader);if(!isLeader)return;lr.replaceChildren();
  const referenceDate=$('leaderDate').value||workToday();
  const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to)}});
