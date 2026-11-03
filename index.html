@@ -930,6 +930,32 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
   min-width:0!important; max-width:100%!important;
 }
 </style>
+<style id="bardahl-report-date-final-layout">
+/* A separate visual face prevents native date-input intrinsic sizing from escaping. */
+#masterReportControls .report-date-tile{min-width:0!important;overflow:hidden!important;}
+#masterReportControls .report-date-button-wrap{
+  position:relative!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;width:100%!important;max-width:100%!important;
+  min-width:0!important;height:38px!important;box-sizing:border-box!important;
+  overflow:hidden!important;border:1px solid #caa600!important;border-radius:9px!important;
+  background:#252a2e!important;
+}
+#masterReportControls .report-date-button-wrap #reportDateDisplay{
+  display:block!important;min-width:0!important;max-width:100%!important;
+  padding:0 8px!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:nowrap!important;text-align:center!important;
+  color:#f4f5f7!important;font-size:clamp(12px,2.5vw,16px)!important;
+  font-weight:650!important;line-height:1.2!important;pointer-events:none!important;
+}
+#ordersPage #masterReportControls .report-date-button-wrap #reportDate{
+  position:absolute!important;inset:0!important;display:block!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  height:100%!important;min-height:0!important;margin:0!important;
+  padding:0!important;opacity:0!important;cursor:pointer!important;
+  box-sizing:border-box!important;z-index:1!important;
+}
+#masterReportControls .report-date-button-wrap:focus-within{outline:2px solid #ffd21a;outline-offset:-2px;}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -956,7 +982,7 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
   <button id="saveOrder" class="primary" style="width:100%;margin-top:10px">Сохранить заказ</button><button id="cancelEdit" class="secondary hidden" type="button">Отменить редактирование</button>
  </div>
  </div>
- <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><input id="reportDate" type="date"></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><div class="master-records-area"><div class="record-heading">🏆 Мои рекорды</div><div id="masterRecords" class="record-pair"></div></div></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
+ <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><div class="report-date-button-wrap"><span id="reportDateDisplay" aria-hidden="true"></span><input id="reportDate" type="date" aria-label="Дата отчёта"></div></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><div class="master-records-area"><div class="record-heading">🏆 Мои рекорды</div><div id="masterRecords" class="record-pair"></div></div></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
  <div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Поиск по автомобилю, мастеру или услуге" autocomplete="off"><div class="row"><button id="exportCsv" class="secondary">Экспорт CSV</button><button id="backup" class="secondary">Резервная копия</button></div><button id="restoreBtn" class="secondary">Восстановить из копии</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
@@ -1452,6 +1478,26 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
  else init();
+})();
+</script>
+<script id="bardahl-report-date-display-sync">
+(function(){
+  function init(){
+    var input=document.getElementById('reportDate');
+    var output=document.getElementById('reportDateDisplay');
+    if(!input||!output)return;
+    function update(){
+      var parts=(input.value||'').split('-').map(Number);
+      if(parts.length===3&&parts.every(Number.isFinite)){
+        output.textContent=new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(parts[0],parts[1]-1,parts[2])));
+      }else output.textContent='Выбрать дату';
+    }
+    input.addEventListener('change',update);
+    input.addEventListener('input',update);
+    update();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
 </body></html>
