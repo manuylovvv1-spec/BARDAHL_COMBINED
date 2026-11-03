@@ -824,7 +824,22 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
 #masterReportControls .master-month-nav button{width:28px;min-width:28px;height:29px;min-height:29px;padding:0;border:1px solid #414a50;border-radius:8px;background:#232a2f;color:#ffd21a;font-size:25px;line-height:1}
 #masterReportControls .master-month-nav span{flex:1;min-width:0;text-align:center;color:#f4f5f7;font-size:13px;font-weight:750;white-space:nowrap}
 </style>
-</head>
+<style id="personal-records-style">
+#masterReportControls .report-date-records{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,1.7fr);gap:10px;align-items:end;margin:7px 0 9px}
+#masterReportControls .report-date-records label{margin:0 0 6px}
+#masterReportControls .report-date-records #reportDate{width:100%!important;max-width:230px!important}
+.record-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.record-tile{background:#24292d;border:1px solid #a98716;border-radius:10px;padding:7px 6px;min-width:0;text-align:center}
+.record-tile .record-label{display:block;color:#c9cdd0;font-size:11px}
+.record-tile strong{display:block;color:#ffd21a;font-size:clamp(12px,1.4vw,17px);white-space:nowrap;margin:3px 0}
+.record-tile small{display:block;color:#b2b9be;font-size:10px}
+.record-heading{font-size:11px;color:#ffd21a;font-weight:800;margin-bottom:4px}
+#leaderRecords{margin:12px 0}
+#leaderRecords .record-pair{gap:10px}
+#leaderRecords .record-tile{padding:10px}
+#leaderRecords .record-master{font-size:12px;color:#fff;overflow-wrap:anywhere}
+@media(max-width:520px){#masterReportControls .report-date-records{grid-template-columns:1fr;gap:8px}.record-tile strong{font-size:13px}}
+</style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -850,7 +865,7 @@ body[data-bg-style="kittens"] #queueTableCard{background:rgba(16,4,37,calc(var(-
   <button id="saveOrder" class="primary" style="width:100%;margin-top:10px">Сохранить заказ</button><button id="cancelEdit" class="secondary hidden" type="button">Отменить редактирование</button>
  </div>
  </div>
- <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-month-row"><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div><div class="master-month-average" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div></div><label for="reportDate">Дата отчёта</label><input id="reportDate" type="date"></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
+ <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-month-row"><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div><div class="master-month-average" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div></div><div class="report-date-records"><div><label for="reportDate">Дата отчёта</label><input id="reportDate" type="date"></div><div><div class="record-heading">🏆 Мои рекорды</div><div id="masterRecords" class="record-pair"></div></div></div></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Сверху показаны итоги за все три периода. Список мастеров ниже переключается по выбранному периоду.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
  <div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Поиск по автомобилю, мастеру или услуге" autocomplete="off"><div class="row"><button id="exportCsv" class="secondary">Экспорт CSV</button><button id="backup" class="secondary">Резервная копия</button></div><button id="restoreBtn" class="secondary">Восстановить из копии</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
@@ -986,10 +1001,22 @@ function appendPeriodSummary(root,orders,label){
  const h=document.createElement('h3');h.textContent=label;box.append(h);
  const stats=document.createElement('div');stats.className='stats';stats.innerHTML=`<div class="stat"><span>Услуг</span><strong>${count}</strong></div><div class="stat"><span>Заказов</span><strong>${orders.length}</strong></div><div class="stat"><span>Сумма</span><strong style="font-size:15px">${esc(moneyWork(sum))}</strong></div>`;box.append(stats);root.append(box);
 }
+function computeMasterRecords(orders){
+ const daily=new Map(),monthly=new Map();
+ for(const o of orders){if(!/^\d{4}-\d{2}-\d{2}$/.test(o.date||''))continue;const sum=orderSum(o);daily.set(o.date,(daily.get(o.date)||0)+sum);const m=o.date.slice(0,7);monthly.set(m,(monthly.get(m)||0)+sum)}
+ const best=map=>[...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0]||null;
+ return {day:best(daily),month:best(monthly)};
+}
+function recordPeriodLabel(key,month){if(!key)return '—';if(!month)return key.split('-').reverse().join('.');const [y,m]=key.split('-').map(Number);return new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(new Date(y,m-1,1))}
+function renderRecordPair(target,records,showNames=false){if(!target)return;target.replaceChildren();for(const [label,entry,month] of [['Лучший день',records.day,false],['Лучший месяц',records.month,true]]){const tile=document.createElement('div');tile.className='record-tile';const title=document.createElement('span');title.className='record-label';title.textContent=label;const amount=document.createElement('strong');amount.textContent=entry?moneyWork(entry.amount):'—';const date=document.createElement('small');date.textContent=entry?recordPeriodLabel(entry.key,month):'Нет заказов';tile.append(title,amount,date);if(showNames&&entry){const name=document.createElement('div');name.className='record-master';name.textContent=entry.master;tile.append(name)}target.append(tile)}}
+function leaderBestRecords(orders){const masters=new Map();for(const o of orders){const key=normalizeWorkMaster(o.master);if(!key)continue;if(!masters.has(key))masters.set(key,{name:o.master,orders:[]});masters.get(key).orders.push(o)}const all=[];for(const m of masters.values()){const r=computeMasterRecords(m.orders);for(const kind of ['day','month'])if(r[kind])all.push({kind,key:r[kind][0],amount:r[kind][1],master:m.name})}const best=kind=>all.filter(r=>r.kind===kind).sort((a,b)=>b.amount-a.amount||a.master.localeCompare(b.master,'ru'))[0]||null;return {day:best('day'),month:best('month')}}
 function drawWorkReport(){
  const date=$('reportDate').value||workToday(),month=date.slice(0,7),year=date.slice(0,4),root=$('workReport');root.replaceChildren();
  const masterDaily=$('masterDailyServices'),masterDailyList=$('masterDailyServicesList');
  if(!isLeader){
+   const own=workOrders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(me));
+   const personal=computeMasterRecords(own);
+   renderRecordPair($('masterRecords'),{day:personal.day?{key:personal.day[0],amount:personal.day[1]}:null,month:personal.month?{key:personal.month[0],amount:personal.month[1]}:null});
    const monthlyOrders=workOrders.filter(o=>o.date.startsWith(month));
    const activeDays=new Set(monthlyOrders.map(o=>o.date).filter(Boolean)).size;
    const monthlyTotal=monthlyOrders.reduce((sum,o)=>sum+orderSum(o),0);
@@ -998,6 +1025,7 @@ function drawWorkReport(){
    groups.forEach(([label,list])=>{const box=document.createElement('div');box.className='stat';const serviceCount=list.reduce((n,o)=>n+orderServiceCount(o),0),sum=list.reduce((n,o)=>n+orderSum(o),0);box.innerHTML=`<span>${label}</span><div>${list.length} Авто</div><strong>${serviceCount}</strong><span>услуг</span><div style="margin-top:5px;color:var(--yellow);font-size:12px;font-weight:800">${esc(moneyWork(sum))}</div>`;root.append(box)});
    if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
  }
+ const leaderRecordBox=$('leaderRecords');if(leaderRecordBox){leaderRecordBox.classList.toggle('hidden',!isLeader);if(isLeader){leaderRecordBox.replaceChildren();const heading=document.createElement('div');heading.className='record-heading';heading.textContent='🏆 Рекорды среди мастеров · за всё время';const pair=document.createElement('div');pair.className='record-pair';leaderRecordBox.append(heading,pair);renderRecordPair(pair,leaderBestRecords(workOrders),true)}}
  const lr=$('leaderStats');if(!lr)return;lr.classList.toggle('hidden',!isLeader);$('leaderControls').classList.toggle('hidden',!isLeader);$('masterReportControls').classList.toggle('hidden',isLeader);if(!isLeader)return;lr.replaceChildren();
  const referenceDate=$('leaderDate').value||workToday();
  const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:workOrders.filter(o=>o.date>=b.from&&o.date<=b.to)}});
