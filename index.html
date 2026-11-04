@@ -850,10 +850,13 @@ box-sizing:border-box!important;z-index:1!important;
 @media (max-width:700px){body:has(#ordersPage:not(.hidden)){background-image:none!important;background-color:#15191d!important}}
 </style>
 <style id="master-records-collapse">
-#masterReportControls details.master-records-area>summary.record-heading{display:flex;align-items:center;justify-content:flex-start;gap:5px;width:max-content;max-width:100%;cursor:pointer;list-style:none;user-select:none}
+#masterReportControls details.master-records-area{margin:12px 0!important}
+#masterReportControls details.master-records-area>summary.record-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:100%;min-height:64px;margin:0!important;padding:15px 19px;background:#15191f;border:1px solid #34383f;border-radius:18px;color:#f6f6f6;font-size:clamp(17px,3.6vw,22px)!important;font-weight:700;cursor:pointer;list-style:none;user-select:none;box-sizing:border-box}
+#masterReportControls details.master-records-area>summary.record-heading::marker{content:""}
 #masterReportControls details.master-records-area>summary.record-heading::-webkit-details-marker{display:none}
-#masterReportControls .records-chevron{display:inline-block;color:#ffd21a;font-size:19px;font-weight:800;line-height:1;transition:transform .15s ease}
-#masterReportControls details.master-records-area[open] .records-chevron{transform:rotate(180deg)}
+#masterReportControls .records-chevron{display:block;width:15px;height:15px;flex:0 0 15px;border-right:3px solid #ffd21a;border-bottom:3px solid #ffd21a;border-radius:1px;transform:rotate(45deg) translateY(-3px);font-size:0;transition:transform .15s ease}
+#masterReportControls details.master-records-area[open] .records-chevron{transform:rotate(225deg) translateY(-3px)}
+#masterReportControls details.master-records-area>.record-pair{margin-top:10px}
 </style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
