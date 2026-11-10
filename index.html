@@ -858,16 +858,9 @@ box-sizing:border-box!important;z-index:1!important;
 #masterReportControls details.master-records-area[open] .records-chevron{transform:rotate(225deg) translateY(-3px)}
 #masterReportControls details.master-records-area>.record-pair{margin-top:10px}
 </style>
-<style id="bardahl-two-queue-layout">
-.leader-queue-stack{display:flex;flex-direction:column;gap:14px;width:100%;min-width:0}
-.leader-queue-card{margin:0;overflow:hidden;min-width:0}.leader-queue-card h2{text-align:left;padding:4px 2px 12px}
-.leader-queue-card .queue-table{min-width:850px;width:100%;table-layout:fixed}.leader-queue-card .queue-table th{font-size:12px}
-.leader-queue-card .queue-table th:first-child{width:105px}.leader-queue-card .queue-table th:nth-child(2){width:62px}
-.leader-queue-card .service-chip{padding:3px 5px;gap:4px}.leader-queue-card .chip-symbol{width:30px;height:30px;flex:0 0 30px}.leader-queue-card .chip-copy{font-size:11px}.leader-queue-card .chip-copy small{font-size:12px}
-.leader-queue-card .queue-position-number,.leader-queue-card .queue-box-number{font-size:20px}.leader-queue-card .queue-name-mini{font-size:12px;max-width:100%}
-.leader-branch-report{margin-top:18px;min-width:0}.leader-branch-report>h2{text-align:left;color:var(--yellow)}
+<style id="bardahl-history-controls">
 .history-filter-controls{display:grid;grid-template-columns:minmax(100px,1fr) minmax(130px,1fr);gap:8px;margin:10px 0}.history-filter-controls input,.history-filter-controls select{width:100%;min-width:0}.history-scope{margin:8px 0 12px}.master-history-widget{margin-top:18px}.master-history-widget>input{margin-top:10px}
-@media(max-width:480px){.history-filter-controls{grid-template-columns:1fr 1fr}.leader-branch-report{padding:12px}.leader-queue-card{padding:12px}}
+#branchControls{margin-bottom:12px}#branchControls strong{display:block;color:var(--yellow);margin-bottom:8px}#branchControls label{display:block;margin-bottom:5px}
 </style></head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -894,7 +887,7 @@ box-sizing:border-box!important;z-index:1!important;
   <button id="saveOrder" class="primary" style="width:100%;margin-top:10px">Сохранить заказ</button><button id="cancelEdit" class="secondary hidden" type="button">Отменить редактирование</button>
  </div>
  </div>
- <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><div class="report-date-button-wrap"><span id="reportDateDisplay" aria-hidden="true"></span><input id="reportDate" type="date" aria-label="Дата отчёта"></div></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><details class="master-records-area"><summary class="record-heading">🏆 Мои рекорды <span class="records-chevron" aria-hidden="true">⌄</span></summary><div id="masterRecords" class="record-pair"></div></details></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Общие итоги двух филиалов и отдельные рейтинги. Дата и период едины для обоих филиалов.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
+ <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><div class="report-date-button-wrap"><span id="reportDateDisplay" aria-hidden="true"></span><input id="reportDate" type="date" aria-label="Дата отчёта"></div></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><details class="master-records-area"><summary class="record-heading">🏆 Мои рекорды <span class="records-chevron" aria-hidden="true">⌄</span></summary><div id="masterRecords" class="record-pair"></div></details></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Статистика и рейтинг выбранного филиала.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="masterDailyServices" class="card"><h2>Статистика за день</h2><div id="masterDailyServicesList"></div></div>
  <div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Марка, модель или госномер" autocomplete="off"><div id="historyControls" class="history-filter-controls"></div><div id="historyScopeHint" class="small history-scope"></div><div class="row"><button id="exportCsv" class="secondary">Экспорт CSV</button><button id="backup" class="secondary">Резервная копия</button></div><button id="restoreBtn" class="secondary">Восстановить из копии</button><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
@@ -915,7 +908,7 @@ async function connect(){if(!window.supabase){$("notice").textContent="Не за
 async function getProfile(){const {data:{user},error:userError}=await db.auth.getUser();if(userError||!user)throw new Error('Сессия не найдена. Войдите снова.');const r=await db.from('user_profiles').select('user_id,display_name,role,must_change_password,email,branch_id,queue_branch_id').eq('user_id',user.id).single();if(r.error)throw new Error('Профиль не настроен. Администратор должен добавить вашу учётную запись в user_profiles.');return r.data}
 async function login(){if(!await connect())return;const email=$("loginEmail").value.trim(),password=$("loginPassword").value;if(!email||!password)return toast('Введите логин/email и пароль');const b=$('loginBtn');b.disabled=true;b.textContent='Проверяем…';try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;profile=await getProfile();if(profile.must_change_password){$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden');$('newPassword').focus();return}await bootApp(profile)}catch(e){await db.auth.signOut();toast('Не удалось войти: '+(e.message||String(e)))}finally{b.disabled=false;b.textContent='Войти'}}
 async function changeFirstPassword(){const p=$('newPassword').value,c=$('confirmPassword').value;if(p.length<10)return toast('Пароль должен содержать не менее 10 символов');if(p!==c)return toast('Пароли не совпадают');const b=$('changePasswordBtn');b.disabled=true;try{const {error}=await db.auth.updateUser({password:p});if(error)throw error;const r=await db.rpc('complete_password_change');if(r.error)throw r.error;profile.must_change_password=false;$('passwordChangeCard').classList.add('hidden');$('newPassword').value='';$('confirmPassword').value='';toast('Пароль изменён');await bootApp(profile)}catch(e){toast('Не удалось сменить пароль: '+e.message)}finally{b.disabled=false}}
-async function bootApp(p){profile=p;queueBranch=p.role==='manager'?p.branch_id:(p.queue_branch_id||p.branch_id||1);statsBranch=p.role==='leader'?'all':String(queueBranch);setupBranchControls(p);me=p.display_name;role=p.role;isManager=role==='manager';isLeader=role==='leader';if(!['master','manager','leader'].includes(role))throw new Error('Для аккаунта назначена неизвестная роль');if(role==='master'||isManager||isLeader){const r=await db.rpc('ensure_daily_reset');if(r.error)throw r.error}
+async function bootApp(p){profile=p;queueBranch=p.role==='manager'?p.branch_id:(p.queue_branch_id||p.branch_id||1);if(p.role==='leader'){try{const saved=Number(localStorage.getItem('bardahl-leader-branch-'+p.user_id));if(BRANCHES[saved])queueBranch=saved}catch(e){}}statsBranch=String(queueBranch);setupBranchControls(p);me=p.display_name;role=p.role;isManager=role==='manager';isLeader=role==='leader';if(!['master','manager','leader'].includes(role))throw new Error('Для аккаунта назначена неизвестная роль');if(role==='master'||isManager||isLeader){const r=await db.rpc('ensure_daily_reset');if(r.error)throw r.error}
 $('notice').classList.add('hidden');$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.add('hidden');$('app').classList.remove('hidden');$('tabOrders').classList.toggle('hidden',role==='manager');$('tabOrders').style.setProperty('display',role==='manager'?'none':'','important');$('tabQueue').classList.toggle('hidden',false);$('logoutBtn').classList.remove('hidden');if(isLeader){$('tabOrders').textContent='📊 Статистика';$('orderEntrySection').classList.add('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.add('hidden');$('reportsHeading').textContent='Статистика работ мастеров';$('workReport').classList.add('hidden');$('masterDailyServices').classList.add('hidden');$('leaderStats').classList.remove('hidden');switchPage('queue')}else{$('tabOrders').textContent='🧾 Учёт работ';$('orderEntrySection').classList.remove('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.remove('hidden');$('reportsHeading').textContent='Отчёты';$('workReport').classList.remove('hidden');$('masterDailyServices').classList.toggle('hidden',isManager);switchPage('queue')}if(isLeader){const roster=await db.from('user_profiles').select('display_name,branch_id,role').eq('role','master');if(roster.error)throw roster.error;leaderRoster=roster.data||[]}await loadAll();if(!isManager){try{await loadWorkOrders()}catch(e){toast('Заказы не загрузились: '+e.message);if(isLeader){$('leaderStats').classList.remove('hidden');$('leaderStats').textContent='Не удалось загрузить статистику: '+e.message}}}if(polling)clearInterval(polling);let refreshing=false;polling=setInterval(async()=>{if(refreshing||!me||document.hidden)return;refreshing=true;try{await loadAll();if(!isManager)await loadWorkOrders()}catch(e){toast('Не удалось обновить данные: '+e.message)}finally{refreshing=false}},7000)}
 async function restoreSession(){if(!await connect())return;const {data}=await db.auth.getSession();if(!data.session){$('notice').classList.add('hidden');return}try{profile=await getProfile();if(profile.must_change_password){$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden')}else await bootApp(profile)}catch(e){await db.auth.signOut();$('notice').classList.remove('hidden');$('notice').textContent=e.message}}
 const BRANCHES={1:{name:'Металлургов',box_count:8},2:{name:'КШТ',box_count:4}};
@@ -925,12 +918,19 @@ function queueCapacity(){return BRANCHES[queueBranch]?.box_count||0}
 function rankingMasters(){return [...new Set([...leaderRoster.filter(p=>Number(p.branch_id)===Number(statsBranch)).map(p=>p.display_name),...workOrders.map(o=>o.master)])].filter(n=>n&&normalizeWorkMaster(n)!==normalizeWorkMaster('Гость'))}
 function setupBranchControls(p){
  let box=$('branchControls');if(!box){box=document.createElement('div');box.id='branchControls';box.className='card';$('app').prepend(box)}box.replaceChildren();
- if(p.role==='leader'){box.classList.add('hidden');return}box.classList.remove('hidden');const title=document.createElement('strong');title.textContent=branchLabel(queueBranch);box.append(title);
+ box.classList.remove('hidden');const title=document.createElement('strong');title.textContent=branchLabel(queueBranch);box.append(title);
  if(p.role==='manager')return;
  const label=document.createElement('label');label.textContent='Филиал';label.htmlFor='queueBranchSelect';const select=document.createElement('select');select.id='queueBranchSelect';
  for(const id of [1,2]){const option=document.createElement('option');option.value=String(id);option.textContent=branchLabel(id);select.append(option)}select.value=String(queueBranch);select.disabled=changingBranch;select.onchange=()=>selectAppBranch(Number(select.value));box.append(label,select);
 }
 async function selectAppBranch(id){
+ if(isLeader){
+  if(!BRANCHES[id]||id===queueBranch)return;
+  queueBranch=id;statsBranch=String(id);snapshot=null;queueLoadVersion++;leaderSelectedMaster=null;
+  try{localStorage.setItem('bardahl-leader-branch-'+profile.user_id,String(id))}catch(e){}
+  setupBranchControls(profile);$('queue').replaceChildren();drawWorkReport();await loadAll();return;
+ }
+
  if(changingBranch||id===queueBranch)return;if(!BRANCHES[id])return;
  if(workCart.length||editingOrderId){toast('Сначала сохраните или отмените редактирование заказа');$('queueBranchSelect').value=String(queueBranch);return}
  const positioned=snapshot?.members.some(m=>m.user_id===profile.user_id&&m.position!=null);
@@ -948,7 +948,6 @@ async function queueRpc(name,args={}){
 }
 async function loadAll(){
  if(!db||!me)return;const actor=me,branch=queueBranch,version=++queueLoadVersion;
- if(isLeader){renderLeaderQueues();try{const r=await Promise.all([fetchQueueSnapshot(1),fetchQueueSnapshot(2)]);if(me!==actor||!isLeader||version!==queueLoadVersion)return;leaderQueueSnapshots={1:r[0],2:r[1]};renderLeaderQueues()}catch(e){if(me===actor&&isLeader)toast('Ошибка загрузки очередей: '+e.message)}return}
  try{if(!isLeader){const reset=await db.rpc('ensure_daily_reset');if(reset.error)throw reset.error;if(reset.data?.branch_id&&Number(reset.data.branch_id)!==branch){profile.queue_branch_id=Number(reset.data.branch_id);queueBranch=Number(reset.data.branch_id);statsBranch=String(queueBranch);snapshot=null;setupBranchControls(profile);return}}const results=await Promise.all([
   db.from('queue_state').select('*').eq('id',branch).single(),
   db.from('queue_members').select('*').eq('branch_id',branch).order('position',{ascending:true,nullsFirst:false}),
@@ -972,7 +971,7 @@ function serviceCardIcon(kind){
 }
 function queueServiceIcon(kind){return serviceCardIcon(kind);}
 function render(){
- if(isLeader){renderLeaderQueues();return}if($('leaderQueues'))$('leaderQueues').classList.add('hidden');
+ if($('leaderQueues'))$('leaderQueues').classList.add('hidden');
  if(!snapshot)return;
  const round=snapshot.state.round_number,members=snapshot.members,mine=members.find(m=>m.user_id===profile.user_id);
  const ordered=members.filter(m=>m.position!==null&&m.position!==undefined&&m.box!==null&&m.box!==undefined).slice().sort((a,b)=>Number(a.position)-Number(b.position)||Number(a.box)-Number(b.box));
@@ -1417,31 +1416,12 @@ function drawWorkOrders(){
  $('historyPeriod').value=mainHistoryState.period;configureHistoryDate($('historyDate'),mainHistoryState);
  const list=historyOrders(allowed,mainHistoryState);$('historyScopeHint').textContent=historyHint(mainHistoryState,list.length);fillHistoryList(root,list,role==='master');
 }
-function queueTableHtml(branch,data){
- if(!data)return '<div class="empty-orders">Загрузка очереди…</div>';
- const members=(data.members||[]).filter(m=>m.position!=null&&m.box!=null).slice().sort((a,b)=>Number(a.position)-Number(b.position));
- const head='<thead><tr><th>Позиция</th><th>Бокс</th>'+Array.from({length:6},(_,i)=>'<th>Круг '+(i+1)+'</th>').join('')+'</tr></thead>';
- const rows=members.map(m=>{const logs=(data.services||[]).filter(x=>x.user_id?x.user_id===m.user_id:x.master_name===m.name).slice().sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at))||Number(a.id)-Number(b.id));
-  return '<tr><td><div class="queue-position-number">№'+Number(m.position)+'</div><div class="queue-name-mini">'+esc(m.name)+'</div></td><td><div class="queue-box-number">№ '+Number(m.box)+'</div></td>'+Array.from({length:6},(_,i)=>{const log=logs[i];if(!log)return '<td><div class="empty-service-slot">–</div></td>';const kind=log.service==='АКПП'?'akpp':log.service==='Антифриз'?'antifriz':'haldex';const time=log.created_at?new Date(log.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Almaty'}):'';return '<td><div class="service-chip '+kind+'"><span class="chip-symbol">'+queueServiceIcon(kind)+'</span><span class="chip-copy"><span>'+esc(log.service)+'</span><small>'+esc(time)+'</small></span></div></td>'}).join('')+'</tr>';
- }).join('');return '<div class="table-wrap"><table class="queue-table">'+head+'<tbody>'+(rows||'<tr><td class="queue-empty" colspan="8">Пока нет занятых мест в очереди.</td></tr>')+'</tbody></table></div>';
-}
-function renderLeaderQueues(){
- let root=$('leaderQueues');if(!root){root=document.createElement('div');root.id='leaderQueues';root.className='leader-queue-stack';$('queuePage').insertBefore(root,$('queueTableCard'))}
- root.classList.remove('hidden');root.replaceChildren();
- for(const id of [1,2]){const card=document.createElement('section');card.className='card leader-queue-card';card.dataset.branchId=String(id);const title=document.createElement('h2');title.textContent=branchLabel(id);const table=document.createElement('div');table.innerHTML=queueTableHtml(id,leaderQueueSnapshots[id]);card.append(title,table);root.append(card)}
- for(const id of ['queueTableCard','positionCard','positionChooser','myPanelCard','managerActions','leaveBtn'])$(id).classList.add('hidden');$('leaveBtn').style.setProperty('display','none','important');$('logoutBtn').classList.remove('hidden');
-}
-async function fetchQueueSnapshot(id){
- const r=await Promise.all([db.from('queue_state').select('*').eq('id',id).single(),db.from('queue_members').select('*').eq('branch_id',id).order('position',{ascending:true,nullsFirst:false}),db.from('queue_service_log').select('*').eq('branch_id',id).order('created_at',{ascending:false}).limit(500)]);
- for(const x of r)if(x.error)throw x.error;return {state:r[0].data,members:r[1].data,services:r[2].data};
-}
 function drawWorkReport(){
  if(!isLeader)return drawPersonalWorkReport();
  const focused=document.activeElement,key=focused?.dataset?.historyKey,start=focused?.selectionStart,end=focused?.selectionEnd;
- const root=$('leaderStats');root.classList.remove('hidden');root.replaceChildren();$('leaderControls').classList.remove('hidden');$('masterReportControls').classList.add('hidden');$('leaderRecords').classList.add('hidden');
- const reference=$('leaderDate').value||workToday(),bounds=periodBoundsFor(reference,leaderPeriodValue),selected=workOrders.filter(o=>o.date>=bounds.from&&o.date<=bounds.to);
- const total=document.createElement('section');total.className='leader-overall-summary';const title=document.createElement('h3');title.textContent='Общие итоги двух филиалов';total.append(title);appendPeriodSummary(total,selected,bounds.label);root.append(total);
- for(const branchId of [1,2]){const section=document.createElement('section');section.className='card leader-branch-report';section.dataset.branchId=String(branchId);const heading=document.createElement('h2');heading.textContent=branchLabel(branchId);const records=document.createElement('div'),stats=document.createElement('div');stats.className='history';section.append(heading,records,stats);root.append(section);drawBranchReport(branchId,workOrders,records,stats)}
+ const records=$('leaderRecords'),stats=$('leaderStats');records.replaceChildren();stats.replaceChildren();records.classList.remove('hidden');stats.classList.remove('hidden');
+ $('leaderControls').classList.remove('hidden');$('masterReportControls').classList.add('hidden');$('workReport').replaceChildren();
+ drawBranchReport(Number(queueBranch),workOrders,records,stats);
  if(key){const input=document.getElementById('history-search-'+encodeURIComponent(key));if(input){input.focus({preventScroll:true});if(start!=null&&typeof input.setSelectionRange==='function')input.setSelectionRange(start,end)}}
 }
 initializeMainHistory();
