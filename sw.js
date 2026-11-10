@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bardahl-combined-v20-branch-filters';
+const CACHE_NAME = 'bardahl-combined-v21-history-branch';
 const CACHE_PREFIX = 'bardahl-combined-';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-180.png', './icon-192.png', './icon-512.png'];
 const CORE_URLS = new Set(CORE.map(path => new URL(path, self.registration.scope).href));

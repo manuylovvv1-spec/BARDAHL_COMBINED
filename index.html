@@ -917,7 +917,7 @@ function branchLabel(id){return BRANCHES[id]?.name||'Филиал '+id}
 function queueCapacity(){return BRANCHES[queueBranch]?.box_count||0}
 function rankingMasters(){return [...new Set([...leaderRoster.filter(p=>Number(p.branch_id)===Number(statsBranch)).map(p=>p.display_name),...workOrders.map(o=>o.master)])].filter(n=>n&&normalizeWorkMaster(n)!==normalizeWorkMaster('Гость'))}
 function setupBranchControls(p){
- let box=$('branchControls');if(!box){box=document.createElement('div');box.id='branchControls';box.className='card';$('app').prepend(box)}box.replaceChildren();syncJoinBranchControl(p);if(p.role==='manager'){box.classList.add('hidden');return}
+ let box=$('branchControls');if(!box){box=document.createElement('div');box.id='branchControls';box.className='card';$('app').prepend(box)}box.replaceChildren();syncJoinBranchControl(p);if(p.role!=='leader'){box.classList.add('hidden');return}
  box.classList.remove('hidden');const title=document.createElement('strong');title.textContent=branchLabel(queueBranch);box.append(title);
  if(p.role==='manager')return;
  const label=document.createElement('label');label.textContent='Филиал';label.htmlFor='queueBranchSelect';const select=document.createElement('select');select.id='queueBranchSelect';
@@ -932,9 +932,9 @@ async function selectAppBranch(id){
  }
 
  if(changingBranch||id===queueBranch)return;if(!BRANCHES[id])return;
- if(workCart.length||editingOrderId){toast('Сначала сохраните или отмените редактирование заказа');$('queueBranchSelect').value=String(queueBranch);return}
+ if(workCart.length||editingOrderId){toast('Сначала сохраните или отмените редактирование заказа');syncJoinBranchControl(profile);return}
  const positioned=snapshot?.members.some(m=>m.user_id===profile.user_id&&m.position!=null);
- if(role==='master'&&positioned&&!confirm('При смене филиала ваше текущее место освободится. Перейти в '+branchLabel(id)+'?')){$('queueBranchSelect').value=String(queueBranch);return}
+ if(role==='master'&&positioned&&!confirm('При смене филиала ваше текущее место освободится. Перейти в '+branchLabel(id)+'?')){syncJoinBranchControl(profile);return}
  changingBranch=true;setupBranchControls(profile);
  try{const r=await db.rpc('set_queue_branch',{p_branch_id:id});if(r.error)throw r.error;
   profile.queue_branch_id=id;queueBranch=id;statsBranch=String(id);queueLoadVersion++;orderLoadVersion++;snapshot=null;leaderSelectedMaster=null;workOrders=[];selectedServices=[];positionEditorOpen=false;
@@ -1037,7 +1037,7 @@ let workCart=[],workOrders=[],editingOrderId=null,leaderPeriodValue="day",leader
 const moneyWork=n=>`${Number(n||0).toLocaleString('ru-RU')} ₸`;
 const makeWorkId=()=> (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2,8));
 function workToday(){const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Almaty',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day}
-function switchPage(page){if(isManager)page='queue';const q=page==='queue';if($('branchControls'))$('branchControls').classList.toggle('hidden',isManager||(isLeader&&!q));$('queuePage').classList.toggle('hidden',!q);$('ordersPage').classList.toggle('hidden',q);$('tabQueue').className=q?'primary':'secondary';$('tabOrders').className=q?'secondary':'primary';if(!q){if(!isLeader)drawWorkCart();drawWorkReport();drawWorkOrders()}}
+function switchPage(page){if(isManager)page='queue';const q=page==='queue';if($('branchControls'))$('branchControls').classList.toggle('hidden',role!=='leader'||!q);$('queuePage').classList.toggle('hidden',!q);$('ordersPage').classList.toggle('hidden',q);$('tabQueue').className=q?'primary':'secondary';$('tabOrders').className=q?'secondary':'primary';if(!q){if(!isLeader)drawWorkCart();drawWorkReport();drawWorkOrders()}}
 function initWorkForm(){const carList=$('carSuggestions');[...carList.options].sort((a,b)=>a.value.localeCompare(b.value,'ru',{sensitivity:'base'})).forEach(op=>carList.appendChild(op));for(const [name,price] of WORK_CATALOG){const op=document.createElement('option');op.value=name;op.textContent=name;op.dataset.price=price;$('workService').append(op)}const custom=document.createElement('option');custom.value='__custom__';custom.textContent='Услуга СТО';$('workService').append(custom);$('workService').onchange=()=>{const op=$('workService').selectedOptions[0];$('workCustom').hidden=op.value!=='__custom__';$('workPrice').value=op.dataset.price||''};$('workService').onchange()}
 function drawWorkCart(){const root=$('workCart');root.replaceChildren();if(!workCart.length)root.innerHTML='<div class="empty-orders">Добавьте услуги в заказ</div>';workCart.forEach((it,i)=>{const row=document.createElement('div');row.className='item';row.style.cssText='display:flex;align-items:center;gap:8px;justify-content:space-between';const name=document.createElement('div');name.textContent=it.name;name.style.flex='1';const price=document.createElement('strong');price.textContent=moneyWork(it.price);const del=document.createElement('button');del.className='danger';del.textContent='Убрать';del.style.width='auto';del.onclick=()=>{workCart.splice(i,1);drawWorkCart()};row.append(name,price,del);root.append(row)});$('workCartTotal').textContent='Итого: '+moneyWork(workCart.reduce((a,x)=>a+Number(x.price||0),0))}
 $('addWork').onclick=()=>{const op=$('workService').selectedOptions[0];if(!op)return toast('Выберите услугу');const manual=op.value==='__custom__',name=manual?$('workCustom').value.trim():op.value,price=Number($('workPrice').value);if(!name||!Number.isFinite(price)||Math.round(price)<1)return toast('Укажите услугу и цену больше нуля');workCart.push({name,price:Math.round(price)});$('workCustom').value='';drawWorkCart()};
@@ -1412,7 +1412,7 @@ function initializeMainHistory(){
 function onMainHistorySearchInput(){setHistorySearch(mainHistoryState,$('orderSearch').value);drawWorkOrders()}
 function drawWorkOrders(){
  const root=$('orderHistory');if(!root||!profile)return;
- const allowed=isLeader?workOrders:role==='master'?workOrders.filter(o=>o.userId===profile.user_id):[];
+ const allowed=isLeader?workOrders.filter(o=>statsBranch==='all'||Number(o.branchId)===Number(statsBranch)):role==='master'?workOrders.filter(o=>o.userId===profile.user_id):[];
  $('historyPeriod').value=mainHistoryState.period;configureHistoryDate($('historyDate'),mainHistoryState);
  const list=historyOrders(allowed,mainHistoryState);$('historyScopeHint').textContent=historyHint(mainHistoryState,list.length);fillHistoryList(root,list,role==='master');
 }
@@ -1437,7 +1437,7 @@ function initializeLeaderStatsFilter(){
  const row=document.createElement('div');row.className='leader-stats-branch';const label=document.createElement('label');label.htmlFor='leaderStatsBranch';label.textContent='Филиал для статистики';select=document.createElement('select');select.id='leaderStatsBranch';
  for(const [value,name]of [['1','Металлургов'],['2','КШТ'],['all','Оба филиала']]){const option=document.createElement('option');option.value=value;option.textContent=name;select.append(option)}
  row.append(label,select);$('leaderControls').prepend(row);
- select.addEventListener('change',()=>{statsBranch=select.value;try{localStorage.setItem('bardahl-leader-stats-'+profile.user_id,statsBranch)}catch(e){}drawWorkReport()});
+ select.addEventListener('change',()=>{statsBranch=select.value;try{localStorage.setItem('bardahl-leader-stats-'+profile.user_id,statsBranch)}catch(e){}drawWorkReport();drawWorkOrders()});
  }select.value=statsBranch;
 }
 initializeMainHistory();
