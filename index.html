@@ -861,7 +861,20 @@ box-sizing:border-box!important;z-index:1!important;
 <style id="bardahl-history-controls">
 .history-filter-controls{display:grid;grid-template-columns:minmax(100px,1fr) minmax(130px,1fr);gap:8px;margin:10px 0}.history-filter-controls input,.history-filter-controls select{width:100%;min-width:0}.history-scope{margin:8px 0 12px}.master-history-widget{margin-top:18px}.master-history-widget>input{margin-top:10px}
 #branchControls{margin-bottom:12px}#branchControls strong{display:block;color:var(--yellow);margin-bottom:8px}#branchControls label{display:block;margin-bottom:5px}
-</style></head>
+</style><style id="bardahl-responsive-date-fields-v23">
+#ordersPage,#ordersPage>.card,#leaderControls,#orderHistorySection,.master-history-widget{min-width:0;max-width:100%;box-sizing:border-box}
+#ordersPage .history-filter-controls{width:100%;max-width:100%;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#ordersPage #leaderDate,#ordersPage .history-filter-controls input,#ordersPage .history-filter-controls select,#ordersPage #orderSearch,#ordersPage .master-history-widget>input{
+ display:block;width:100%!important;min-width:0!important;max-width:100%!important;inline-size:100%!important;min-inline-size:0!important;max-inline-size:100%!important;box-sizing:border-box!important;margin-left:0;margin-right:0
+}
+#ordersPage #leaderDate,#ordersPage .history-filter-controls input[type="date"],#ordersPage .history-filter-controls input[type="month"]{
+ -webkit-appearance:none;appearance:none;overflow:hidden;text-align:center
+}
+#ordersPage #leaderDate::-webkit-date-and-time-value,#ordersPage .history-filter-controls input::-webkit-date-and-time-value{min-width:0;text-align:center}
+#ordersPage #leaderDate::-webkit-datetime-edit,#ordersPage .history-filter-controls input::-webkit-datetime-edit{min-width:0;padding:0}
+@media(max-width:600px){#ordersPage .history-filter-controls{grid-template-columns:minmax(0,1fr)}#ordersPage #leaderDate,#ordersPage .history-filter-controls input,#ordersPage .history-filter-controls select{font-size:16px;min-height:44px}}
+</style>
+</head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
 <section class="card" id="loginCard"><h2>Вход в BARDAHL</h2><label for="loginEmail">Электронная почта</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Ваш логин или email"><label for="loginPassword">Пароль</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль"><button id="loginBtn" class="primary" style="margin-top:12px;width:100%">Войти</button><div class="small" style="margin-top:8px">Войдите под личной учётной записью.</div></section>
@@ -1182,10 +1195,7 @@ function drawPersonalWorkReport(){
  const max=Math.max(1,...keys.map(k=>buckets.get(k)||0)),chart=document.createElement('div');chart.className='leader-chart';
  keys.forEach((key,i)=>{const value=buckets.get(key)||0,col=document.createElement('div');col.className='leader-chart-col';col.title=key+' — '+moneyWork(value);const bb=document.createElement('div');bb.className='leader-chart-barbox';const bar=document.createElement('div');bar.className='leader-chart-bar';bar.style.height=(value?Math.max(2,value/max*100):0)+'%';bb.append(bar);const lab=document.createElement('div');lab.textContent=leaderPeriodValue==='year'?String(i+1):leaderPeriodValue==='month'?String(i+1):'День';col.append(bb,lab);chart.append(col)});lr.append(chart);
  const title=document.createElement('h3');title.className='leader-section';title.textContent='Рейтинг мастеров';lr.append(title);
- const filter=document.createElement('select');filter.className='leader-filter';filter.setAttribute('aria-label','Фильтр по мастеру');filter.innerHTML='<option value="">Все мастера</option>';
  const namedMasters=rankingMasters();
- namedMasters.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;filter.append(option)});
- filter.onchange=()=>{if(filter.value){leaderSelectedMaster=filter.value;drawWorkReport()}};lr.append(filter);
  const ranked=namedMasters.map(name=>{const orders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(name));return {name,orders:orders.length,services:orders.reduce((n,o)=>n+orderServiceCount(o),0),sum:orders.reduce((n,o)=>n+orderSum(o),0)}}).sort((a,b)=>b.sum-a.sum||b.services-a.services||a.name.localeCompare(b.name,'ru'));
  const highest=Math.max(1,...ranked.map(r=>r.sum));
  ranked.forEach((r,i)=>{const row=document.createElement('div');row.className='leader-rank';const num=document.createElement('div');num.className='leader-rank-number';num.textContent=i+1;const body=document.createElement('div');body.className='leader-rank-body';const head=document.createElement('div');head.className='leader-rank-head';const btn=document.createElement('button');btn.type='button';btn.textContent=r.name;btn.onclick=()=>{leaderSelectedMaster=r.name;drawWorkReport()};const amount=document.createElement('strong');amount.textContent=moneyWork(r.sum);head.append(btn,amount);const track=document.createElement('div');track.className='leader-rank-track';const fill=document.createElement('div');fill.className='leader-rank-fill';fill.style.width=(r.sum/highest*100)+'%';track.append(fill);const meta=document.createElement('div');meta.className='leader-rank-meta';meta.textContent=r.services+' услуг · '+r.orders+' заказов';body.append(head,track,meta);row.append(num,body);lr.append(row)});
@@ -1284,10 +1294,7 @@ function drawBranchReport(branchId,sourceOrders,branchRecords,branchStats){
  const max=Math.max(1,...keys.map(k=>buckets.get(k)||0)),chart=document.createElement('div');chart.className='leader-chart';
  keys.forEach((key,i)=>{const value=buckets.get(key)||0,col=document.createElement('div');col.className='leader-chart-col';col.title=key+' — '+moneyWork(value);const bb=document.createElement('div');bb.className='leader-chart-barbox';const bar=document.createElement('div');bar.className='leader-chart-bar';bar.style.height=(value?Math.max(2,value/max*100):0)+'%';bb.append(bar);const lab=document.createElement('div');lab.textContent=leaderPeriodValue==='year'?String(i+1):leaderPeriodValue==='month'?String(i+1):'День';col.append(bb,lab);chart.append(col)});lr.append(chart);
  const title=document.createElement('h3');title.className='leader-section';title.textContent='Рейтинг мастеров';lr.append(title);
- const filter=document.createElement('select');filter.className='leader-filter';filter.setAttribute('aria-label','Фильтр по мастеру');filter.innerHTML='<option value="">Все мастера</option>';
  const namedMasters=rankingMasters();
- namedMasters.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;filter.append(option)});
- filter.onchange=()=>{if(filter.value){leaderMasterByBranch[branchId]=filter.value;drawWorkReport()}};lr.append(filter);
  const ranked=namedMasters.map(name=>{const orders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(name));return {name,orders:orders.length,services:orders.reduce((n,o)=>n+orderServiceCount(o),0),sum:orders.reduce((n,o)=>n+orderSum(o),0)}}).sort((a,b)=>b.sum-a.sum||b.services-a.services||a.name.localeCompare(b.name,'ru'));
  const highest=Math.max(1,...ranked.map(r=>r.sum));
  ranked.forEach((r,i)=>{const row=document.createElement('div');row.className='leader-rank';const num=document.createElement('div');num.className='leader-rank-number';num.textContent=i+1;const body=document.createElement('div');body.className='leader-rank-body';const head=document.createElement('div');head.className='leader-rank-head';const btn=document.createElement('button');btn.type='button';btn.textContent=r.name;btn.onclick=()=>{leaderMasterByBranch[branchId]=r.name;drawWorkReport()};const amount=document.createElement('strong');amount.textContent=moneyWork(r.sum);head.append(btn,amount);const track=document.createElement('div');track.className='leader-rank-track';const fill=document.createElement('div');fill.className='leader-rank-fill';fill.style.width=(r.sum/highest*100)+'%';track.append(fill);const meta=document.createElement('div');meta.className='leader-rank-meta';meta.textContent=r.services+' услуг · '+r.orders+' заказов';body.append(head,track,meta);row.append(num,body);lr.append(row)});
