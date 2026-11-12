@@ -1065,7 +1065,7 @@ async function loadWorkOrders(){
    if(version!==orderLoadVersion||me!==actor||role!==actorRole||statsBranch!==branch)return;
    const batch=r.data||[];rows.push(...batch);if(batch.length<pageSize)break;
  }
- workOrders=rows.map(o=>({id:o.id,userId:o.user_id,car:o.car||'',master:o.master_name||'',branchId:o.branch_id||1,date:o.order_date||'',items:Array.isArray(o.items)?o.items:[],total:Number(o.total)||0,comment:o.comment||'',createdAt:o.created_at}));
+ workOrders=rows.map(o=>({id:o.id,userId:o.user_id,car:o.car||'',master:o.master_name||'',branchId:o.branch_id||1,date:o.order_date||'',items:Array.isArray(o.items)?o.items:[],total:Number(o.total)||0,comment:o.comment||'',createdAt:o.created_at,monthlyCarryover:o.monthly_carryover===true}));
  const renderKey=actorRole+'|'+profile.user_id+'|'+workToday()+'|'+JSON.stringify(workOrders);if(renderKey===lastOrdersRenderKey)return;lastOrdersRenderKey=renderKey;
  drawWorkReport();drawWorkOrders();
 }
@@ -1088,7 +1088,7 @@ function appendPeriodSummary(root,orders,label){
 }
 function computeMasterRecords(orders){
  const daily=new Map(),monthly=new Map();
- for(const o of orders){if(!/^\d{4}-\d{2}-\d{2}$/.test(o.date||''))continue;const sum=orderSum(o);daily.set(o.date,(daily.get(o.date)||0)+sum);const m=o.date.slice(0,7);monthly.set(m,(monthly.get(m)||0)+sum)}
+ for(const o of orders){if(!/^\d{4}-\d{2}-\d{2}$/.test(o.date||''))continue;const sum=orderSum(o);if(!o.monthlyCarryover)daily.set(o.date,(daily.get(o.date)||0)+sum);const m=o.date.slice(0,7);monthly.set(m,(monthly.get(m)||0)+sum)}
  const best=map=>[...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0]||null;
  return {day:best(daily),month:best(monthly)};
 }
@@ -1109,7 +1109,7 @@ function leaderBestRecords(orders){
  for(const [masterKey,m] of masters){
   // October 2026: Dragunkin and Ovchinnikov count toward best MONTH,
   // but not best DAY. From November onward both records include them.
-  const eligibleDailyOrders=m.orders.filter(o=>!(
+  const eligibleDailyOrders=m.orders.filter(o=>!o.monthlyCarryover&&!(
    (masterKey==='драгункин'||masterKey==='овчинников') &&
    String(o.date||'').startsWith('2026-10')
   ));
