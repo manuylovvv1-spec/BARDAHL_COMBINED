@@ -1472,17 +1472,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
  function apply(v){if(v==='kittens' && document.body.dataset.bardahlRole==='master')v='classic';selected=v;document.body.setAttribute('data-bg-style',v);if(v==='custom'){loadPersonalBackground()}else{document.body.style.removeProperty('--bardahl-personal-background')}Array.prototype.forEach.call(menu.querySelectorAll('button'),function(b){var active=b.dataset.style===v;b.setAttribute('aria-checked',String(active));b.classList.toggle('active',active)});try{localStorage.setItem('bardahl-bg-choice',v)}catch(e){}}
  choices.forEach(function(c){var option=document.createElement('button');option.type='button';option.className='bardahl-theme-option';option.dataset.style=c[0];option.setAttribute('role','menuitemradio');option.innerHTML='<span class="bardahl-theme-dot" aria-hidden="true"></span><span class="bardahl-theme-swatch swatch-'+c[0]+'" aria-hidden="true"></span><span>'+c[1]+'</span>';option.addEventListener('click',function(){apply(c[0]);close()});menu.appendChild(option)});
- // Personal image is kept on this device, scoped to the authenticated Supabase user.
- function accountKey(){
-   try{
-     for(var i=0;i<localStorage.length;i++){
-       var k=localStorage.key(i);if(!/^sb-.*-auth-token$/.test(k))continue;
-       var auth=JSON.parse(localStorage.getItem(k)||'null');
-       if(auth&&auth.user&&auth.user.id)return 'bardahl-personal-bg:'+auth.user.id;
-     }
-   }catch(e){}
-   return null;
- }
+ // Background image belongs to this browser installation, not to a Supabase account or branch.
+ // IndexedDB is local to the browser profile and website origin; nothing is uploaded.
+ function accountKey(){return 'bardahl-personal-bg:local-device'}
  function openBgStore(){return new Promise(function(resolve,reject){
    if(!window.indexedDB){reject(new Error('Хранилище изображений недоступно'));return}
    var request=indexedDB.open('bardahl-personal-backgrounds',1);
