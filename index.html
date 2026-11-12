@@ -1096,7 +1096,7 @@ function recordPeriodLabel(key,month){if(!key)return '—';if(!month)return key.
 function renderRecordPair(target,records,showNames=false){if(!target)return;target.replaceChildren();for(const [label,entry,month] of [['Лучший день',records.day,false],['Лучший месяц',records.month,true]]){const tile=document.createElement('div');tile.className='record-tile';const title=document.createElement('span');title.className='record-label';title.textContent=label;const amount=document.createElement('strong');amount.textContent=entry?moneyWork(entry.amount):'—';const date=document.createElement('small');date.textContent=entry?recordPeriodLabel(entry.key,month):'Нет заказов';tile.append(title,amount,date);if(showNames&&entry){const name=document.createElement('div');name.className='record-master';name.textContent=entry.master;tile.append(name)}target.append(tile)}}
 // Ordinary totals include every saved order. Only personal records exclude these October orders.
 function countsForLeader(o){return true}
-function countsForPersonalRecord(o){const master=normalizeWorkMaster(o.master);return !(String(o.date||'').startsWith('2026-10')&&(master==='драгункин'||master==='овчинников'))}
+function countsForPersonalRecord(o){const master=normalizeWorkMaster(o.master),date=String(o.date||'');return !((date.startsWith('2026-10')&&(master==='драгункин'||master==='овчинников'))||(date==='2026-11-12'&&master==='агеев'))}
 function leaderBestRecords(orders){
  const masters=new Map();
  for(const o of orders){
@@ -1112,7 +1112,7 @@ function leaderBestRecords(orders){
   const eligibleDailyOrders=m.orders.filter(o=>!(
    (masterKey==='драгункин'||masterKey==='овчинников') &&
    String(o.date||'').startsWith('2026-10')
-  ));
+  ) && !(masterKey==='агеев' && String(o.date||'')==='2026-11-12'));
   const day=computeMasterRecords(eligibleDailyOrders).day;
   const month=computeMasterRecords(m.orders).month;
   if(day)all.push({kind:'day',key:day[0],amount:day[1],master:m.name});
