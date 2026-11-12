@@ -1,6 +1,7 @@
-const CACHE_NAME = 'bardahl-combined-v23-responsive-dates';
+const CACHE_NAME = 'bardahl-combined-v24-optimized-assets';
 const CACHE_PREFIX = 'bardahl-combined-';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-180.png', './icon-192.png', './icon-512.png'];
+const ASSETS_URL = new URL('./assets/', self.registration.scope).href;
 const CORE_URLS = new Set(CORE.map(path => new URL(path, self.registration.scope).href));
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -10,7 +11,18 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
   const request = event.request;
-  if (request.method !== 'GET' || !CORE_URLS.has(request.url)) return;
+  if (request.method !== 'GET') return;
+  if (request.url.startsWith(ASSETS_URL)) {
+    event.respondWith(caches.open(CACHE_NAME).then(async cache => {
+      const cached = await cache.match(request);
+      if (cached) return cached;
+      const response = await fetch(request);
+      if (response.ok) cache.put(request, response.clone());
+      return response;
+    }));
+    return;
+  }
+  if (!CORE_URLS.has(request.url)) return;
   const network = fetch(request);
   event.waitUntil(network.then(async response => {
     if (response.ok) { const cache = await caches.open(CACHE_NAME); await cache.put(request, response.clone()); }
