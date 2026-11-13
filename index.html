@@ -876,10 +876,14 @@ box-sizing:border-box!important;z-index:1!important;
 </style>
 <style id="work-checklist-style">
 .work-checklist{max-height:350px;overflow-y:auto;border:1px solid var(--line);border-radius:9px;margin-top:5px}
-.work-check-row{display:flex;align-items:center;min-height:27px;padding:2px 5px;border-bottom:1px solid rgba(128,128,128,.14)}
+.work-check-row{display:flex;align-items:center;min-height:26px;padding:2px 7px;border-bottom:1px solid rgba(128,128,128,.14);box-sizing:border-box}
 .work-check-row:last-child{border-bottom:0}
-.work-check-label{display:flex;align-items:center;gap:7px;flex:1;min-width:0;font-size:12px;line-height:1.25;cursor:pointer;font-weight:400}
-.work-check-label input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:15px!important;height:15px!important;min-width:15px!important;min-height:15px!important;margin:0;flex-shrink:0;accent-color:#edc83c}
+.work-check-label{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;flex:1;min-width:0;font-size:12px!important;line-height:1.25!important;cursor:pointer;font-weight:400!important;margin:0!important;padding:0!important}
+.work-check-label span{display:block;flex:1;min-width:0;line-height:1.25}
+.work-check-label input[type=checkbox]{-webkit-appearance:none!important;appearance:none!important;box-sizing:border-box!important;display:grid!important;place-content:center!important;width:19px!important;height:19px!important;min-width:19px!important;min-height:19px!important;max-width:19px!important;max-height:19px!important;flex:0 0 19px!important;padding:0!important;margin:0!important;border:2px solid #ffd21a!important;border-radius:5px!important;background:transparent!important;vertical-align:middle!important;box-shadow:none!important;position:static!important;opacity:1!important;cursor:pointer}
+.work-check-label input[type=checkbox]:checked{background:#ffd21a!important;border-color:#ffd21a!important}
+.work-check-label input[type=checkbox]:checked::after{content:"";display:block;width:9px;height:5px;border-left:2px solid #14181b;border-bottom:2px solid #14181b;transform:translateY(-1px) rotate(-45deg)}
+.work-check-label input[type=checkbox]:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .work-sto-name{width:100%;margin-top:5px}
 </style>
 </head>
