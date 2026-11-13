@@ -874,7 +874,14 @@ box-sizing:border-box!important;z-index:1!important;
 #ordersPage #leaderDate::-webkit-datetime-edit,#ordersPage .history-filter-controls input::-webkit-datetime-edit{min-width:0;padding:0}
 @media(max-width:600px){#ordersPage .history-filter-controls{grid-template-columns:minmax(0,1fr)}#ordersPage #leaderDate,#ordersPage .history-filter-controls input,#ordersPage .history-filter-controls select{font-size:16px;min-height:44px}}
 </style>
-<style id="work-checklist-style">.work-checklist{max-height:390px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px}.work-check-row{display:flex;align-items:center;gap:8px;padding:9px 8px;border-bottom:1px solid var(--line)}.work-check-row:last-child{border-bottom:0}.work-check-label{display:flex;align-items:center;gap:9px;flex:1;min-width:0;font-size:13px;cursor:pointer}.work-check-label input{width:19px;height:19px;flex-shrink:0;accent-color:#edc83c}.work-check-price{width:93px!important;min-width:80px!important;padding:7px!important;font-size:14px!important}.work-check-price:disabled{opacity:.45}</style>
+<style id="work-checklist-style">
+.work-checklist{max-height:350px;overflow-y:auto;border:1px solid var(--line);border-radius:9px;margin-top:5px}
+.work-check-row{display:flex;align-items:center;min-height:27px;padding:2px 5px;border-bottom:1px solid rgba(128,128,128,.14)}
+.work-check-row:last-child{border-bottom:0}
+.work-check-label{display:flex;align-items:center;gap:7px;flex:1;min-width:0;font-size:12px;line-height:1.25;cursor:pointer;font-weight:400}
+.work-check-label input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:15px!important;height:15px!important;min-width:15px!important;min-height:15px!important;margin:0;flex-shrink:0;accent-color:#edc83c}
+.work-sto-name{width:100%;margin-top:5px}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -897,10 +904,10 @@ box-sizing:border-box!important;z-index:1!important;
   <label>Услуги</label>
   <button id="toggleWorkCatalog" type="button" class="secondary" style="width:100%;margin-top:5px">＋ Услуги</button>
   <div id="workCatalogPanel" class="hidden" style="margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:10px"><div class="small" style="margin-bottom:8px">Отметьте услуги и нажмите «Добавить выбранные»</div><div id="workChecklist" class="work-checklist"></div><button id="addCatalogWork" type="button" class="primary" style="width:100%;margin-top:10px">＋ Добавить выбранные</button></div>
-  <div class="formgrid" style="margin-top:12px"><div><label for="workCustom">Услуга СТО (вручную)</label><input id="workCustom" placeholder="Название услуги СТО"></div><div><label for="workPrice">Цена СТО, ₸</label><input id="workPrice" type="number" inputmode="decimal" min="1" step="1" placeholder="Сумма"></div></div>
+  
   <select id="workService" hidden></select>
   <label for="workComment">Комментарий (после сохранения изменить нельзя)</label><textarea id="workComment" rows="3" maxlength="2000" placeholder="Введите комментарий к работе"></textarea><div id="savedComment" class="hidden" style="white-space:pre-wrap;margin:8px 0;color:var(--muted)"></div>
-  <button id="addWork" type="button">＋ Добавить услугу СТО</button><div id="workCart"></div><div class="total" id="workCartTotal">Итого: 0 ₸</div>
+  <div id="workCart"></div><div class="total" id="workCartTotal">Итого: 0 ₸</div>
   <button id="saveOrder" class="primary" style="width:100%;margin-top:10px">Сохранить заказ</button><button id="cancelEdit" class="secondary hidden" type="button">Отменить редактирование</button>
  </div>
  </div>
@@ -1058,25 +1065,26 @@ function switchPage(page){if(isManager)page='queue';const q=page==='queue';if($(
 function initWorkForm(){
  const carList=$('carSuggestions');[...carList.options].sort((a,b)=>a.value.localeCompare(b.value,'ru',{sensitivity:'base'})).forEach(op=>carList.appendChild(op));
  const root=$('workChecklist');root.replaceChildren();
- for(const [name,price] of WORK_CATALOG){
+ for(const [name] of [...WORK_CATALOG,['Услуга СТО',0]]){
   const row=document.createElement('div');row.className='work-check-row';
   const label=document.createElement('label');label.className='work-check-label';
   const check=document.createElement('input');check.type='checkbox';check.className='work-check';check.dataset.name=name;
   const title=document.createElement('span');title.textContent=name;label.append(check,title);
-  const amount=document.createElement('input');amount.type='number';amount.min='1';amount.step='1';amount.inputMode='decimal';amount.className='work-check-price';amount.value=price;amount.dataset.defaultPrice=price;amount.setAttribute('aria-label','Стоимость: '+name);amount.disabled=true;
-  check.addEventListener('change',()=>{amount.disabled=!check.checked;if(check.checked)amount.focus()});
-  row.append(label,amount);root.append(row);
+  row.append(label);root.append(row);
  }
 }
-function resetWorkChecklist(){document.querySelectorAll('#workChecklist .work-check-row').forEach(row=>{const check=row.querySelector('.work-check');const price=row.querySelector('.work-check-price');check.checked=false;price.disabled=true;price.value=price.dataset.defaultPrice});$('workCustom').value='';$('workPrice').value=''}
+function resetWorkChecklist(){document.querySelectorAll('#workChecklist .work-check').forEach(check=>{check.checked=false})}
 function drawWorkCart(){
  const root=$('workCart');root.replaceChildren();
  if(!workCart.length)root.innerHTML='<div class="empty-orders">Услуги ещё не добавлены</div>';
  workCart.forEach((it,i)=>{
   const row=document.createElement('div');row.className='item';row.style.cssText='display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap';
-  const name=document.createElement('div');name.textContent=it.name;name.style.cssText='flex:1;min-width:110px;font-size:13px';
-  const price=document.createElement('input');price.type='number';price.min='1';price.step='1';price.inputMode='decimal';price.value=it.price;price.style.cssText='width:100px!important;min-width:85px!important';price.setAttribute('aria-label','Цена: '+it.name);
-  price.addEventListener('change',()=>{const v=Number(price.value);if(!Number.isFinite(v)||v<=0){price.value=it.price;toast('Укажите корректную сумму');return}it.price=Math.round(v);price.value=it.price;updateWorkTotal()});
+  const name=it.isCustomSto?document.createElement('input'):document.createElement('div');
+  if(it.isCustomSto){name.type='text';name.placeholder='Название услуги СТО';name.value=it.name||'';name.setAttribute('aria-label','Название услуги СТО');name.addEventListener('input',()=>{it.name=name.value});}
+  else name.textContent=it.name;
+  name.style.cssText='flex:1;min-width:110px;font-size:13px';
+  const price=document.createElement('input');price.type='number';price.min='0';price.step='1';price.inputMode='decimal';price.value=it.price;price.style.cssText='width:100px!important;min-width:85px!important';price.setAttribute('aria-label','Цена: '+it.name);
+  price.addEventListener('change',()=>{const v=Number(price.value);if(!Number.isFinite(v)||v<0){price.value=it.price;toast('Укажите корректную сумму');return}it.price=Math.round(v);price.value=it.price;updateWorkTotal()});
   const del=document.createElement('button');del.className='danger';del.type='button';del.textContent='✕';del.setAttribute('aria-label','Удалить '+it.name);del.style.cssText='width:38px;min-width:38px;padding:8px';del.onclick=()=>{workCart.splice(i,1);drawWorkCart()};
   row.append(name,price,del);root.append(row);
  });updateWorkTotal();
@@ -1084,23 +1092,16 @@ function drawWorkCart(){
 function updateWorkTotal(){$('workCartTotal').textContent='Итого: '+moneyWork(workCart.reduce((a,x)=>a+Number(x.price||0),0))}
 function addSelectedCatalogWork(){
  const additions=[];
- for(const row of document.querySelectorAll('#workChecklist .work-check-row')){
-  const check=row.querySelector('.work-check');if(!check.checked)continue;
-  const price=Number(row.querySelector('.work-check-price').value);
-  if(!Number.isFinite(price)||price<=0)return toast('Укажите корректную цену: '+check.dataset.name);
-  additions.push({name:check.dataset.name,price:Math.round(price)});
+ for(const check of document.querySelectorAll('#workChecklist .work-check:checked')){
+  const name=check.dataset.name;
+  if(name==='Услуга СТО')additions.push({name:'',price:0,isCustomSto:true});
+  else {const item=WORK_CATALOG.find(x=>x[0]===name);if(item)additions.push({name,price:item[1]});}
  }
  if(!additions.length)return toast('Отметьте нужные услуги');
  workCart.push(...additions);resetWorkChecklist();drawWorkCart();$('workCatalogPanel').classList.add('hidden');$('toggleWorkCatalog').textContent='＋ Услуги';toast('Услуги добавлены в заказ');
 }
 $('toggleWorkCatalog').addEventListener('click',()=>{const panel=$('workCatalogPanel');panel.classList.toggle('hidden');$('toggleWorkCatalog').textContent=panel.classList.contains('hidden')?'＋ Услуги':'− Скрыть список услуг'});
 $('addCatalogWork').addEventListener('click',addSelectedCatalogWork);
-$('addWork').onclick=()=>{
- const custom=$('workCustom').value.trim(),customPrice=$('workPrice').value;
- const price=Number(customPrice);
- if(!custom||!customPrice||!Number.isFinite(price)||price<=0)return toast('Укажите название и стоимость услуги СТО');
- workCart.push({name:custom,price:Math.round(price)});$('workCustom').value='';$('workPrice').value='';drawWorkCart();toast('Услуга СТО добавлена');
-};
 let orderLoadVersion=0;
 async function loadWorkOrders(){
  if(!db)return;
@@ -1117,7 +1118,7 @@ async function loadWorkOrders(){
  drawWorkReport();drawWorkOrders();
 }
 let savingOrder=false;
-async function saveWorkOrder(){if(savingOrder)return;savingOrder=true;$('saveOrder').disabled=true;try{if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const car=$('orderCar').value.trim();if(!car||!workCart.length)return toast('Укажите автомобиль и добавьте хотя бы одну услугу');if(!db)return toast('Нет соединения с общей базой');const payload={car,master_name:(isLeader?$('orderMaster').value:me)||null,queue_service:null,order_date:$('orderDate').value||workToday(),items:workCart.map(x=>({name:x.name,price:Number(x.price)})),total:workCart.reduce((a,x)=>a+Number(x.price||0),0),updated_at:new Date().toISOString()};if(!editingOrderId){payload.branch_id=queueBranch;payload.comment=$('workComment').value.trim();}let r;if(editingOrderId)r=await db.from('work_orders').update(payload).eq('id',editingOrderId).eq('master_name',me);else r=await db.from('work_orders').insert(payload);if(r.error)return toast('Ошибка сохранения заказа: '+r.error.message);editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value='';$('orderDate').value=workToday();resetWorkChecklist();$('workCatalogPanel').classList.add('hidden');$('toggleWorkCatalog').textContent='＋ Услуги';$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();toast('Заказ сохранён');try{await loadWorkOrders()}catch(e){toast('Заказ сохранён, но список не обновлён: '+e.message)}}catch(e){toast('Не удалось сохранить или обновить заказ: '+e.message)}finally{savingOrder=false;$('saveOrder').disabled=false}}
+async function saveWorkOrder(){if(savingOrder)return;savingOrder=true;$('saveOrder').disabled=true;try{if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const car=$('orderCar').value.trim();if(!car||!workCart.length)return toast('Укажите автомобиль и добавьте хотя бы одну услугу');if(workCart.some(x=>!String(x.name||'').trim()||!Number.isFinite(Number(x.price))||Number(x.price)<=0))return toast('Укажите название и стоимость каждой услуги');if(!db)return toast('Нет соединения с общей базой');const payload={car,master_name:(isLeader?$('orderMaster').value:me)||null,queue_service:null,order_date:$('orderDate').value||workToday(),items:workCart.map(x=>({name:x.name,price:Number(x.price),...(x.isCustomSto?{isCustomSto:true}:{})})),total:workCart.reduce((a,x)=>a+Number(x.price||0),0),updated_at:new Date().toISOString()};if(!editingOrderId){payload.branch_id=queueBranch;payload.comment=$('workComment').value.trim();}let r;if(editingOrderId)r=await db.from('work_orders').update(payload).eq('id',editingOrderId).eq('master_name',me);else r=await db.from('work_orders').insert(payload);if(r.error)return toast('Ошибка сохранения заказа: '+r.error.message);editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value='';$('orderDate').value=workToday();resetWorkChecklist();$('workCatalogPanel').classList.add('hidden');$('toggleWorkCatalog').textContent='＋ Услуги';$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();toast('Заказ сохранён');try{await loadWorkOrders()}catch(e){toast('Заказ сохранён, но список не обновлён: '+e.message)}}catch(e){toast('Не удалось сохранить или обновить заказ: '+e.message)}finally{savingOrder=false;$('saveOrder').disabled=false}}
 function periodBoundsFor(date,period){
  if(period==='month'){const [yy,mm]=date.slice(0,7).split('-').map(Number);return {from:`${yy}-${String(mm).padStart(2,'0')}-01`,to:`${yy}-${String(mm).padStart(2,'0')}-${String(new Date(yy,mm,0).getDate()).padStart(2,'0')}`,label:'За месяц'}}
  if(period==='year')return {from:date.slice(0,4)+'-01-01',to:date.slice(0,4)+'-12-31',label:'За год'};
