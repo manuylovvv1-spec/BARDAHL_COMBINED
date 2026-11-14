@@ -1575,10 +1575,10 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var picker=document.createElement('div');picker.id='bardahl-bg-picker';
  var btn=document.createElement('button');btn.type='button';btn.id='bardahl-palette-button';btn.setAttribute('aria-label','Выбрать фон');btn.setAttribute('aria-haspopup','true');btn.setAttribute('aria-expanded','false');btn.title='Выбрать фон';btn.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.3a2.2 2.2 0 0 0 1.7-3.6 1.8 1.8 0 0 1 1.4-2.9H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/><circle cx="17" cy="11.5" r="1"/></svg>';
  var menu=document.createElement('div');menu.id='bardahl-palette-menu';menu.setAttribute('role','menu');menu.hidden=true;
- var choices=[['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
- if(window.matchMedia && window.matchMedia('(max-width:700px)').matches){
-   choices.push(['mobile1','Mobile · Service'],['mobile2','Mobile · Graphite'],['mobile3','Mobile · Detailing'],['mobile4','Mobile · Gold Car']);
- }
+ var isMobileThemeMenu=window.matchMedia && window.matchMedia('(max-width:700px)').matches;
+ var choices=isMobileThemeMenu
+   ? [['classic','Classic'],['mobile1','Автосервис'],['mobile2','Графит'],['mobile3','Детейлинг'],['mobile4','Жёлтый спорткар'],['kittens','Kittens']]
+   : [['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
