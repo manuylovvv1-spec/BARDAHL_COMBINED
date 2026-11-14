@@ -1577,7 +1577,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var menu=document.createElement('div');menu.id='bardahl-palette-menu';menu.setAttribute('role','menu');menu.hidden=true;
  var isMobileThemeMenu=window.matchMedia && window.matchMedia('(max-width:700px)').matches;
  var choices=isMobileThemeMenu
-   ? [['classic','Classic'],['mobile1','Автосервис'],['mobile2','Графит'],['mobile3','Детейлинг'],['mobile4','Жёлтый спорткар'],['kittens','Kittens']]
+   ? [['classic','Classic'],['mobile1','Service'],['mobile2','Graphite'],['mobile3','Detailing'],['mobile4','Gold Car'],['kittens','Kittens']]
    : [['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
