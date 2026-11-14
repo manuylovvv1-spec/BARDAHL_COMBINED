@@ -1148,6 +1148,7 @@ function computeMasterRecords(orders){
 function recordPeriodLabel(key,month){if(!key)return '—';if(!month)return key.split('-').reverse().join('.');const [y,m]=key.split('-').map(Number);return new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(new Date(y,m-1,1))}
 function renderRecordPair(target,records,showNames=false){if(!target)return;target.replaceChildren();for(const [label,entry,month] of [['Лучший день',records.day,false],['Лучший месяц',records.month,true]]){const tile=document.createElement('div');tile.className='record-tile';const title=document.createElement('span');title.className='record-label';title.textContent=label;const amount=document.createElement('strong');amount.textContent=entry?moneyWork(entry.amount):'—';const date=document.createElement('small');date.textContent=entry?recordPeriodLabel(entry.key,month):'Нет заказов';tile.append(title,amount,date);if(showNames&&entry){const name=document.createElement('div');name.className='record-master';name.textContent=entry.master;tile.append(name)}target.append(tile)}}
 // Ordinary totals include every saved order. Only personal records exclude these October orders.
+function countsForDailyStats(o){return !(String(o.date||'')==='2026-11-12' && normalizeWorkMaster(o.master)==='агеев')}
 function countsForLeader(o){return true}
 function countsForPersonalRecord(o){const master=normalizeWorkMaster(o.master),date=String(o.date||'');return !((date.startsWith('2026-10')&&(master==='драгункин'||master==='овчинников'))||(date==='2026-11-12'&&master==='агеев'))}
 function leaderBestRecords(orders){
@@ -1179,21 +1180,23 @@ function drawPersonalWorkReport(){
  const masterDaily=$('masterDailyServices'),masterDailyList=$('masterDailyServicesList');
  if(!isLeader){
    const own=workOrders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(me));
-   const personal=computeMasterRecords(own.filter(countsForPersonalRecord));
+   const personalDay=computeMasterRecords(own.filter(o=>countsForPersonalRecord(o)&&countsForDailyStats(o)));
+   const personalMonth=computeMasterRecords(own);
+   const personal={day:personalDay.day,month:personalMonth.month};
    renderRecordPair($('masterRecords'),{day:personal.day?{key:personal.day[0],amount:personal.day[1]}:null,month:personal.month?{key:personal.month[0],amount:personal.month[1]}:null});
    const monthlyOrders=workOrders.filter(o=>o.date.startsWith(month));
    const activeDays=new Set(monthlyOrders.map(o=>o.date).filter(Boolean)).size;
    const monthlyTotal=monthlyOrders.reduce((sum,o)=>sum+orderSum(o),0);
    const averageNode=$('masterMonthAverage');if(averageNode)averageNode.textContent=activeDays?moneyWork(Math.round(monthlyTotal/activeDays)):moneyWork(0);
-   const groups=[['День',workOrders.filter(o=>o.date===date)],['Месяц',workOrders.filter(o=>o.date.startsWith(month))],['Год',workOrders.filter(o=>o.date.startsWith(year))]];
+   const groups=[['День',workOrders.filter(o=>o.date===date&&countsForDailyStats(o))],['Месяц',workOrders.filter(o=>o.date.startsWith(month))],['Год',workOrders.filter(o=>o.date.startsWith(year))]];
    groups.forEach(([label,list])=>{const box=document.createElement('div');box.className='stat';const serviceCount=list.reduce((n,o)=>n+orderServiceCount(o),0),sum=list.reduce((n,o)=>n+orderSum(o),0);box.innerHTML=`<span>${label}</span><div>${list.length} Авто</div><strong>${serviceCount}</strong><span>услуг</span><div style="margin-top:5px;color:var(--yellow);font-size:12px;font-weight:800">${esc(moneyWork(sum))}</div>`;root.append(box)});
-   if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
+   if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date&&countsForDailyStats(o)),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
  }
  const leaderOrders=workOrders.filter(countsForLeader);
  const leaderRecordBox=$('leaderRecords');if(leaderRecordBox){leaderRecordBox.classList.toggle('hidden',!isLeader);if(isLeader){leaderRecordBox.replaceChildren();const heading=document.createElement('div');heading.className='record-heading';heading.textContent='🏆 Рекорды среди мастеров · за всё время';const pair=document.createElement('div');pair.className='record-pair';leaderRecordBox.append(heading,pair);renderRecordPair(pair,leaderBestRecords(workOrders),true)}}
  const lr=$('leaderStats');if(!lr)return;lr.classList.toggle('hidden',!isLeader);$('leaderControls').classList.toggle('hidden',!isLeader);$('masterReportControls').classList.toggle('hidden',isLeader);if(!isLeader)return;lr.replaceChildren();
  const referenceDate=$('leaderDate').value||workToday();
- const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to)}});
+ const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to&&(period!=='day'||countsForDailyStats(o)))}});
  // Show all three periods together, using the selected date as the reference.
  if(leaderSelectedMaster){
    const back=document.createElement('button');back.type='button';back.className='secondary leader-back';back.textContent='← Назад ко всем мастерам';back.onclick=()=>{leaderSelectedMaster=null;drawWorkReport()};lr.append(back);
@@ -1289,21 +1292,23 @@ function drawBranchReport(branchId,sourceOrders,branchRecords,branchStats){
  const masterDaily=$('masterDailyServices'),masterDailyList=$('masterDailyServicesList');
  if(!isLeader){
    const own=workOrders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(me));
-   const personal=computeMasterRecords(own.filter(countsForPersonalRecord));
+   const personalDay=computeMasterRecords(own.filter(o=>countsForPersonalRecord(o)&&countsForDailyStats(o)));
+   const personalMonth=computeMasterRecords(own);
+   const personal={day:personalDay.day,month:personalMonth.month};
    renderRecordPair($('masterRecords'),{day:personal.day?{key:personal.day[0],amount:personal.day[1]}:null,month:personal.month?{key:personal.month[0],amount:personal.month[1]}:null});
    const monthlyOrders=workOrders.filter(o=>o.date.startsWith(month));
    const activeDays=new Set(monthlyOrders.map(o=>o.date).filter(Boolean)).size;
    const monthlyTotal=monthlyOrders.reduce((sum,o)=>sum+orderSum(o),0);
    const averageNode=$('masterMonthAverage');if(averageNode)averageNode.textContent=activeDays?moneyWork(Math.round(monthlyTotal/activeDays)):moneyWork(0);
-   const groups=[['День',workOrders.filter(o=>o.date===date)],['Месяц',workOrders.filter(o=>o.date.startsWith(month))],['Год',workOrders.filter(o=>o.date.startsWith(year))]];
+   const groups=[['День',workOrders.filter(o=>o.date===date&&countsForDailyStats(o))],['Месяц',workOrders.filter(o=>o.date.startsWith(month))],['Год',workOrders.filter(o=>o.date.startsWith(year))]];
    groups.forEach(([label,list])=>{const box=document.createElement('div');box.className='stat';const serviceCount=list.reduce((n,o)=>n+orderServiceCount(o),0),sum=list.reduce((n,o)=>n+orderSum(o),0);box.innerHTML=`<span>${label}</span><div>${list.length} Авто</div><strong>${serviceCount}</strong><span>услуг</span><div style="margin-top:5px;color:var(--yellow);font-size:12px;font-weight:800">${esc(moneyWork(sum))}</div>`;root.append(box)});
-   if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
+   if(masterDailyList){masterDailyList.replaceChildren();const daily=workOrders.filter(o=>o.date===date&&countsForDailyStats(o)),services=summarizeServices(daily);if(!services.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='За выбранную дату выполненных услуг нет';masterDailyList.append(empty)}else services.forEach(([name,count])=>{const row=document.createElement('div');row.className='daily-service-row';row.innerHTML=`<span>${esc(name)}</span><strong class="service-count-badge">${count}</strong>`;masterDailyList.append(row)})}
  }
  const leaderOrders=workOrders.filter(countsForLeader);
  const leaderRecordBox=$('leaderRecords');if(leaderRecordBox){leaderRecordBox.classList.toggle('hidden',!isLeader);if(isLeader){leaderRecordBox.replaceChildren();const heading=document.createElement('div');heading.className='record-heading';heading.textContent='🏆 Рекорды среди мастеров · за всё время';const pair=document.createElement('div');pair.className='record-pair';leaderRecordBox.append(heading,pair);renderRecordPair(pair,leaderBestRecords(workOrders),true)}}
  const lr=$('leaderStats');if(!lr)return;lr.classList.toggle('hidden',!isLeader);$('leaderControls').classList.toggle('hidden',!isLeader);$('masterReportControls').classList.toggle('hidden',isLeader);if(!isLeader)return;lr.replaceChildren();
  const referenceDate=$('leaderDate').value||workToday();
- const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to)}});
+ const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to&&(period!=='day'||countsForDailyStats(o)))}});
  // Show all three periods together, using the selected date as the reference.
  if(leaderSelectedMaster){
    const back=document.createElement('button');back.type='button';back.className='secondary leader-back';back.textContent='← Назад ко всем мастерам';back.onclick=()=>{leaderMasterByBranch[branchId]=null;drawWorkReport()};lr.append(back);
