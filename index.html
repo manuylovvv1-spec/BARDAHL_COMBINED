@@ -894,6 +894,62 @@ box-sizing:border-box!important;z-index:1!important;
 #workChecklist .work-check-label input[type=checkbox]{width:23px!important;height:23px!important;min-width:23px!important;min-height:23px!important;max-width:23px!important;max-height:23px!important;flex:0 0 23px!important;border-radius:6px!important}
 #workChecklist .work-check-label input[type=checkbox]:checked::after{width:11px!important;height:6px!important;border-left-width:2.5px!important;border-bottom-width:2.5px!important}
 </style>
+
+<style id="bardahl-photo-backgrounds-v2">
+/* Background-only fix. Keep app layout, cards, and actions untouched. */
+html { background-color:#0b0e11; }
+body[data-bg-style^="photo"] {
+  --bardahl-photo:none;
+  position:relative!important;
+  isolation:isolate;
+  background:#0b0e11!important;
+  min-height:100vh;
+}
+/* Two independent fixed layers avoid iOS background-attachment:fixed bugs. */
+body[data-bg-style^="photo"]::before,
+body[data-bg-style^="photo"]::after {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+body[data-bg-style^="photo"]::after {
+  z-index:-2;
+  background-image:var(--bardahl-photo);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:blur(14px) brightness(.53);
+  transform:scale(1.08);
+}
+body[data-bg-style^="photo"]::before {
+  z-index:-1;
+  background-image:linear-gradient(rgba(5,8,11,.16),rgba(5,8,11,.28)),var(--bardahl-photo);
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+}
+/* The brand strip becomes translucent only for photographic themes. */
+body[data-bg-style^="photo"] header {
+  background:rgba(8,11,15,.43)!important;
+  border-bottom-color:rgba(255,210,26,.28)!important;
+}
+@media(max-width:700px) {
+  body[data-bg-style^="photo"]::before {
+    background-size:100% 100%,contain;
+    background-position:center,center;
+  }
+  body[data-bg-style^="photo"] header {
+    background:rgba(8,11,15,.38)!important;
+  }
+}
+body[data-bg-style="photo1"]{--bardahl-photo:url("assets/background-ca96367234a5.jpg");}
+body[data-bg-style="photo2"]{--bardahl-photo:url("assets/background-86a33ef4b475.jpg");}
+body[data-bg-style="photo3"]{--bardahl-photo:url("assets/background-605d25a71dd9.jpg");}
+body[data-bg-style="photo4"]{--bardahl-photo:url("assets/background-01e3b22fefcf.jpg");}
+body[data-bg-style="photo5"]{--bardahl-photo:url("assets/background-a79cf83f804d.jpg");}
+body[data-bg-style="photo6"]{--bardahl-photo:url("assets/background-ebe5f0db8589.jpg");}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
