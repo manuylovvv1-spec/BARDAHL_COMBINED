@@ -898,10 +898,7 @@ box-sizing:border-box!important;z-index:1!important;
 <style id="bardahl-mobile-backgrounds-20261114">
 @media (max-width:700px) {
   html { background-color:#090b0e; }
-  body[data-bg-style="mobile1"],
-  body[data-bg-style="mobile2"],
-  body[data-bg-style="mobile3"],
-  body[data-bg-style="mobile4"] {
+  body[data-bg-style="mobile1"] {
     background-color:#090b0e !important;
     background-repeat:no-repeat !important;
     background-position:center center !important;
@@ -910,13 +907,7 @@ box-sizing:border-box!important;z-index:1!important;
     min-height:100dvh;
   }
   body[data-bg-style="mobile1"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-1.jpg") !important;}
-  body[data-bg-style="mobile2"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-2.jpg") !important;}
-  body[data-bg-style="mobile3"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-3.jpg") !important;}
-  body[data-bg-style="mobile4"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-4.jpg") !important;}
   .swatch-mobile1 {background:center/cover url("assets/mobile-bg-1.jpg")}
-  .swatch-mobile2 {background:center/cover url("assets/mobile-bg-2.jpg")}
-  .swatch-mobile3 {background:center/cover url("assets/mobile-bg-3.jpg")}
-  .swatch-mobile4 {background:center/cover url("assets/mobile-bg-4.jpg")}
 }
 </style>
 </head>
@@ -1577,8 +1568,8 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var menu=document.createElement('div');menu.id='bardahl-palette-menu';menu.setAttribute('role','menu');menu.hidden=true;
  var isMobileThemeMenu=window.matchMedia && window.matchMedia('(max-width:700px)').matches;
  var choices=isMobileThemeMenu
-   ? [['classic','Classic'],['mobile1','Service'],['mobile2','Graphite'],['mobile3','Detailing'],['mobile4','Gold Car'],['kittens','Kittens']]
-   : [['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
+   ? [['classic','Classic'],['mobile1','Service']]
+   : [['classic','Classic'],['photo1','Bardahl Oils'],['kittens','Kittens']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
