@@ -929,17 +929,31 @@ box-sizing:border-box!important;z-index:1!important;
 }
 </style>
 <style id="bardahl-desktop-photo4-fullscreen">
-/* Desktop-only: full-viewport background, preserving original image quality. */
+/* Service: fixed viewport-sized layer on desktop only, independent of document height. */
 @media (min-width:701px) {
-  html:has(body[data-bg-style="photo4"]) {background:#0b0e11!important;}
+  html:has(body[data-bg-style="photo4"]) {
+    background:#0b0e11!important;
+  }
   body[data-bg-style="photo4"] {
-    background-image:linear-gradient(rgba(5,8,11,.24),rgba(5,8,11,.40)),url("assets/background-01e3b22fefcf.jpg")!important;
-    background-size:cover!important;
-    background-position:center center!important;
-    background-repeat:no-repeat!important;
-    background-attachment:fixed!important;
+    background:transparent!important;
+    background-image:none!important;
     min-height:100vh!important;
     min-height:100dvh!important;
+    isolation:isolate;
+  }
+  body[data-bg-style="photo4"]::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    z-index:-1;
+    pointer-events:none;
+    background-image:linear-gradient(rgba(5,8,11,.18),rgba(5,8,11,.28)),url("assets/background-01e3b22fefcf.jpg");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
   }
 }
 </style>
@@ -1621,7 +1635,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var isMobileThemeMenu=window.matchMedia && window.matchMedia('(max-width:700px)').matches;
  var choices=isMobileThemeMenu
    ? [['classic','Classic'],['mobile1','Service']]
-   : [['classic','Classic'],['photo1','Bardahl Oils'],['kittens','Kittens'],['photo4','Новый фон']];
+   : [['classic','Classic'],['photo1','Bardahl Oils'],['kittens','Kittens'],['photo4','Service']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
