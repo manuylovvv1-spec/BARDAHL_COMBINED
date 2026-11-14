@@ -886,6 +886,14 @@ box-sizing:border-box!important;z-index:1!important;
 .work-check-label input[type=checkbox]:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .work-sto-name{width:100%;margin-top:5px}
 </style>
+<style id="bardahl-service-check-readable-20261114">
+/* Only the service chooser: larger yellow checks and service names. */
+#workChecklist .work-check-row{min-height:32px!important;padding:3px 7px!important}
+#workChecklist .work-check-label{font-size:14px!important;line-height:1.3!important;gap:9px!important;align-items:center!important}
+#workChecklist .work-check-label span{font-size:14px!important;line-height:1.3!important}
+#workChecklist .work-check-label input[type=checkbox]{width:23px!important;height:23px!important;min-width:23px!important;min-height:23px!important;max-width:23px!important;max-height:23px!important;flex:0 0 23px!important;border-radius:6px!important}
+#workChecklist .work-check-label input[type=checkbox]:checked::after{width:11px!important;height:6px!important;border-left-width:2.5px!important;border-bottom-width:2.5px!important}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -1397,7 +1405,7 @@ function downloadWork(filename,content,type){const blob=new Blob([content],{type
 $('saveOrder').addEventListener('click',saveWorkOrder);$('cancelEdit').addEventListener('click',()=>{editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');$('orderCar').value='';$('orderDate').value=workToday();drawWorkCart()});$('reportDate').value=workToday();$('leaderDate').value=workToday();function syncMasterMonthLabel(){const date=$('reportDate').value||workToday();const [y,m]=date.split('-').map(Number);$('masterMonthLabel').textContent=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,1)));}
 function shiftMasterMonth(delta){const date=$('reportDate').value||workToday();const [y,m,d]=date.split('-').map(Number);const target=new Date(Date.UTC(y,m-1+delta,1));const yy=target.getUTCFullYear(),mm=target.getUTCMonth()+1;const day=Math.min(d,new Date(Date.UTC(yy,mm,0)).getUTCDate());$('reportDate').value=String(yy).padStart(4,'0')+'-'+String(mm).padStart(2,'0')+'-'+String(day).padStart(2,'0');$('reportDate').dispatchEvent(new Event('change',{bubbles:true}));}
 $('masterMonthPrev').addEventListener('click',()=>shiftMasterMonth(-1));$('masterMonthNext').addEventListener('click',()=>shiftMasterMonth(1));syncMasterMonthLabel();
-$('reportDate').addEventListener('change',()=>{syncMasterMonthLabel();drawWorkReport();if(!isLeader)drawWorkOrders()});$('leaderDate').addEventListener('change',drawWorkReport);$('leaderPeriodButtons').addEventListener('click',e=>{const b=e.target.closest('[data-period]');if(!b)return;leaderPeriodValue=b.dataset.period;drawWorkReport()});$('orderSearch').addEventListener('input',onMainHistorySearchInput);$('tabQueue').addEventListener('click',()=>switchPage('queue'));$('tabOrders').addEventListener('click',()=>switchPage('orders'));
+$('reportDate').addEventListener('change',()=>{syncMasterMonthLabel();drawWorkReport();syncAllOrderHistoryDates($('reportDate').value,'master')});$('leaderDate').addEventListener('change',()=>{drawWorkReport();syncAllOrderHistoryDates($('leaderDate').value,'leader')});$('leaderPeriodButtons').addEventListener('click',e=>{const b=e.target.closest('[data-period]');if(!b)return;leaderPeriodValue=b.dataset.period;drawWorkReport()});$('orderSearch').addEventListener('input',onMainHistorySearchInput);$('tabQueue').addEventListener('click',()=>switchPage('queue'));$('tabOrders').addEventListener('click',()=>switchPage('orders'));
 
 function safeCsvCell(value){const s=String(value??'');return /^[\s]*[=+@-]/.test(s)?"'"+s:s}
 $('exportCsv').onclick=()=>{if(role==='master')return;const rows=[['Дата','Автомобиль / госномер','Мастер','Услуги','Комментарий','Сумма, KZT'],...workOrders.map(o=>[o.date,o.car,o.master,o.items.map(i=>`${i.name} (${i.price})`).join('; '),o.comment,o.total])],csv='\ufeff'+rows.map(row=>row.map(v=>'"'+safeCsvCell(v).replace(/"/g,'""')+'"').join(';')).join('\r\n');downloadWork(`bardahl-orders-${workToday()}.csv`,csv,'text/csv;charset=utf-8')};
@@ -1450,6 +1458,16 @@ function historyOrders(orders,state){
   return true;
  }).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))||String(b.createdAt||'').localeCompare(String(a.createdAt||''))||String(b.id).localeCompare(String(a.id)));
 }
+function syncAllOrderHistoryDates(date,origin){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(String(date||'')))return;
+ mainHistoryState.date=date;
+ for(const state of branchHistoryStates.values())state.date=date;
+ if(origin!=='master' && $('reportDate'))$('reportDate').value=date;
+ if(origin!=='leader' && $('leaderDate'))$('leaderDate').value=date;
+ drawWorkOrders();
+ if(isLeader && origin!=='leader')drawWorkReport();
+ if(!isLeader && origin!=='master'){syncMasterMonthLabel();drawWorkReport()}
+}
 function historyDateValue(state){return state.period==='month'?state.date.slice(0,7):state.period==='year'?state.date.slice(0,4):state.date}
 function setHistoryDate(state,value){if(state.period==='year'&&/^\d{4}$/.test(value))state.date=value+'-01-01';else if(state.period==='month'&&/^\d{4}-\d{2}$/.test(value))state.date=value+'-01';else if(state.period==='day'&&/^\d{4}-\d{2}-\d{2}$/.test(value))state.date=value;else return false;return true}
 function configureHistoryDate(input,state){const type=state.period==='month'?'month':state.period==='year'?'number':'date';if(input.type!==type)input.type=type;input.disabled=state.period==='all';if(state.period==='year'){input.min='1900';input.max='9999';input.step='1'}else{input.removeAttribute('min');input.removeAttribute('max');input.removeAttribute('step')}if(document.activeElement!==input)input.value=historyDateValue(state)}
@@ -1467,19 +1485,19 @@ function orderHistoryCard(o,editable){
 function fillHistoryList(root,list,editable){root.replaceChildren();if(!list.length){const empty=document.createElement('div');empty.className='empty-orders';empty.textContent='Заказы по выбранным условиям не найдены';root.append(empty);return}for(const o of list)root.append(orderHistoryCard(o,editable))}
 function makeHistoryPeriodSelect(){const select=document.createElement('select');select.setAttribute('aria-label','Период истории заказов');for(const [value,label]of [['day','День'],['month','Месяц'],['year','Год'],['all','Всё время']]){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option)}return select}
 function renderOrderHistoryWidget(root,orders,key){
- if(!branchHistoryStates.has(key))branchHistoryStates.set(key,freshHistoryState());const state=branchHistoryStates.get(key);
+ if(!branchHistoryStates.has(key))branchHistoryStates.set(key,{...freshHistoryState(),date:mainHistoryState.date});const state=branchHistoryStates.get(key);
  const title=document.createElement('h3');title.textContent='История заказов';
  const search=document.createElement('input');search.type='search';search.placeholder='Марка, модель или госномер';search.value=state.query;search.dataset.historyKey=key;search.id='history-search-'+encodeURIComponent(key);search.setAttribute('aria-label','Поиск автомобиля в истории');
  const controls=document.createElement('div');controls.className='history-filter-controls';const period=makeHistoryPeriodSelect();period.value=state.period;
  const date=document.createElement('input');date.setAttribute('aria-label','Дата периода истории');configureHistoryDate(date,state);controls.append(period,date);
  const hint=document.createElement('div');hint.className='small history-scope';const list=document.createElement('div');
  const update=()=>{period.value=state.period;configureHistoryDate(date,state);const found=historyOrders(orders,state);hint.textContent=historyHint(state,found.length);fillHistoryList(list,found,false)};
- search.addEventListener('input',()=>{setHistorySearch(state,search.value);update()});period.addEventListener('change',()=>{state.period=period.value;update()});const applyDate=()=>{if(setHistoryDate(state,date.value))update()};date.addEventListener('input',applyDate);date.addEventListener('change',applyDate);root.append(title,search,controls,hint,list);update();
+ search.addEventListener('input',()=>{setHistorySearch(state,search.value);update()});period.addEventListener('change',()=>{state.period=period.value;update()});const applyDate=()=>{if(setHistoryDate(state,date.value)){syncAllOrderHistoryDates(state.date,'history');update()}};date.addEventListener('input',applyDate);date.addEventListener('change',applyDate);root.append(title,search,controls,hint,list);update();
 }
 function initializeMainHistory(){
  const controls=$('historyControls'),period=makeHistoryPeriodSelect();period.id='historyPeriod';
  const date=document.createElement('input');date.id='historyDate';date.setAttribute('aria-label','Дата периода истории');controls.append(period,date);
- period.addEventListener('change',()=>{mainHistoryState.period=period.value;drawWorkOrders()});const applyDate=()=>{if(setHistoryDate(mainHistoryState,date.value))drawWorkOrders()};date.addEventListener('input',applyDate);date.addEventListener('change',applyDate);
+ period.addEventListener('change',()=>{mainHistoryState.period=period.value;drawWorkOrders()});const applyDate=()=>{if(setHistoryDate(mainHistoryState,date.value))syncAllOrderHistoryDates(mainHistoryState.date,'history')};date.addEventListener('input',applyDate);date.addEventListener('change',applyDate);
  configureHistoryDate(date,mainHistoryState);
 }
 function onMainHistorySearchInput(){setHistorySearch(mainHistoryState,$('orderSearch').value);drawWorkOrders()}
