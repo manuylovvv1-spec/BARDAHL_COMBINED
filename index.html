@@ -928,6 +928,21 @@ box-sizing:border-box!important;z-index:1!important;
  header .bardahl-header-tools #bardahl-palette-button:hover,header .bardahl-header-tools #bardahl-palette-button:focus-visible {filter:drop-shadow(0 0 12px rgba(255,210,26,.90))!important}
 }
 </style>
+<style id="bardahl-desktop-photo4-fullscreen">
+/* Desktop-only: full-viewport background, preserving original image quality. */
+@media (min-width:701px) {
+  html:has(body[data-bg-style="photo4"]) {background:#0b0e11!important;}
+  body[data-bg-style="photo4"] {
+    background-image:linear-gradient(rgba(5,8,11,.24),rgba(5,8,11,.40)),url("assets/background-01e3b22fefcf.jpg")!important;
+    background-size:cover!important;
+    background-position:center center!important;
+    background-repeat:no-repeat!important;
+    background-attachment:fixed!important;
+    min-height:100vh!important;
+    min-height:100dvh!important;
+  }
+}
+</style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
 <main><div id="notice" class="banner warn">Подключение к общей очереди…</div>
@@ -1606,7 +1621,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var isMobileThemeMenu=window.matchMedia && window.matchMedia('(max-width:700px)').matches;
  var choices=isMobileThemeMenu
    ? [['classic','Classic'],['mobile1','Service']]
-   : [['classic','Classic'],['photo1','Bardahl Oils'],['kittens','Kittens']];
+   : [['classic','Classic'],['photo1','Bardahl Oils'],['kittens','Kittens'],['photo4','Новый фон']];
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
