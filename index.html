@@ -895,60 +895,29 @@ box-sizing:border-box!important;z-index:1!important;
 #workChecklist .work-check-label input[type=checkbox]:checked::after{width:11px!important;height:6px!important;border-left-width:2.5px!important;border-bottom-width:2.5px!important}
 </style>
 
-<style id="bardahl-photo-backgrounds-v2">
-/* Background-only fix. Keep app layout, cards, and actions untouched. */
-html { background-color:#0b0e11; }
-body[data-bg-style^="photo"] {
-  --bardahl-photo:none;
-  position:relative!important;
-  isolation:isolate;
-  background:#0b0e11!important;
-  min-height:100vh;
-}
-/* Two independent fixed layers avoid iOS background-attachment:fixed bugs. */
-body[data-bg-style^="photo"]::before,
-body[data-bg-style^="photo"]::after {
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-}
-body[data-bg-style^="photo"]::after {
-  z-index:-2;
-  background-image:var(--bardahl-photo);
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  filter:blur(14px) brightness(.53);
-  transform:scale(1.08);
-}
-body[data-bg-style^="photo"]::before {
-  z-index:-1;
-  background-image:linear-gradient(rgba(5,8,11,.16),rgba(5,8,11,.28)),var(--bardahl-photo);
-  background-size:cover;
-  background-position:center center;
-  background-repeat:no-repeat;
-}
-/* The brand strip becomes translucent only for photographic themes. */
-body[data-bg-style^="photo"] header {
-  background:rgba(8,11,15,.43)!important;
-  border-bottom-color:rgba(255,210,26,.28)!important;
-}
-@media(max-width:700px) {
-  body[data-bg-style^="photo"]::before {
-    background-size:100% 100%,contain;
-    background-position:center,center;
+<style id="bardahl-mobile-backgrounds-20261114">
+@media (max-width:700px) {
+  html { background-color:#090b0e; }
+  body[data-bg-style="mobile1"],
+  body[data-bg-style="mobile2"],
+  body[data-bg-style="mobile3"],
+  body[data-bg-style="mobile4"] {
+    background-color:#090b0e !important;
+    background-repeat:no-repeat !important;
+    background-position:center center !important;
+    background-size:cover !important;
+    background-attachment:scroll !important;
+    min-height:100dvh;
   }
-  body[data-bg-style^="photo"] header {
-    background:rgba(8,11,15,.38)!important;
-  }
+  body[data-bg-style="mobile1"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-1.jpg") !important;}
+  body[data-bg-style="mobile2"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-2.jpg") !important;}
+  body[data-bg-style="mobile3"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-3.jpg") !important;}
+  body[data-bg-style="mobile4"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-4.jpg") !important;}
+  .swatch-mobile1 {background:center/cover url("assets/mobile-bg-1.jpg")}
+  .swatch-mobile2 {background:center/cover url("assets/mobile-bg-2.jpg")}
+  .swatch-mobile3 {background:center/cover url("assets/mobile-bg-3.jpg")}
+  .swatch-mobile4 {background:center/cover url("assets/mobile-bg-4.jpg")}
 }
-body[data-bg-style="photo1"]{--bardahl-photo:url("assets/background-ca96367234a5.jpg");}
-body[data-bg-style="photo2"]{--bardahl-photo:url("assets/background-86a33ef4b475.jpg");}
-body[data-bg-style="photo3"]{--bardahl-photo:url("assets/background-605d25a71dd9.jpg");}
-body[data-bg-style="photo4"]{--bardahl-photo:url("assets/background-01e3b22fefcf.jpg");}
-body[data-bg-style="photo5"]{--bardahl-photo:url("assets/background-a79cf83f804d.jpg");}
-body[data-bg-style="photo6"]{--bardahl-photo:url("assets/background-ebe5f0db8589.jpg");}
 </style>
 </head>
 <body><header><div class="brandmark"><img src="icon.svg" alt=""><div class="brand">BARDAHL</div></div><div class="sub">ОЧЕРЕДЬ · УЧЁТ РАБОТ И ЗАКАЗОВ</div></header>
@@ -1607,6 +1576,9 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  var btn=document.createElement('button');btn.type='button';btn.id='bardahl-palette-button';btn.setAttribute('aria-label','Выбрать фон');btn.setAttribute('aria-haspopup','true');btn.setAttribute('aria-expanded','false');btn.title='Выбрать фон';btn.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.3a2.2 2.2 0 0 0 1.7-3.6 1.8 1.8 0 0 1 1.4-2.9H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/><circle cx="17" cy="11.5" r="1"/></svg>';
  var menu=document.createElement('div');menu.id='bardahl-palette-menu';menu.setAttribute('role','menu');menu.hidden=true;
  var choices=[['classic','Classic'],['photo1','Bardahl Oils'],['photo4','Silver'],['photo6','Bardahl Signature'],['kittens','Kittens']];
+ if(window.matchMedia && window.matchMedia('(max-width:700px)').matches){
+   choices.push(['mobile1','Mobile · Service'],['mobile2','Mobile · Graphite'],['mobile3','Mobile · Detailing'],['mobile4','Mobile · Gold Car']);
+ }
  var selected='classic';try{selected=localStorage.getItem('bardahl-bg-choice')||'classic'}catch(e){}
  if(!choices.some(function(c){return c[0]===selected}) && selected!=='custom')selected='classic';
  function close(){menu.hidden=true;btn.setAttribute('aria-expanded','false')}
