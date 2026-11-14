@@ -356,6 +356,7 @@ main,#app,#queuePage,#ordersPage {max-width:100%;min-width:0;}
 #ordersPage #masterReportControls {min-width:0;}
 </style>
 
+<style id="bardahl-month-scroll-stability">#masterReportControls,#workReport,#orderHistorySection{overflow-anchor:none}</style>
 <style id="leader-dashboard-upgrade">#leaderStats .leader-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
 #leaderStats .leader-kpi{background:#20262b;border:1px solid #354049;border-radius:13px;padding:14px;min-width:0}
 #leaderStats .leader-kpi span{display:block;color:#adb7be;font-size:12px}
@@ -612,7 +613,7 @@ background:#20252b!important;pointer-events:none!important;
 header .bardahl-header-tools{position:absolute!important;right:15px!important;top:9px!important;transform:none!important;display:flex!important;flex-direction:column!important;align-items:flex-end!important;gap:5px!important;z-index:20!important}
 header .bardahl-header-tools .bardahl-desktop-clock{order:0!important;padding:5px 9px!important;gap:6px!important;min-height:0!important;border-radius:9px!important;border-width:1px!important}
 header .bardahl-header-tools .bardahl-desktop-clock strong{font-size:clamp(19px,1.9vw,26px)!important;line-height:1!important}
-header .bardahl-header-tools .bardahl-desktop-clock small{font-size:10px!important}
+header .bardahl-header-tools .bardahl-desktop-clock small{font-size:clamp(15px,1.35vw,19px)!important;font-weight:750!important;line-height:1.15!important;white-space:nowrap!important}
 header .bardahl-header-tools #bardahl-bg-picker{order:1!important;position:relative!important;right:auto!important;top:auto!important;transform:none!important}
 header .bardahl-header-tools #bardahl-palette-button{width:31px!important;height:29px!important;min-height:29px!important;background:rgba(15,17,26,.20)!important;border:1px solid rgba(240,214,255,.42)!important;border-radius:8px!important;box-shadow:none!important;outline:none!important;color:inherit!important}
 header .bardahl-header-tools #bardahl-palette-menu{right:0!important;top:calc(100% + 5px)!important}
@@ -908,6 +909,15 @@ box-sizing:border-box!important;z-index:1!important;
   }
   body[data-bg-style="mobile1"] {background-image:linear-gradient(rgba(5,7,9,.12),rgba(5,7,9,.24)),url("assets/mobile-bg-1.jpg") !important;}
   .swatch-mobile1 {background:center/cover url("assets/mobile-bg-1.jpg")}
+}
+</style>
+<style id="bardahl-desktop-date-palette-final">
+@media (min-width:701px){
+ header .bardahl-header-tools .bardahl-desktop-clock{padding:9px 13px!important;gap:11px!important;border-width:2px!important;border-radius:12px!important}
+ header .bardahl-header-tools .bardahl-desktop-clock strong{font-size:clamp(27px,2.6vw,38px)!important}
+ header .bardahl-header-tools .bardahl-desktop-clock small{font-size:clamp(20px,1.9vw,27px)!important;font-weight:850!important;color:#ffd21a!important}
+ header .bardahl-header-tools #bardahl-palette-button{width:48px!important;height:46px!important;min-height:46px!important;background:#ffd21a!important;border:2px solid #f6c600!important;border-radius:11px!important;color:#111!important;box-shadow:0 3px 14px rgba(255,210,26,.25)!important}
+ header .bardahl-header-tools #bardahl-palette-button svg{width:27px!important;height:27px!important;stroke:#111!important}
 }
 </style>
 </head>
@@ -1430,7 +1440,15 @@ async function deleteWorkOrder(id){if(isManager||isLeader)return toast('Нет �
 function startOrderFromQueue(master){if(isManager||isLeader)return;editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value=master;$('orderDate').value=workToday();$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();switchPage('orders');$('orderCar').focus()}
 function downloadWork(filename,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 $('saveOrder').addEventListener('click',saveWorkOrder);$('cancelEdit').addEventListener('click',()=>{editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');$('orderCar').value='';$('orderDate').value=workToday();drawWorkCart()});$('reportDate').value=workToday();$('leaderDate').value=workToday();function syncMasterMonthLabel(){const date=$('reportDate').value||workToday();const [y,m]=date.split('-').map(Number);$('masterMonthLabel').textContent=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,1)));}
-function shiftMasterMonth(delta){const date=$('reportDate').value||workToday();const [y,m,d]=date.split('-').map(Number);const target=new Date(Date.UTC(y,m-1+delta,1));const yy=target.getUTCFullYear(),mm=target.getUTCMonth()+1;const day=Math.min(d,new Date(Date.UTC(yy,mm,0)).getUTCDate());$('reportDate').value=String(yy).padStart(4,'0')+'-'+String(mm).padStart(2,'0')+'-'+String(day).padStart(2,'0');$('reportDate').dispatchEvent(new Event('change',{bubbles:true}));}
+function shiftMasterMonth(delta){const date=$('reportDate').value||workToday();const [y,m,d]=date.split('-').map(Number);const target=new Date(Date.UTC(y,m-1+delta,1));const yy=target.getUTCFullYear(),mm=target.getUTCMonth()+1;const day=Math.min(d,new Date(Date.UTC(yy,mm,0)).getUTCDate());$('reportDate').value=String(yy).padStart(4,'0')+'-'+String(mm).padStart(2,'0')+'-'+String(day).padStart(2,'0');// Keep the month navigation at the same viewport position while reports/history rerender.
+ const anchor=$('masterMonthLabel');
+ const before=anchor.getBoundingClientRect().top;
+ $('reportDate').dispatchEvent(new Event('change',{bubbles:true}));
+ const after=anchor.getBoundingClientRect().top;
+ if(Number.isFinite(before)&&Number.isFinite(after)&&Math.abs(after-before)>0.5){
+   window.scrollBy({top:after-before,left:0,behavior:'instant'});
+ }
+}
 $('masterMonthPrev').addEventListener('click',()=>shiftMasterMonth(-1));$('masterMonthNext').addEventListener('click',()=>shiftMasterMonth(1));syncMasterMonthLabel();
 $('reportDate').addEventListener('change',()=>{syncMasterMonthLabel();drawWorkReport();syncAllOrderHistoryDates($('reportDate').value,'master')});$('leaderDate').addEventListener('change',()=>{drawWorkReport();syncAllOrderHistoryDates($('leaderDate').value,'leader')});$('leaderPeriodButtons').addEventListener('click',e=>{const b=e.target.closest('[data-period]');if(!b)return;leaderPeriodValue=b.dataset.period;drawWorkReport()});$('orderSearch').addEventListener('input',onMainHistorySearchInput);$('tabQueue').addEventListener('click',()=>switchPage('queue'));$('tabOrders').addEventListener('click',()=>switchPage('orders'));
 
