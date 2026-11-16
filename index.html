@@ -1404,7 +1404,7 @@ function drawBranchReport(branchId,sourceOrders,branchRecords,branchStats){
  const periods=['day','month','year'].map(period=>{const b=periodBoundsFor(referenceDate,period);return {...b,orders:leaderOrders.filter(o=>o.date>=b.from&&o.date<=b.to&&(period!=='day'||countsForDailyStats(o)))}});
  // Show all three periods together, using the selected date as the reference.
  if(leaderSelectedMaster){
-   const back=document.createElement('button');back.type='button';back.className='secondary leader-back';back.textContent='← Назад ко всем мастерам';back.onclick=()=>{leaderMasterByBranch[branchId]=null;drawWorkReport()};lr.append(back);
+   const back=document.createElement('button');back.type='button';back.className='secondary leader-back';back.textContent='← Назад ко всем мастерам';back.onclick=()=>{leaderMasterByBranch[branchId]=null;drawWorkReport();drawWorkOrders()};lr.append(back);
    const title=document.createElement('h3');title.textContent='Статистика мастера: '+leaderSelectedMaster;lr.append(title);
    periods.forEach(period=>appendPeriodSummary(lr,period.orders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(leaderSelectedMaster)),period.label));
    const daily=periods[0].orders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(leaderSelectedMaster)),services=summarizeServices(daily);
@@ -1421,7 +1421,7 @@ function drawBranchReport(branchId,sourceOrders,branchRecords,branchStats){
    const metrics=[['Сумма работ',current.reduce((n,o)=>n+orderSum(o),0),previous.reduce((n,o)=>n+orderSum(o),0),true],['Заказы',current.length,previous.length,false],['Услуги',current.reduce((n,o)=>n+orderServiceCount(o),0),previous.reduce((n,o)=>n+orderServiceCount(o),0),false]];
    metrics.forEach(([label,now,old,isMoney])=>{const item=document.createElement('div');item.className='leader-dynamic-item';const change=old?((now-old)/old*100):null;const value=isMoney?moneyWork(now):String(now);const oldValue=isMoney?moneyWork(old):String(old);const diff=change===null?'нет базы для сравнения':(change>0?'+':'')+change.toFixed(1)+'%';item.textContent=label+': '+value+' (прошлый месяц: '+oldValue+') · '+diff;dynamics.append(item)});
    lr.append(dynamics);
-   const masterHistory=document.createElement('div');masterHistory.className='master-history-widget';renderOrderHistoryWidget(masterHistory,workOrders.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(leaderSelectedMaster)),'leader-'+branchId+'-'+leaderSelectedMaster);lr.append(masterHistory);
+   // История выбранного мастера выводится в общем нижнем разделе без дублирования.
    return;
  }
  const selectedPeriod=periods.find(p=>p.from===periodBoundsFor(referenceDate,leaderPeriodValue).from&&p.to===periodBoundsFor(referenceDate,leaderPeriodValue).to)||periods[0];
@@ -1448,7 +1448,7 @@ function drawBranchReport(branchId,sourceOrders,branchRecords,branchStats){
  const namedMasters=rankingMasters();
  const ranked=namedMasters.map(name=>{const orders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster(name));return {name,orders:orders.length,services:orders.reduce((n,o)=>n+orderServiceCount(o),0),sum:orders.reduce((n,o)=>n+orderSum(o),0)}}).sort((a,b)=>b.sum-a.sum||b.services-a.services||a.name.localeCompare(b.name,'ru'));
  const highest=Math.max(1,...ranked.map(r=>r.sum));
- ranked.forEach((r,i)=>{const row=document.createElement('div');row.className='leader-rank';const num=document.createElement('div');num.className='leader-rank-number';num.textContent=i+1;const body=document.createElement('div');body.className='leader-rank-body';const head=document.createElement('div');head.className='leader-rank-head';const btn=document.createElement('button');btn.type='button';btn.textContent=r.name;btn.onclick=()=>{leaderMasterByBranch[branchId]=r.name;drawWorkReport()};const amount=document.createElement('strong');amount.textContent=moneyWork(r.sum);head.append(btn,amount);const track=document.createElement('div');track.className='leader-rank-track';const fill=document.createElement('div');fill.className='leader-rank-fill';fill.style.width=(r.sum/highest*100)+'%';track.append(fill);const meta=document.createElement('div');meta.className='leader-rank-meta';meta.textContent=r.services+' услуг · '+r.orders+' заказов';body.append(head,track,meta);row.append(num,body);lr.append(row)});
+ ranked.forEach((r,i)=>{const row=document.createElement('div');row.className='leader-rank';const num=document.createElement('div');num.className='leader-rank-number';num.textContent=i+1;const body=document.createElement('div');body.className='leader-rank-body';const head=document.createElement('div');head.className='leader-rank-head';const btn=document.createElement('button');btn.type='button';btn.textContent=r.name;btn.onclick=()=>{leaderMasterByBranch[branchId]=r.name;drawWorkReport();drawWorkOrders()};const amount=document.createElement('strong');amount.textContent=moneyWork(r.sum);head.append(btn,amount);const track=document.createElement('div');track.className='leader-rank-track';const fill=document.createElement('div');fill.className='leader-rank-fill';fill.style.width=(r.sum/highest*100)+'%';track.append(fill);const meta=document.createElement('div');meta.className='leader-rank-meta';meta.textContent=r.services+' услуг · '+r.orders+' заказов';body.append(head,track,meta);row.append(num,body);lr.append(row)});
  const guestOrders=list.filter(o=>normalizeWorkMaster(o.master)===normalizeWorkMaster('Гость'));
  if(guestOrders.length){const note=document.createElement('div');note.className='leader-note';note.textContent='Заказы «Гость»: '+guestOrders.length+' — включены в общие итоги, но не в рейтинг мастеров.';lr.append(note)}
  const pdfButton=document.createElement('button');pdfButton.type='button';pdfButton.className='secondary';pdfButton.style.marginTop='12px';pdfButton.style.width='100%';pdfButton.textContent='PDF-отчёт руководителя';
@@ -1596,9 +1596,10 @@ function initializeMainHistory(){
 function onMainHistorySearchInput(){setHistorySearch(mainHistoryState,$('orderSearch').value);drawWorkOrders()}
 function drawWorkOrders(){
  const root=$('orderHistory');if(!root||!profile)return;
- const allowed=isLeader?workOrders.filter(o=>statsBranch==='all'||Number(o.branchId)===Number(statsBranch)):role==='master'?workOrders.filter(o=>o.userId===profile.user_id):[];
+ const selectedLeaderMaster=isLeader?(leaderMasterByBranch[statsBranch]||null):null;
+ const allowed=isLeader?workOrders.filter(o=>(statsBranch==='all'||Number(o.branchId)===Number(statsBranch))&&(!selectedLeaderMaster||normalizeWorkMaster(o.master)===normalizeWorkMaster(selectedLeaderMaster))):role==='master'?workOrders.filter(o=>o.userId===profile.user_id):[];
  $('historyPeriod').value=mainHistoryState.period;configureHistoryDate($('historyDate'),mainHistoryState);
- const list=historyOrders(allowed,mainHistoryState);$('historyScopeHint').textContent=historyHint(mainHistoryState,list.length);fillHistoryList(root,list,role==='master');
+ const list=historyOrders(allowed,mainHistoryState);$('historyScopeHint').textContent=(selectedLeaderMaster?'Мастер: '+selectedLeaderMaster+' · ':'')+historyHint(mainHistoryState,list.length);fillHistoryList(root,list,role==='master');
 }
 function drawWorkReport(){
  if(!isLeader)return drawPersonalWorkReport();
