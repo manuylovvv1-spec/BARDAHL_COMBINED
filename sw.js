@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bardahl-combined-v24-optimized-assets';
+const CACHE_NAME = 'bardahl-combined-v25-continuity';
 const CACHE_PREFIX = 'bardahl-combined-';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-180.png', './icon-192.png', './icon-512.png'];
 const ASSETS_URL = new URL('./assets/', self.registration.scope).href;

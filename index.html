@@ -1016,12 +1016,30 @@ async function refreshExpiredSession(){
  })().finally(()=>{sessionRefreshPromise=null});
  return sessionRefreshPromise;
 }
-async function getProfile(){let {data:{user},error:userError}=await db.auth.getUser();if(userError&&isExpiredJwtError(userError)&&await refreshExpiredSession())({data:{user},error:userError}=await db.auth.getUser());if(userError||!user)throw new Error('Сессия не найдена. Войдите снова.');const r=await db.from('user_profiles').select('user_id,display_name,role,must_change_password,email,branch_id,queue_branch_id').eq('user_id',user.id).single();if(r.error)throw new Error('Профиль не настроен. Администратор должен добавить вашу учётную запись в user_profiles.');return r.data}
-async function login(){if(!await connect())return;const email=$("loginEmail").value.trim(),password=$("loginPassword").value;if(!email||!password)return toast('Введите логин/email и пароль');const b=$('loginBtn');b.disabled=true;b.textContent='Проверяем…';try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;profile=await getProfile();if(profile.must_change_password){$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden');$('newPassword').focus();return}await bootApp(profile)}catch(e){await db.auth.signOut();toast('Не удалось войти: '+(e.message||String(e)))}finally{b.disabled=false;b.textContent='Войти'}}
+async function getProfile(){let {data:{user},error:userError}=await db.auth.getUser();if(userError&&isExpiredJwtError(userError)&&await refreshExpiredSession())({data:{user},error:userError}=await db.auth.getUser());if(userError)throw new Error('Не удалось проверить сессию: '+userError.message);if(!user)throw new Error('Сессия не найдена. Войдите снова.');const r=await db.from('user_profiles').select('user_id,display_name,role,must_change_password,email,branch_id,queue_branch_id').eq('user_id',user.id).single();if(r.error)throw new Error('Профиль не настроен. Администратор должен добавить вашу учётную запись в user_profiles.');return r.data}
+async function login(){if(!await connect())return;const email=$("loginEmail").value.trim(),password=$("loginPassword").value;if(!email||!password)return toast('Введите логин/email и пароль');const b=$('loginBtn');b.disabled=true;b.textContent='Проверяем…';try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;profile=await getProfile();if(profile.must_change_password){$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden');$('newPassword').focus();return}await bootApp(profile)}catch(e){toast('Не удалось войти: '+(e.message||String(e)))}finally{b.disabled=false;b.textContent='Войти'}}
 async function changeFirstPassword(){const p=$('newPassword').value,c=$('confirmPassword').value;if(p.length<10)return toast('Пароль должен содержать не менее 10 символов');if(p!==c)return toast('Пароли не совпадают');const b=$('changePasswordBtn');b.disabled=true;try{const {error}=await db.auth.updateUser({password:p});if(error)throw error;const r=await db.rpc('complete_password_change');if(r.error)throw r.error;profile.must_change_password=false;$('passwordChangeCard').classList.add('hidden');$('newPassword').value='';$('confirmPassword').value='';toast('Пароль изменён');await bootApp(profile)}catch(e){toast('Не удалось сменить пароль: '+e.message)}finally{b.disabled=false}}
-async function bootApp(p){profile=p;queueBranch=p.role==='manager'?p.branch_id:(p.queue_branch_id||p.branch_id||1);if(p.role==='leader'){try{const saved=Number(localStorage.getItem('bardahl-leader-branch-'+p.user_id));if(BRANCHES[saved])queueBranch=saved}catch(e){}}statsBranch=String(queueBranch);if(p.role==='leader'){try{const saved=localStorage.getItem('bardahl-leader-stats-'+p.user_id);if(saved==='all'||BRANCHES[Number(saved)])statsBranch=saved}catch(e){}}setupBranchControls(p);me=p.display_name;role=p.role;isManager=role==='manager';isLeader=role==='leader';if(!['master','manager','leader'].includes(role))throw new Error('Для аккаунта назначена неизвестная роль');$('exportCsv').classList.toggle('hidden',role==='master'||role==='leader');$('exportCsv').style.display=(role==='master'||role==='leader')?'none':'';$('backup').classList.toggle('hidden',role==='leader');$('backup').style.display=role==='leader'?'none':'';if(role==='master'||isManager||isLeader){const r=await db.rpc('ensure_daily_reset');if(r.error)throw r.error}
-$('notice').classList.add('hidden');$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.add('hidden');$('app').classList.remove('hidden');$('tabOrders').classList.toggle('hidden',role==='manager');$('tabOrders').style.setProperty('display',role==='manager'?'none':'','important');$('tabQueue').classList.toggle('hidden',false);$('logoutBtn').classList.remove('hidden');if(isLeader){$('tabOrders').textContent='📊 Статистика';$('orderEntrySection').classList.add('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.add('hidden');$('reportsHeading').textContent='Статистика работ мастеров';$('workReport').classList.add('hidden');$('masterDailyServices').classList.add('hidden');$('leaderStats').classList.remove('hidden');switchPage('queue')}else{$('tabOrders').textContent='🧾 Учёт работ';$('orderEntrySection').classList.remove('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.remove('hidden');$('reportsHeading').textContent='Отчёты';$('workReport').classList.remove('hidden');$('masterDailyServices').classList.toggle('hidden',isManager);switchPage('queue')}if(isLeader){const roster=await db.from('user_profiles').select('display_name,branch_id,role').eq('role','master');if(roster.error)throw roster.error;leaderRoster=roster.data||[]}await loadAll();if(!isManager){try{await loadWorkOrders()}catch(e){toast('Заказы не загрузились: '+e.message);if(isLeader){$('leaderStats').classList.remove('hidden');$('leaderStats').textContent='Не удалось загрузить статистику: '+e.message}}}if(polling)clearInterval(polling);let refreshing=false;polling=setInterval(async()=>{if(refreshing||!me||document.hidden)return;refreshing=true;try{await loadAll();if(!isManager)await loadWorkOrders()}catch(e){if(isExpiredJwtError(e)&&await refreshExpiredSession()){await loadAll();if(!isManager)await loadWorkOrders()}else toast('Не удалось обновить данные: '+e.message)}finally{refreshing=false}},3000)}
-async function restoreSession(){if(!await connect())return;const {data}=await db.auth.getSession();if(!data.session){$('notice').classList.add('hidden');return}try{profile=await getProfile();if(profile.must_change_password){$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden')}else await bootApp(profile)}catch(e){await db.auth.signOut();$('notice').classList.remove('hidden');$('notice').textContent=e.message}}
+async function bootApp(p){continuityReady=false;profile=p;const savedContinuity=readContinuity(p.user_id);queueBranch=p.role==='manager'?p.branch_id:(p.queue_branch_id||p.branch_id||1);if(p.role==='leader'){try{const saved=Number(localStorage.getItem('bardahl-leader-branch-'+p.user_id));if(BRANCHES[saved])queueBranch=saved}catch(e){}}statsBranch=String(queueBranch);if(p.role==='leader'){try{const saved=localStorage.getItem('bardahl-leader-stats-'+p.user_id);if(saved==='all'||BRANCHES[Number(saved)])statsBranch=saved}catch(e){}}setupBranchControls(p);me=p.display_name;role=p.role;isManager=role==='manager';isLeader=role==='leader';if(!['master','manager','leader'].includes(role))throw new Error('Для аккаунта назначена неизвестная роль');$('exportCsv').classList.toggle('hidden',role==='master'||role==='leader');$('exportCsv').style.display=(role==='master'||role==='leader')?'none':'';$('backup').classList.toggle('hidden',role==='leader');$('backup').style.display=role==='leader'?'none':'';if(role==='master'||isManager||isLeader){const r=await db.rpc('ensure_daily_reset');if(r.error)throw r.error}
+$('notice').classList.add('hidden');$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.add('hidden');$('app').classList.remove('hidden');$('tabOrders').classList.toggle('hidden',role==='manager');$('tabOrders').style.setProperty('display',role==='manager'?'none':'','important');$('tabQueue').classList.toggle('hidden',false);$('logoutBtn').classList.remove('hidden');if(isLeader){$('tabOrders').textContent='📊 Статистика';$('orderEntrySection').classList.add('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.add('hidden');$('reportsHeading').textContent='Статистика работ мастеров';$('workReport').classList.add('hidden');$('masterDailyServices').classList.add('hidden');$('leaderStats').classList.remove('hidden');switchPage('queue',false)}else{$('tabOrders').textContent='🧾 Учёт работ';$('orderEntrySection').classList.remove('hidden');$('orderHistorySection').classList.remove('hidden');$('restoreBtn').classList.remove('hidden');$('reportsHeading').textContent='Отчёты';$('workReport').classList.remove('hidden');$('masterDailyServices').classList.toggle('hidden',isManager);switchPage('queue',false)}if(isLeader){const roster=await db.from('user_profiles').select('display_name,branch_id,role').eq('role','master');if(roster.error)throw roster.error;leaderRoster=roster.data||[]}await loadAll();if(!isManager){try{await loadWorkOrders()}catch(e){toast('Заказы не загрузились: '+e.message);if(isLeader){$('leaderStats').classList.remove('hidden');$('leaderStats').textContent='Не удалось загрузить статистику: '+e.message}}}if(polling)clearInterval(polling);let refreshing=false;polling=setInterval(async()=>{if(refreshing||!me||document.hidden)return;refreshing=true;try{await loadAll();if(!isManager)await loadWorkOrders()}catch(e){if(isExpiredJwtError(e)&&await refreshExpiredSession()){await loadAll();if(!isManager)await loadWorkOrders()}else toast('Не удалось обновить данные: '+e.message)}finally{refreshing=false}},3000);restoreContinuityAfterBoot(savedContinuity)}
+let restoringSession=false;
+async function restoreSession(){
+ if(restoringSession||(me&&continuityReady))return;
+ restoringSession=true;
+ try{
+  if(!await connect())return;
+  const {data,error}=await db.auth.getSession();
+  if(error)throw error;
+  if(!data?.session){$('notice').classList.add('hidden');return}
+  const restoredProfile=await getProfile();
+  if(restoredProfile.must_change_password){profile=restoredProfile;$('loginCard').classList.add('hidden');$('passwordChangeCard').classList.remove('hidden')}
+  else await bootApp(restoredProfile);
+ }catch(e){
+  // A temporary connection or profile error must never log out an otherwise valid user.
+  $('notice').classList.remove('hidden');
+  $('notice').textContent='Не удалось восстановить данные. Проверьте соединение: '+(e.message||String(e));
+ }finally{restoringSession=false}
+}
+window.addEventListener('online',()=>{if(!continuityReady&&!restoringSession)restoreSession()});
 const BRANCHES={1:{name:'Металлургов',box_count:8},2:{name:'КШТ',box_count:4}};
 let changingBranch=false,leaderRoster=[];
 function branchLabel(id){return BRANCHES[id]?.name||'Филиал '+id}
@@ -1140,15 +1158,91 @@ async function removeMasterFromQueue(name,button){
 }
 async function resetCircles(){if(!isManager)return toast('Сброс доступен только менеджеру');if(!confirm('Сбросить отметки кругов и начать очередь заново? Мастера и их позиции сохранятся.'))return;const b=$('resetCirclesBtn');if(b){b.disabled=true;b.textContent='Сбрасываем…'}try{const r=await queueRpc('manager_reset_circles',{p_manager:me});if(r.error)throw r.error;selectedServices=[];await loadAll();toast('Очередь сброшена. Мастера и позиции сохранены.')}catch(e){toast('Не удалось сбросить очередь: '+(e.message||String(e)))}finally{if(b){b.disabled=false;b.textContent='Сбросить очередь'}}}
 async function leaveQueue(){if(!confirm('Выйти из очереди и освободить своё место?'))return;try{const r=await queueRpc('leave_queue',{p_name:me});if(r.error)throw r.error;toast('Вы вышли из очереди');selectedServices=[];positionEditorOpen=false;await loadAll()}catch(e){toast('Не удалось выйти: '+e.message)}}
-async function logout(){resetNewUiState();orderLoadVersion++;workCart=[];editingOrderId=null;leaderSelectedMaster=null;$('orderCar').value='';$('orderDate').value=workToday();$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();if(polling)clearInterval(polling);polling=null;try{if(db)await db.auth.signOut()}catch(e){}me='';role='';isManager=false;isLeader=false;profile=null;snapshot=null;workOrders=[];selectedServices=[];positionEditorOpen=false;$("app").classList.add('hidden');$("passwordChangeCard").classList.add('hidden');$("loginCard").classList.remove('hidden');$("loginEmail").value='';$("loginPassword").value='';}
+async function logout(){clearContinuityForCurrentUser();resetNewUiState();orderLoadVersion++;workCart=[];editingOrderId=null;leaderSelectedMaster=null;$('orderCar').value='';$('orderDate').value=workToday();$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();if(polling)clearInterval(polling);polling=null;try{if(db)await db.auth.signOut()}catch(e){}me='';role='';isManager=false;isLeader=false;profile=null;snapshot=null;workOrders=[];selectedServices=[];positionEditorOpen=false;$("app").classList.add('hidden');$("passwordChangeCard").classList.add('hidden');$("loginCard").classList.remove('hidden');$("loginEmail").value='';$("loginPassword").value='';}
 $("loginBtn").addEventListener('click',login);$("changePasswordBtn").addEventListener('click',changeFirstPassword);$("loginPassword").addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('boxSelect').addEventListener('change',render);$("joinBtn").addEventListener('click',joinQueue);$("leaveBtn").addEventListener('click',leaveQueue);$("logoutBtn").addEventListener('click',logout);$("resetCirclesBtn").addEventListener('click',resetCircles);$("queue").addEventListener('click',e=>{const b=e.target.closest('button[data-action="remove-service"]');if(b){removeServiceLog(b.dataset.logId,b);return}const rm=e.target.closest('button[data-action="remove-master"]');if(rm)removeMasterFromQueue(rm.dataset.master,rm)});
 $("myPanel").addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(b&&b.dataset.action==='toggle-service'){toggleService(b.dataset.service);return}if(e.target.closest('#saveServicesBtn'))saveServices()});// Shared cloud order book — stored in the same Supabase project as the queue.
 const WORK_CATALOG = [["Замена масла в двигателе",1200],["Замена фильтра воздушного",240],["Замена фильтра салонного",240],["Демонтаж защиты",500],["Демонтаж защиты сложной",1000],["Шприцовка",150],["Замена охлаждающей жидкости",5500],["Замена масла в АКПП",4000],["Замена масла в АКПП(без снятия)",3000],["Замена масла в МКПП",2000],["Замена масла в вариаторе",5000],["Замена масла в DSG",4000],["Замена масла в раздаточной коробке",2000],["Замена масла в редукторе",2000],["Замена масла в муфте HALDEX",7500],["Замена жидкости ГУРа",1500],["Замена тормозной жидкости",2000],["Замена топливного фильтра",1000],["Замена колодок тормозных",2000],["Замена колодок тормозных с электроручником",4500],["Замена жидкости сцепления",1500],["Заправка кондиционера",3000],["Замена масляного фильтра",500],["Замена свечей",2000],["Нарезка резьбы",2000]];
 let workCart=[],workOrders=[],editingOrderId=null,leaderPeriodValue="day",leaderSelectedMaster=null;
+
+// Restore the visible screen and an unfinished order after iOS closes the web-app process.
+const CONTINUITY_PREFIX='bardahl-continuity-v1:';
+const DRAFT_MAX_AGE_MS=7*24*60*60*1000;
+let continuityReady=false,continuitySaveTimer=null;
+function continuityKey(userId){return CONTINUITY_PREFIX+String(userId)}
+function readContinuity(userId){
+ if(!userId)return null;
+ try{const raw=localStorage.getItem(continuityKey(userId));const data=raw?JSON.parse(raw):null;
+  return data&&data.version===1&&typeof data.updatedAt==='number'?data:null;
+ }catch(e){return null}
+}
+function currentContinuityDraft(){
+ if(role!=='master')return null;
+ const car=$('orderCar').value.trim(),comment=$('workComment').value;
+ if(!car&&!comment&&!workCart.length&&!editingOrderId)return null;
+ return {car,comment,master:$('orderMaster').value,date:$('orderDate').value,
+  reportDate:$('reportDate').value,editingOrderId:editingOrderId||null,
+  items:workCart.map(it=>({name:String(it.name||''),price:Number(it.price)||0,
+   ...(it.quantity?{quantity:Number(it.quantity)}:{}),...(it.isCustomSto?{isCustomSto:true}:{})})),
+  savedAt:Date.now()};
+}
+function saveContinuity(){
+ if(!continuityReady||!profile?.user_id)return;
+ try{const data={version:1,updatedAt:Date.now(),page:$('ordersPage').classList.contains('hidden')?'queue':'orders',
+   scrollY:Math.max(0,Math.round(window.scrollY||0)),reportDate:$('reportDate').value,
+   draft:currentContinuityDraft()};
+  localStorage.setItem(continuityKey(profile.user_id),JSON.stringify(data));
+ }catch(e){/* Private browsing or quota restrictions must not break the application. */}
+}
+function scheduleContinuitySave(){
+ if(!continuityReady)return;
+ clearTimeout(continuitySaveTimer);
+ continuitySaveTimer=setTimeout(saveContinuity,120);
+}
+function clearContinuityForCurrentUser(){
+ clearTimeout(continuitySaveTimer);continuityReady=false;
+ if(profile?.user_id){try{localStorage.removeItem(continuityKey(profile.user_id))}catch(e){}}
+}
+function restoreContinuityAfterBoot(saved){
+ // Boot first, load data from Supabase, then restore the user's UI selection.
+ if(saved?.reportDate&&/^\d{4}-\d{2}-\d{2}$/.test(saved.reportDate)){
+  $('reportDate').value=saved.reportDate;
+  $('reportDate').dispatchEvent(new Event('change',{bubbles:true}));
+ }
+ const draft=saved?.draft;
+ if(role==='master'&&draft&&Number.isFinite(draft.savedAt)&&Date.now()-draft.savedAt>=0&&Date.now()-draft.savedAt<DRAFT_MAX_AGE_MS){
+  const savedEditId=typeof draft.editingOrderId==='string'?draft.editingOrderId:null;
+  const original=savedEditId?workOrders.find(o=>o.id===savedEditId):null;
+  // Never accidentally create a duplicate new order from an expired edit draft.
+  if(!savedEditId||(original&&canModifyWorkOrder(original))){
+   editingOrderId=savedEditId;
+   $('orderCar').value=typeof draft.car==='string'?draft.car.slice(0,300):'';
+   $('orderMaster').value=typeof draft.master==='string'?draft.master.slice(0,200):'';
+   if(typeof draft.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(draft.date))$('orderDate').value=draft.date;
+   workCart=Array.isArray(draft.items)?draft.items.slice(0,150).filter(it=>it&&typeof it.name==='string'&&Number.isFinite(Number(it.price))&&Number(it.price)>=0).map(it=>({name:it.name.slice(0,300),price:Number(it.price),...(it.quantity?{quantity:Number(it.quantity)}:{}),...(it.isCustomSto?{isCustomSto:true}:{})})):[];
+   if(savedEditId){$('workComment').value='';$('workComment').classList.add('hidden');$('savedComment').textContent=original.comment?'Комментарий (не редактируется): '+original.comment:'Комментарий не был добавлен';$('savedComment').classList.remove('hidden');$('saveOrder').textContent='Сохранить изменения';$('cancelEdit').classList.remove('hidden')}
+   else{$('workComment').value=typeof draft.comment==='string'?draft.comment.slice(0,2000):''}
+   drawWorkCart();
+  }
+ }
+ const page=saved?.page==='orders'&&!isManager?'orders':'queue';
+ switchPage(page,false);
+ const y=saved&&Number.isFinite(saved.scrollY)?Math.max(0,saved.scrollY):0;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  window.scrollTo(0,y);
+  continuityReady=true;
+ }));
+}
+window.addEventListener('scroll',scheduleContinuitySave,{passive:true});
+window.addEventListener('pagehide',saveContinuity);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveContinuity()});
+$('orderEntrySection').addEventListener('input',scheduleContinuitySave);
+$('orderEntrySection').addEventListener('change',scheduleContinuitySave);
+$('reportDate').addEventListener('change',scheduleContinuitySave);
+
 const moneyWork=n=>`${Number(n||0).toLocaleString('ru-RU')} ₸`;
 const makeWorkId=()=> (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2,8));
 function workToday(){const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Almaty',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day}
-function switchPage(page){if(isManager)page='queue';const q=page==='queue';if($('branchControls'))$('branchControls').classList.toggle('hidden',role!=='leader'||!q);$('queuePage').classList.toggle('hidden',!q);$('ordersPage').classList.toggle('hidden',q);$('tabQueue').className=q?'primary':'secondary';$('tabOrders').className=q?'secondary':'primary';if(!q){if(!isLeader)drawWorkCart();drawWorkReport();drawWorkOrders()}}
+function switchPage(page,remember=true){if(isManager)page='queue';const q=page==='queue';if($('branchControls'))$('branchControls').classList.toggle('hidden',role!=='leader'||!q);$('queuePage').classList.toggle('hidden',!q);$('ordersPage').classList.toggle('hidden',q);$('tabQueue').className=q?'primary':'secondary';$('tabOrders').className=q?'secondary':'primary';if(!q){if(!isLeader)drawWorkCart();drawWorkReport();drawWorkOrders()}if(remember)scheduleContinuitySave()}
 function initWorkForm(){
  const carList=$('carSuggestions');[...carList.options].sort((a,b)=>a.value.localeCompare(b.value,'ru',{sensitivity:'base'})).forEach(op=>carList.appendChild(op));
  const root=$('workChecklist');root.replaceChildren();
@@ -1167,7 +1261,7 @@ function drawWorkCart(){
  workCart.forEach((it,i)=>{
   const row=document.createElement('div');row.className='item';row.style.cssText='display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap';
   const name=it.isCustomSto?document.createElement('input'):document.createElement('div');
-  if(it.isCustomSto){name.type='text';name.placeholder='Название услуги СТО';name.value=it.name||'';name.setAttribute('aria-label','Название услуги СТО');name.addEventListener('input',()=>{it.name=name.value});}
+  if(it.isCustomSto){name.type='text';name.placeholder='Название услуги СТО';name.value=it.name||'';name.setAttribute('aria-label','Название услуги СТО');name.addEventListener('input',()=>{it.name=name.value;scheduleContinuitySave()});}
   else name.textContent=it.name;
   name.style.cssText='flex:1;min-width:110px;font-size:13px';
   const quantityLimits=it.name==='Шприцовка'?24:it.name==='Замена масла в редукторе'?2:0;
@@ -1181,12 +1275,13 @@ function drawWorkCart(){
    row.append(name,qty);
   }
   const price=document.createElement('input');price.type='number';price.min='0';price.step='1';price.inputMode='decimal';price.value=it.price;price.style.cssText='width:100px!important;min-width:85px!important';price.setAttribute('aria-label','Цена: '+it.name);
+  price.addEventListener('input',()=>{const v=Number(price.value);if(Number.isFinite(v)&&v>=0){it.price=v;updateWorkTotal()}});
   price.addEventListener('change',()=>{const v=Number(price.value);if(!Number.isFinite(v)||v<0){price.value=it.price;toast('Укажите корректную сумму');return}it.price=Math.round(v);price.value=it.price;updateWorkTotal()});
   const del=document.createElement('button');del.className='danger';del.type='button';del.textContent='✕';del.setAttribute('aria-label','Удалить '+it.name);del.style.cssText='width:38px;min-width:38px;padding:8px';del.onclick=()=>{workCart.splice(i,1);drawWorkCart()};
   if(!quantityLimits)row.append(name);row.append(price,del);root.append(row);
  });updateWorkTotal();
 }
-function updateWorkTotal(){$('workCartTotal').textContent='Итого: '+moneyWork(workCart.reduce((a,x)=>a+Number(x.price||0),0))}
+function updateWorkTotal(){$('workCartTotal').textContent='Итого: '+moneyWork(workCart.reduce((a,x)=>a+Number(x.price||0),0));scheduleContinuitySave()}
 function addSelectedCatalogWork(){
  const additions=[];
  for(const check of document.querySelectorAll('#workChecklist .work-check:checked')){
@@ -1215,7 +1310,7 @@ async function loadWorkOrders(){
  drawWorkReport();drawWorkOrders();
 }
 let savingOrder=false;
-async function saveWorkOrder(){if(savingOrder)return;savingOrder=true;$('saveOrder').disabled=true;try{if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const car=$('orderCar').value.trim();if(!car||!workCart.length)return toast('Укажите автомобиль и добавьте хотя бы одну услугу');if(workCart.some(x=>!String(x.name||'').trim()||!Number.isFinite(Number(x.price))||Number(x.price)<=0))return toast('Укажите название и стоимость каждой услуги');if(!db)return toast('Нет соединения с общей базой');const selectedWorkDate=editingOrderId?$('orderDate').value:($('reportDate').value||workToday());if(!/^\d{4}-\d{2}-\d{2}$/.test(selectedWorkDate)||!Number.isFinite(Date.parse(selectedWorkDate+'T12:00:00'))||new Date(selectedWorkDate+'T12:00:00').toISOString().slice(0,10)!==selectedWorkDate||selectedWorkDate>workToday())return toast('Выберите корректную дату работ, не позднее сегодняшней');const payload={car,master_name:(isLeader?$('orderMaster').value:me)||null,queue_service:null,order_date:selectedWorkDate,items:workCart.map(x=>({name:x.name,price:Number(x.price),...(x.quantity?{quantity:Number(x.quantity)}:{}),...(x.isCustomSto?{isCustomSto:true}:{})})),total:workCart.reduce((a,x)=>a+Number(x.price||0),0),updated_at:new Date().toISOString()};if(!editingOrderId){payload.branch_id=queueBranch;payload.comment=$('workComment').value.trim();}let r;if(editingOrderId){const original=workOrders.find(o=>o.id===editingOrderId);if(!canModifyWorkOrder(original))return toast('12 часов истекли или заказ принадлежит другому мастеру');r=await db.from('work_orders').update(payload).eq('id',editingOrderId).eq('user_id',profile.user_id).gte('created_at',new Date(Date.now()-WORK_EDIT_WINDOW_MS).toISOString());}else r=await db.from('work_orders').insert(payload);if(r.error)return toast('Ошибка сохранения заказа: '+r.error.message);editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value='';$('orderDate').value=workToday();resetWorkChecklist();$('workCatalogPanel').classList.add('hidden');$('toggleWorkCatalog').textContent='Услуги+';$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();toast('Заказ сохранён');try{await loadWorkOrders()}catch(e){toast('Заказ сохранён, но список не обновлён: '+e.message)}}catch(e){toast('Не удалось сохранить или обновить заказ: '+e.message)}finally{savingOrder=false;$('saveOrder').disabled=false}}
+async function saveWorkOrder(){if(savingOrder)return;savingOrder=true;$('saveOrder').disabled=true;try{if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const car=$('orderCar').value.trim();if(!car||!workCart.length)return toast('Укажите автомобиль и добавьте хотя бы одну услугу');if(workCart.some(x=>!String(x.name||'').trim()||!Number.isFinite(Number(x.price))||Number(x.price)<=0))return toast('Укажите название и стоимость каждой услуги');if(!db)return toast('Нет соединения с общей базой');const selectedWorkDate=editingOrderId?$('orderDate').value:($('reportDate').value||workToday());if(!/^\d{4}-\d{2}-\d{2}$/.test(selectedWorkDate)||!Number.isFinite(Date.parse(selectedWorkDate+'T12:00:00'))||new Date(selectedWorkDate+'T12:00:00').toISOString().slice(0,10)!==selectedWorkDate||selectedWorkDate>workToday())return toast('Выберите корректную дату работ, не позднее сегодняшней');const payload={car,master_name:(isLeader?$('orderMaster').value:me)||null,queue_service:null,order_date:selectedWorkDate,items:workCart.map(x=>({name:x.name,price:Number(x.price),...(x.quantity?{quantity:Number(x.quantity)}:{}),...(x.isCustomSto?{isCustomSto:true}:{})})),total:workCart.reduce((a,x)=>a+Number(x.price||0),0),updated_at:new Date().toISOString()};if(!editingOrderId){payload.branch_id=queueBranch;payload.comment=$('workComment').value.trim();}let r;if(editingOrderId){const original=workOrders.find(o=>o.id===editingOrderId);if(!canModifyWorkOrder(original))return toast('12 часов истекли или заказ принадлежит другому мастеру');r=await db.from('work_orders').update(payload).eq('id',editingOrderId).eq('user_id',profile.user_id).gte('created_at',new Date(Date.now()-WORK_EDIT_WINDOW_MS).toISOString());}else r=await db.from('work_orders').insert(payload);if(r.error)return toast('Ошибка сохранения заказа: '+r.error.message);editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value='';$('orderDate').value=workToday();resetWorkChecklist();$('workCatalogPanel').classList.add('hidden');$('toggleWorkCatalog').textContent='Услуги+';$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();saveContinuity();toast('Заказ сохранён');try{await loadWorkOrders()}catch(e){toast('Заказ сохранён, но список не обновлён: '+e.message)}}catch(e){toast('Не удалось сохранить или обновить заказ: '+e.message)}finally{savingOrder=false;$('saveOrder').disabled=false}}
 function periodBoundsFor(date,period){
  if(period==='month'){const [yy,mm]=date.slice(0,7).split('-').map(Number);return {from:`${yy}-${String(mm).padStart(2,'0')}-01`,to:`${yy}-${String(mm).padStart(2,'0')}-${String(new Date(yy,mm,0).getDate()).padStart(2,'0')}`,label:'За месяц'}}
  if(period==='year')return {from:date.slice(0,4)+'-01-01',to:date.slice(0,4)+'-12-31',label:'За год'};
@@ -1483,11 +1578,11 @@ function canModifyWorkOrder(o){
  const created=Date.parse(o.createdAt||'');
  return Number.isFinite(created)&&Date.now()>=created&&Date.now()-created<WORK_EDIT_WINDOW_MS;
 }
-function editWorkOrder(id){if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const o=workOrders.find(x=>x.id===id);if(!canModifyWorkOrder(o))return toast('Редактирование доступно только для своих заказов в течение 12 часов');editingOrderId=id;$('workComment').value='';$('workComment').classList.add('hidden');$('savedComment').textContent=o.comment?'Комментарий (не редактируется): '+o.comment:'Комментарий не был добавлен';$('savedComment').classList.remove('hidden');$('orderCar').value=o.car;$('orderMaster').value=o.master;$('orderDate').value=o.date;workCart=o.items.map(i=>({...i}));$('saveOrder').textContent='Сохранить изменения';$('cancelEdit').classList.remove('hidden');drawWorkCart();switchPage('orders');window.scrollTo({top:0,behavior:'smooth'})}
+function editWorkOrder(id){if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const o=workOrders.find(x=>x.id===id);if(!canModifyWorkOrder(o))return toast('Редактирование доступно только для своих заказов в течение 12 часов');editingOrderId=id;$('workComment').value='';$('workComment').classList.add('hidden');$('savedComment').textContent=o.comment?'Комментарий (не редактируется): '+o.comment:'Комментарий не был добавлен';$('savedComment').classList.remove('hidden');$('orderCar').value=o.car;$('orderMaster').value=o.master;$('orderDate').value=o.date;workCart=o.items.map(i=>({...i}));$('saveOrder').textContent='Сохранить изменения';$('cancelEdit').classList.remove('hidden');drawWorkCart();switchPage('orders');scheduleContinuitySave();window.scrollTo({top:0,behavior:'smooth'})}
 async function deleteWorkOrder(id){if(isManager||isLeader)return toast('Нет доступа к оформлению заказов');const o=workOrders.find(x=>x.id===id);if(!canModifyWorkOrder(o))return toast('Удаление доступно только для своих заказов в течение 12 часов');if(!confirm(`Удалить заказ «${o.car}» на ${moneyWork(o.total)}?`))return;const r=await db.from('work_orders').delete().eq('id',id).eq('user_id',profile.user_id).gte('created_at',new Date(Date.now()-WORK_EDIT_WINDOW_MS).toISOString());if(r.error)return toast('Не удалось удалить: '+r.error.message);await loadWorkOrders();toast('Заказ удалён')}
-function startOrderFromQueue(master){if(isManager||isLeader)return;editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value=master;$('orderDate').value=workToday();$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();switchPage('orders');$('orderCar').focus()}
+function startOrderFromQueue(master){if(isManager||isLeader)return;editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('orderCar').value='';$('orderMaster').value=master;$('orderDate').value=workToday();$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');drawWorkCart();switchPage('orders');scheduleContinuitySave();$('orderCar').focus()}
 function downloadWork(filename,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-$('saveOrder').addEventListener('click',saveWorkOrder);$('cancelEdit').addEventListener('click',()=>{editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');$('orderCar').value='';$('orderDate').value=workToday();drawWorkCart()});$('reportDate').value=workToday();$('leaderDate').value=workToday();function syncMasterMonthLabel(){const date=$('reportDate').value||workToday();const [y,m]=date.split('-').map(Number);$('masterMonthLabel').textContent=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,1)));}
+$('saveOrder').addEventListener('click',saveWorkOrder);$('cancelEdit').addEventListener('click',()=>{editingOrderId=null;workCart=[];$('workComment').value='';$('workComment').classList.remove('hidden');$('savedComment').classList.add('hidden');$('saveOrder').textContent='Сохранить заказ';$('cancelEdit').classList.add('hidden');$('orderCar').value='';$('orderDate').value=workToday();drawWorkCart();scheduleContinuitySave()});$('reportDate').value=workToday();$('leaderDate').value=workToday();function syncMasterMonthLabel(){const date=$('reportDate').value||workToday();const [y,m]=date.split('-').map(Number);$('masterMonthLabel').textContent=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,1)));}
 function shiftMasterMonth(delta){const date=$('reportDate').value||workToday();const [y,m,d]=date.split('-').map(Number);const target=new Date(Date.UTC(y,m-1+delta,1));const yy=target.getUTCFullYear(),mm=target.getUTCMonth()+1;const day=Math.min(d,new Date(Date.UTC(yy,mm,0)).getUTCDate());$('reportDate').value=String(yy).padStart(4,'0')+'-'+String(mm).padStart(2,'0')+'-'+String(day).padStart(2,'0');// Keep the month navigation at the same viewport position while reports/history rerender.
  const anchor=$('masterMonthLabel');
  const before=anchor.getBoundingClientRect().top;
