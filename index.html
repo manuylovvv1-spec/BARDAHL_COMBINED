@@ -991,7 +991,7 @@ box-sizing:border-box!important;z-index:1!important;
  <h2 id="reportsHeading">Отчёты</h2><div class="card"><div id="masterReportControls"><div class="master-compact-controls"><div class="master-month-tile record-tile"><small>Месяц</small><div class="master-month-nav"><button type="button" id="masterMonthPrev" aria-label="Предыдущий месяц">‹</button><span id="masterMonthLabel" aria-live="polite"></span><button type="button" id="masterMonthNext" aria-label="Следующий месяц">›</button></div></div><div class="report-date-tile record-tile"><label for="reportDate">Дата отчёта</label><div class="report-date-button-wrap"><span id="reportDateDisplay" aria-hidden="true"></span><input id="reportDate" type="date" aria-label="Дата отчёта"></div></div></div><div class="master-month-average record-tile" title="Сумма заказов за месяц, разделённая на количество дней с выполненными заказами"><small>Среднее за день</small><strong id="masterMonthAverage">—</strong></div><details class="master-records-area"><summary class="record-heading">🏆 Мои рекорды <span class="records-chevron" aria-hidden="true">⌄</span></summary><div id="masterRecords" class="record-pair"></div></details></div><div id="workReport" class="stats"></div><div id="leaderControls" class="hidden"><label for="leaderDate">Дата для статистики</label><input id="leaderDate" type="date"><div id="leaderPeriodButtons" class="leader-periods" role="group" aria-label="Период списка мастеров"><button type="button" class="leader-period-btn selected" data-period="day">За день</button><button type="button" class="leader-period-btn" data-period="month">За месяц</button><button type="button" class="leader-period-btn" data-period="year">За год</button></div><div class="small">Статистика и рейтинг выбранного филиала или обоих филиалов.</div></div><div id="leaderRecords" class="hidden"></div><div id="leaderStats" class="history hidden"></div></div><div id="orderHistorySection"><h2>История заказов</h2><input id="orderSearch" placeholder="Марка, модель или госномер" autocomplete="off"><div id="historyControls" class="history-filter-controls"></div><div id="historyScopeHint" class="small history-scope"></div><button id="exportCsv" class="secondary">Экспорт CSV</button><div class="backup-actions"><button id="backup" class="secondary">Резервная копия</button><button id="restoreBtn" class="secondary">Восстановить</button></div><input id="restoreFile" type="file" accept="application/json,.json" hidden><div id="orderHistory"></div></div>
 </div>
 </section>
-<footer>BARDAHL · insta@MNV_093</footer></main><div id="toast" role="status" aria-live="polite"></div>
+<footer>BARDAHL </footer></main><div id="toast" role="status" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL="https://tbkzbypuxrgqwpledwuk.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_L0SBuwAZcRRah4vFoeEzbg_PryMDaJ0";
@@ -1939,4 +1939,14 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
   else init();
 })();
 </script>
+<style id="bardahl-center-header-footer">
+header{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+header .brandmark{position:static!important;width:100%!important;display:flex!important;justify-content:center!important;align-items:center!important;gap:9px!important;padding:0!important;margin:0 auto!important}
+header .brandmark img{position:static!important;transform:none!important;margin:0!important;flex:none!important;order:2!important}
+header .brandmark .brand{order:1!important}
+header .brandmark .brand{text-align:center!important}
+header .sub{width:100%!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+@media(max-width:700px){header{padding-left:44px!important;padding-right:44px!important}}
+main>footer,footer{display:block!important;width:100%!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+</style>
 </body></html>
